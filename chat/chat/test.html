@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>채팅 테스트</title>
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+  <style>
+    #chat {
+      border: 1px solid #000;
+      width: 400px;
+      height: 250px;
+      overflow-y: auto;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    #msg {
+      width: 300px;
+    }
+  </style>
+</head>
+<body>
+<h2>WebSocket 채팅 테스트</h2>
+<div id="chat"></div>
+<input type="text" id="msg" placeholder="메시지 입력..." />
+<button onclick="send()">보내기</button>
+
+<script>
+  const senderName = prompt("이름을 입력하세요", "익명");
+  const roomId = "room1";
+
+  const socket = new SockJS("http://localhost:8080/ws-chat");
+  const stomp = Stomp.over(socket);
+
+  stomp.connect({}, () => {
+    // 메시지 수신 구독
+    stomp.subscribe(`/topic/chatroom/${roomId}`, (msg) => {
+      const data = JSON.parse(msg.body);
+      const chatBox = document.getElementById("chat");
+      const newMsg = `<div><strong>${data.sender}</strong>: ${data.message}</div>`;
+      chatBox.innerHTML += newMsg;
+      chatBox.scrollTop = chatBox.scrollHeight;
+    });
+
+    // 입장 알림 전송
+    stomp.send("/app/chat.enter", {}, JSON.stringify({
+      roomId: roomId,
+      sender: senderName,
+      type: "ENTER"
+    }));
+  });
+
+  function send() {
+    const text = document.getElementById("msg").value;
+    if (text.trim() === "") return;
+
+    stomp.send("/app/chat.send", {}, JSON.stringify({
+      roomId: roomId,
+      sender: senderName,
+      message: text,
+      type: "TALK"
+    }));
+    document.getElementById("msg").value = "";
+  }
+</script>
+</body>
+</html>
