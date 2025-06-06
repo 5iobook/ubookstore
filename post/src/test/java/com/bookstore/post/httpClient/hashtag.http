@@ -1,0 +1,28 @@
+### 1. 해시태그 생성
+POST http://localhost:8080/v1/hashtags
+Content-Type: application/json
+
+{
+  "hashtag": {
+    "name": "해시태그 테스트"
+  }
+}
+
+### 2. 해시태그 단건 조회
+GET http://localhost:8080/v1/hashtags/376df3fd-f172-4046-8bd2-9ab22b9c79cd
+
+### 3. 해시태그 리스트 조회
+GET http://localhost:8080/v1/hashtags
+
+### 4. 해시태그 수정
+PUT http://localhost:8080/v1/hashtags/376df3fd-f172-4046-8bd2-9ab22b9c79cd
+Content-Type: application/json
+
+{
+  "hashtag": {
+    "name": "해시태그 업데이트"
+  }
+}
+
+### 5. 해시태그 삭제
+DELETE http://localhost:8080/v1/hashtags/376df3fd-f172-4046-8bd2-9ab22b9c79cd
