@@ -87,7 +87,7 @@ public class HashtagControllerApiV1 {
                 .code("0")
                 .message("해시태그 삭제에 성공했습니다.")
                 .build(),
-            HttpStatus.OK
+            HttpStatus.NO_CONTENT
         );
     }
 }
