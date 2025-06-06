@@ -1,4 +1,4 @@
-package com.bookstore.post.hashtag.infrastructure.presistence;
+package com.bookstore.post.hashtag.infrastructure.persistence;
 
 import com.bookstore.post.hashtag.domain.entity.HashtagEntity;
 import com.bookstore.post.hashtag.domain.repository.HashtagRepository;
