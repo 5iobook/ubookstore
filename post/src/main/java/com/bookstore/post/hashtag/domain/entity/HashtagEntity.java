@@ -36,4 +36,9 @@ public class HashtagEntity {
             .name(name)
             .build();
     }
+
+    public HashtagEntity update(String name) {
+        if (name != null) this.name = name;
+        return this;
+    }
 }
