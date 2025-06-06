@@ -1,6 +1,6 @@
 package com.bookstore.post.hashtag.presentation.controller.v1;
 
-import com.bookstore.post.common.application.dto.ResDTO;
+import com.bookstore.common.application.dto.ResDTO;
 import com.bookstore.post.hashtag.application.dto.v1.request.ReqHashtagPostDTOApiV1;
 import com.bookstore.post.hashtag.application.dto.v1.request.ReqHashtagPutDTOApiV1;
 import com.bookstore.post.hashtag.application.dto.v1.response.ResHashtagGetByIdDTOApiV1;

@@ -1,6 +1,6 @@
 package com.bookstore.post.post.presentation.controller.v1;
 
-import com.bookstore.post.common.application.dto.ResDTO;
+import com.bookstore.common.application.dto.ResDTO;
 import com.bookstore.post.post.application.dto.v1.request.ReqPostPostDTOApiV1;
 import com.bookstore.post.post.domain.entity.PostEntity;
 import java.util.UUID;
