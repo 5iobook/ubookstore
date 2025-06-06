@@ -36,7 +36,7 @@ public class ReqPostPostDTOApiV1 {
         private String content;
         @Min(1)
         private int price;
-        @NotNull(message = "상품 상태 입력해주세요 [NEW, LIKE_MEW, GOOD, FAIR, POOR]")
+        @NotNull(message = "상품 상태 입력해주세요 [NEW, LIKE_NEW, GOOD, FAIR, POOR]")
         private ProductCondition condition;
         @NotNull(message = "게시글 해시태그를 입력해주세요.")
         private List<Hashtag> hashtagList;
