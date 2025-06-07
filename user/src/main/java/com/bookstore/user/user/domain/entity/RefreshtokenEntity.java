@@ -17,9 +17,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Table(name = "p_refresh_tocken")
+@Table(name = "p_refresh_token")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RefreshtockenEntity {
+public class RefreshtokenEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
