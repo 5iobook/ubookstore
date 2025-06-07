@@ -26,9 +26,6 @@ public class RefreshtockenEntity {
     private UUID id;
 
     @Column(nullable = false)
-    private Long userId;
-
-    @Column(nullable = false)
     private String token;
 
     @Column(nullable = false)
@@ -37,8 +34,5 @@ public class RefreshtockenEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
-
-
-
 
 }
