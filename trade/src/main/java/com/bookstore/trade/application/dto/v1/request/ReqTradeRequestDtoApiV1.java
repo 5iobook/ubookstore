@@ -26,8 +26,10 @@ public class ReqTradeRequestDtoApiV1 {
 		private UUID buyerId;
 		private UUID sellerId;
 		private UUID postId;
+		@Builder.Default
 		private TradeStatus status = TradeStatus.REQUESTED;
-		private TradeMethod method;
+		@Builder.Default
+		private TradeMethod method = TradeMethod.DIRECT;
 		private String meetUpLocation;
 
 		public TradeEntity toEntity() {

@@ -22,6 +22,7 @@ public class ReqTradeCancelDtoApiV1 {
 	@AllArgsConstructor
 	public static class Trade {
 		private String cancelReason;
+		@Builder.Default
 		private TradeStatus status = TradeStatus.CANCELED;
 
 		public TradeEntity toEntity() {

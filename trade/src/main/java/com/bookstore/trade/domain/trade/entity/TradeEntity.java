@@ -27,16 +27,17 @@ public class TradeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
-	@Column(name= "buyer_id")
-	private UUID buyerId; // 구매자 nullable = false
-	@Column(name= "seller_id")
-	private UUID sellerId; // 판매자 nullable = false
-	@Column(name= "post_id")
-	private UUID postId; // 연결된 판매글 nullable = false
+	@Column(name= "buyer_id", nullable = false)
+	private UUID buyerId;
+	@Column(name= "seller_id", nullable = false)
+	private UUID sellerId;
+	@Column(name= "post_id", nullable = false)
+	private UUID postId;
 	@Enumerated(EnumType.STRING)
-	@Column
+	@Column(nullable = false)
 	private TradeStatus status; // REQUESTED, ACCEPTED, IN_PROGRESS, COMPLETED, CANCELED, nullable = false
-	@Column
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
 	private TradeMethod method; // DIRECT, DELIVERY, nullable = false
 	@Column(name= "meet_up_location", columnDefinition = "TEXT")
 	private String meetUpLocation; // 거래 장소 nullable = false

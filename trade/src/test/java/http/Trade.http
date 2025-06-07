@@ -7,7 +7,6 @@ Content-Type: application/json
     "postId": "8f886d50-70ff-11ea-b498-02dd0a2dce80",
     "buyerId": "8f886d50-70ff-11ea-b498-02dd0a2dce81",
     "sellerId": "8f886d50-70ff-11ea-b498-02dd0a2dce82",
-    "method": "DIRECT",
     "scheduledDateTime": "2025-06-05T14:00:00",
     "meetUpLocation": "서울시 종로구 광화문로 123"
   }

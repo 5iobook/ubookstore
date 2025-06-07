@@ -8,19 +8,21 @@ import com.bookstore.trade.application.dto.v1.response.ResTradeCompleteDtoApiV1;
 import com.bookstore.trade.application.dto.v1.response.ResTradeGetDetailListDtoApiV1;
 import com.bookstore.trade.application.dto.v1.response.ResTradeRequestDtoApiV1;
 import com.bookstore.trade.application.service.v1.TradeServiceApiV1;
+import jakarta.validation.Valid;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RequestMapping("/v1/trades")
+@Validated
 @RestController
 public class TradeControllerApiV1 {
 
@@ -28,7 +30,7 @@ public class TradeControllerApiV1 {
 
 	@PostMapping
 	public ResponseEntity<ResTradeRequestDtoApiV1> postTradeRequest(
-		@RequestBody ReqTradeRequestDtoApiV1 reqTradeRequestDtoApiV1 // TODO:: 현재 접속 유저 정보 추가
+		@Valid @RequestBody ReqTradeRequestDtoApiV1 reqTradeRequestDtoApiV1 // TODO:: 현재 접속 유저 정보 추가
 	) {
 		ResTradeRequestDtoApiV1 response = tradeServiceApiV1.postTradeRequest(reqTradeRequestDtoApiV1);
 		return ResponseEntity.ok(response);
@@ -42,7 +44,7 @@ public class TradeControllerApiV1 {
 
 	@PostMapping("/{id}/cancel")
 	public ResponseEntity<ResTradeCancelDtoApiV1> postTradeCancel(@PathVariable("id") UUID id,
-		@RequestBody ReqTradeCancelDtoApiV1 reqTradeCancelDtoApiV1) {  // TODO:: 현재 접속 유저 정보 추가
+		@Valid @RequestBody ReqTradeCancelDtoApiV1 reqTradeCancelDtoApiV1) {  // TODO:: 현재 접속 유저 정보 추가
 		ResTradeCancelDtoApiV1 response = tradeServiceApiV1.postTradeCancel(id, reqTradeCancelDtoApiV1);
 		return ResponseEntity.ok(response);
 	}
