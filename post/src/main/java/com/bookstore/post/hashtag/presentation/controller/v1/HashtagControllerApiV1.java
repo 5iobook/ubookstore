@@ -99,6 +99,7 @@ public class HashtagControllerApiV1 {
     public ResponseEntity<ResDTO<Object>> deleteBy(
         @PathVariable UUID id
     ) {
+        hashtagService.deleteBy(id);
         return new ResponseEntity<>(
             ResDTO.builder()
                 .code("0")
