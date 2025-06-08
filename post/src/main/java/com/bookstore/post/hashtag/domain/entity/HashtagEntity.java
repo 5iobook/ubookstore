@@ -1,5 +1,6 @@
 package com.bookstore.post.hashtag.domain.entity;
 
+import com.bookstore.common.domain.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @Table(name = "p_hashtags")
-public class HashtagEntity {
+public class HashtagEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;

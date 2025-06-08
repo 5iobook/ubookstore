@@ -1,5 +1,6 @@
 package com.bookstore.post.post.domain.entity;
 
+import com.bookstore.common.domain.entity.BaseEntity;
 import com.bookstore.post.post.domain.vo.PostStatus;
 import com.bookstore.post.post.domain.vo.ProductCondition;
 import jakarta.persistence.Column;
@@ -21,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @Table(name = "p_posts")
-public class PostEntity {
+public class PostEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
