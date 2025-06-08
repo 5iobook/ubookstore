@@ -4,9 +4,32 @@ spring:
     mail:
       host: stmp.naver.com
       port: 587
-      username: ${MAIL_USERNAME}
+      username: owlane08@naver.com
       password: ${MAIL_PASSWORD}
       proprties:
           mail.smtp.auth: true
           mail.smtp.starttls.enable: true
 
+    logging:
+      level:
+        root: INFO  # 전체 기본 로그 레벨
+        com.bookstore: DEBUG  # 특정 패키지(log 출력 클래스 포함 경로)는 DEBUG로 더 자세하게
+      file:
+        name: logs/chat-app.log  # 로그 파일 경로 및 이름
+      pattern:
+        file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"  # 로그 파일 포맷
+        console: "%d{HH:mm:ss} %-5level %logger{36} - %msg%n"  # 콘솔 출력 포맷
+
+    datasource:
+      url: jdbc:mysql://localhost:3306/bookstore
+      username: root
+      password: 5joio
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+    jpa:
+      hibernate:
+        ddl-auto: update
+      show-sql: true
+      properties:
+        hibernate:
+          format_sql: true
