@@ -1,0 +1,35 @@
+### 거래 요청
+POST http://localhost:8080/v1/trades
+Content-Type: application/json
+
+{
+  "trade": {
+    "postId": "8f886d50-70ff-11ea-b498-02dd0a2dce80",
+    "buyerId": "8f886d50-70ff-11ea-b498-02dd0a2dce81",
+    "sellerId": "8f886d50-70ff-11ea-b498-02dd0a2dce82",
+    "scheduledDateTime": "2025-06-05T14:00:00",
+    "meetUpLocation": "서울시 종로구 광화문로 123"
+  }
+}
+
+### 판매자 수락
+POST http://localhost:8080/v1/trades/408b5f12-c077-4455-a1df-07504ca127a9/accept
+Content-Type: application/json
+
+### 거래 취소
+POST http://localhost:8080/v1/trades/408b5f12-c077-4455-a1df-07504ca127a9/cancel
+Content-Type: application/json
+
+{
+  "trade": {
+    "cancelReason": "상품 상태가 설명과 다름"
+  }
+}
+
+### 거래 완료
+POST http://localhost:8080/v1/trades/408b5f12-c077-4455-a1df-07504ca127a9/complete
+Content-Type: application/json
+
+### 거래 상세 조회
+GET http://localhost:8080/v1/trades/408b5f12-c077-4455-a1df-07504ca127a9
+Content-Type: application/json
