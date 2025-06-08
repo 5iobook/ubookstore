@@ -23,6 +23,12 @@ public class ChatRoom {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    /**
+     * 지정된 소유자와 생성일시로 새로운 채팅방 엔티티를 생성합니다.
+     *
+     * @param owner 채팅방 소유자
+     * @param createdAt 채팅방 생성 시각
+     */
     @Builder
     public ChatRoom(String owner, LocalDateTime createdAt) {
         this.owner = owner;

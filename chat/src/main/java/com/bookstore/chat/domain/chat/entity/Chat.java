@@ -37,6 +37,14 @@ public class Chat{
     @JoinColumn(name = "room_id")
     private ChatRoom chatRoom;
 
+    /**
+     * 지정된 메시지, 발신자, 채팅방, 생성 시각으로 Chat 엔티티 인스턴스를 생성합니다.
+     *
+     * @param message 저장할 채팅 메시지 내용
+     * @param sender 메시지 발신자
+     * @param chatRoom 메시지가 속한 채팅방 엔티티
+     * @param createdAt 메시지 생성 시각
+     */
     @Builder
     private Chat( String message, String sender, ChatRoom chatRoom, LocalDateTime createdAt) {
         this.message = message;

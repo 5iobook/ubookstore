@@ -19,13 +19,21 @@ public class WebSocketEventListener {
     private final SessionRoomManager sessionRoomManager;
     private final ChatRoomService  chatRoomService;
 
-    // 연결 성공 시 호출
+    /**
+     * 새로운 WebSocket 연결이 생성될 때 호출됩니다.
+     *
+     * @param event WebSocket 연결 이벤트 정보
+     */
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectedEvent event) {
         logger.info("새 WebSocket 연결: {}", event.getMessage().getHeaders().get("simpSessionId"));
     }
 
-    // 연결 종료 시 호출
+    /**
+     * WebSocket 연결이 종료될 때 세션 및 사용자 정보를 정리합니다.
+     *
+     * 세션 ID를 기반으로 사용자와 채팅방 정보를 조회하여, 해당 사용자가 채팅방에서 나간 것으로 처리하고 관련 세션 정보를 메모리에서 제거합니다.
+     */
     @EventListener
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
         String sessionId = event.getSessionId();
