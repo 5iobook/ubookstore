@@ -43,7 +43,7 @@
     });
 
     // 입장 알림 전송
-    stomp.send("/app/chat.enter", {}, JSON.stringify({
+    stomp.send("/api/chat/enter", {}, JSON.stringify({
       roomId: roomId,
       sender: senderName,
       type: "ENTER"
@@ -54,7 +54,7 @@
     const text = document.getElementById("msg").value;
     if (text.trim() === "") return;
 
-    stomp.send("/app/chat.send", {}, JSON.stringify({
+    stomp.send("/api/chat/send", {}, JSON.stringify({
       roomId: roomId,
       sender: senderName,
       message: text,
