@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ChatRepository {
 
-    void deleteBySenderAndChatRoom_Id(String userId, Long roomId);
+    void deleteBySenderAndChatRoom_RoomId(String userId, String roomId);
 
-    List<Chat> findByChatRoom_IdAndCreatedAtAfterOrderByCreatedAt(Long roomId, LocalDateTime enterTime);
+    List<Chat> findByChatRoom_RoomIdAndCreatedAtAfterOrderByCreatedAt(String roomId, LocalDateTime enterTime);
 }

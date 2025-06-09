@@ -14,15 +14,11 @@ public class ChatMessage {
 
     private String message;
     private String sender;
-    private Long roomId;
+    private String roomId;
     private LocalDateTime createdAt;
 
-    public void setMessage(String message){
-        this.message = message;
-    }
-
     @Builder
-    public ChatMessage(String message, String sender, Long roomId, LocalDateTime createdAt) {
+    public ChatMessage(String message, String sender, String roomId, LocalDateTime createdAt) {
         this.message = message;
         this.sender = sender;
         this.roomId = roomId;
@@ -40,7 +36,7 @@ public class ChatMessage {
 
     public static ChatMessage fromEntity(Chat chat) {
         return ChatMessage.builder()
-            .roomId(chat.getChatRoom().getId())
+            .roomId(chat.getChatRoom().getRoomId())
             .sender(chat.getSender())
             .message(chat.getMessage())
             .createdAt(chat.getCreatedAt())

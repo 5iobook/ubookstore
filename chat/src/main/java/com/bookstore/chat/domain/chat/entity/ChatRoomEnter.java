@@ -1,5 +1,6 @@
 package com.bookstore.chat.domain.chat.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,9 +21,15 @@ public class ChatRoomEnter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String userId;
+
+    @Column(nullable = false)
     private String type;
-    private Long roomId;
+
+    @Column(nullable = false)
+    private String roomId;
+
     private LocalDateTime enterTime;
 
     public void setEnterTime(LocalDateTime enterTime) {
@@ -30,7 +37,7 @@ public class ChatRoomEnter {
     }
 
     @Builder
-    public ChatRoomEnter(String userId,String type, Long roomId, LocalDateTime enterTime) {
+    public ChatRoomEnter(String userId,String type, String roomId, LocalDateTime enterTime) {
         this.userId = userId;
         this.type = type;
         this.roomId = roomId;

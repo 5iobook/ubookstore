@@ -30,7 +30,7 @@ public class WebSocketEventListener {
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
         String sessionId = event.getSessionId();
         String userId = sessionRoomManager.getUserId(sessionId);
-        Long roomId = sessionRoomManager.getRoomId(sessionId);
+        String roomId = sessionRoomManager.getRoomId(sessionId);
 
         logger.info("WebSocket 연결 종료: {}", sessionId);
 

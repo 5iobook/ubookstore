@@ -5,9 +5,11 @@ import java.util.Optional;
 
 public interface ChatRoomEnterRepository {
 
-    Optional<ChatRoomEnter> findByUserIdAndRoomId(String userId, Long roomId);
+    Optional<ChatRoomEnter> findByUserIdAndRoomId(String userId, String roomId);
 
-    boolean existsByUserIdAndRoomId(String userId, Long roomId);
+    boolean existsByUserIdAndRoomId(String userId, String roomId);
 
-    void deleteByUserIdAndRoomId(String userId, Long roomId);
+    void deleteByUserIdAndRoomId(String userId, String roomId);
+
+    long countByRoomId(String roomId);
 }

@@ -30,23 +30,27 @@ public class ChatRoomService {
         );
     }
 
-    public void roomSave(ChatResponse message){
-        chatRoomJpaRepository.save(ChatRoom.builder()
+    public void roomSave(ChatMessage message){
+       chatRoomJpaRepository.save(ChatRoom.builder()
+            .roomId(message.getRoomId())
             .owner(message.getSender())
             .createdAt(LocalDateTime.now())
             .build());
-
     }
 
-    public boolean existsEnterRecord(String sender, Long roomId) {
+    public boolean existsEnterRecord(String sender, String roomId) {
         return chatRoomEnterJpaRepository.existsByUserIdAndRoomId(sender, roomId);
     }
 
     @Transactional
-    public void leaveUserRoom(String userId, Long roomId) {
+    public void leaveUserRoom(String userId, String roomId) {
         chatRoomEnterJpaRepository.deleteByUserIdAndRoomId(userId, roomId);
-        chatJpaRepository.deleteBySenderAndChatRoom_Id(userId, roomId);
-        chatRoomJpaRepository.deleteById(roomId);
+        chatJpaRepository.deleteBySenderAndChatRoom_RoomId(userId, roomId);
+        //유저가 남아있지 않을시 삭제
+        long remaining = chatRoomEnterJpaRepository.countByRoomId(roomId);
+            if (remaining == 0) {
+                   chatRoomJpaRepository.deleteByRoomId(roomId);
+               }
 
     }
 }

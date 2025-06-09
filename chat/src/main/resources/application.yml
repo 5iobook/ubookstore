@@ -1,14 +1,6 @@
 spring:
     application:
       name: chat
-    mail:
-      host: stmp.naver.com
-      port: 587
-      username: owlane08@naver.com
-      password: ${MAIL_PASSWORD}
-      proprties:
-          mail.smtp.auth: true
-          mail.smtp.starttls.enable: true
 
     logging:
       level:

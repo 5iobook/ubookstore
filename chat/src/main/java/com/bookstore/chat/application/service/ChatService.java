@@ -31,13 +31,13 @@ public class ChatService {
     }
 
     @Transactional
-    public List<ChatMessage> getMessagesAfter(String sender, Long roomId) {
+    public List<ChatMessage> getMessagesAfter(String sender, String roomId) {
         // 사용자의 마지막 입장 기록 찾기
         ChatRoomEnter enterRecord = chatRoomEnterJpaRepository.findByUserIdAndRoomId(sender, roomId)
             .orElseThrow(() -> new IllegalStateException("입장 기록이 없습니다"));
 
         // 입장 시간 이후 메시지 반환
-        List<Chat> chatList =  chatRepository.findByChatRoom_IdAndCreatedAtAfterOrderByCreatedAt(roomId, enterRecord.getEnterTime());
+        List<Chat> chatList =  chatRepository.findByChatRoom_RoomIdAndCreatedAtAfterOrderByCreatedAt(roomId, enterRecord.getEnterTime());
         return ChatMessage.fromEntityList(chatList);
     }
 

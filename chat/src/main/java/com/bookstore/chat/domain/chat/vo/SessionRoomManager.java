@@ -11,9 +11,9 @@ public class SessionRoomManager {
     private final Map<String, String> sessionUserMap = new ConcurrentHashMap<>();
 
     // sessionId -> roomId
-    private final Map<String, Long> sessionRoomMap = new ConcurrentHashMap<>();
+    private final Map<String, String> sessionRoomMap = new ConcurrentHashMap<>();
 
-    public void registerSession(String sessionId, String userId, Long roomId) {
+    public void registerSession(String sessionId, String userId, String roomId) {
         sessionUserMap.put(sessionId, userId);
         sessionRoomMap.put(sessionId, roomId);
     }
@@ -22,7 +22,7 @@ public class SessionRoomManager {
         return sessionUserMap.get(sessionId);
     }
 
-    public Long getRoomId(String sessionId) {
+    public String getRoomId(String sessionId) {
         return sessionRoomMap.get(sessionId);
     }
 

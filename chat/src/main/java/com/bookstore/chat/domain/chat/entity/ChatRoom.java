@@ -19,12 +19,15 @@ public class ChatRoom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String roomId;
+
     private String owner;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Builder
-    public ChatRoom(String owner, LocalDateTime createdAt) {
+    public ChatRoom(String roomId, String owner, LocalDateTime createdAt) {
+        this.roomId = roomId;
         this.owner = owner;
         this.createdAt = createdAt;
     }
