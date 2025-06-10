@@ -1,5 +1,6 @@
 package com.bookstore.user.user.domain.entity;
 
+import com.bookstore.common.domain.entity.BaseEntity;
 import com.bookstore.user.user.domain.vo.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "p_user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserEntity {
+public class UserEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +29,7 @@ public class UserEntity {
     @Column(nullable = false)
     private String userName;
 
-    @Column(nullable = true)
+    @Column(nullable = true, name = "nickname")
     private String nickName;
 
     @Column(nullable = false)
