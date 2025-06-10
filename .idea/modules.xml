@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/chat/bookstore.chat.main.iml" filepath="$PROJECT_DIR$/.idea/modules/chat/bookstore.chat.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/post/bookstore.post.main.iml" filepath="$PROJECT_DIR$/.idea/modules/post/bookstore.post.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user/bookstore.user.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user/bookstore.user.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/post.main.iml" filepath="$PROJECT_DIR$/.idea/modules/post.main.iml" />
     </modules>
   </component>
 </project>
