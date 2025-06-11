@@ -123,4 +123,8 @@ public class PostEntity extends BaseEntity {
             }
         }
     }
+
+    public void incrementViewCount() {
+        viewCount++;
+    }
 }
