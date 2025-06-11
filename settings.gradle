@@ -4,6 +4,7 @@ include 'chat'
 include 'trade'
 include 'post'
 include 'user'
+include 'wish'
 
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
