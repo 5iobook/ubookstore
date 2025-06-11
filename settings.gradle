@@ -1,5 +1,5 @@
 rootProject.name = 'bookstore'
-
+include 'eureka-server'
 include 'chat'
 include 'trade'
 include 'post'
