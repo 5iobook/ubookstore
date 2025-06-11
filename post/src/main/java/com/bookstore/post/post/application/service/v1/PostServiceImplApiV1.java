@@ -54,9 +54,11 @@ public class PostServiceImplApiV1 implements PostServiceApiV1 {
     }
 
     @Override
+    @Transactional
     public ResPostGetByIdDTOApiV1 getBy(UUID id) {
         PostEntity post = findPostById(id);
         List<String> postHashtag = getHashtagNamesByPost(post);
+        post.incrementViewCount();
         return ResPostGetByIdDTOApiV1.of(post, postHashtag);
     }
 
@@ -78,7 +80,6 @@ public class PostServiceImplApiV1 implements PostServiceApiV1 {
         dto.getPost().update(postEntity);
 
         if (dto.getPost().getHashtagList() != null) {
-//            updatePostHashtags(postEntity, dto.getPost().getHashtagList());
             List<HashtagEntity> newHashtags = dto.getPost().getHashtagList().stream()
                 .map(ReqPostPutDTOApiV1.Post.Hashtag::getHashtagId)
                 .map(hashtagInternalService::findById)
