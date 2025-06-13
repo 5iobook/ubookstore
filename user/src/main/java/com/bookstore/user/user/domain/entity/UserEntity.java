@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -44,6 +45,26 @@ public class UserEntity extends BaseEntity {
     @Column(nullable = true)
     private String profile;
 
+    @Builder(access = AccessLevel.PRIVATE)
+    public UserEntity(String userName, String nickName, String password, String email,
+            UserRole userRole, String profile) {
+        this.userName = userName;
+        this.nickName = nickName;
+        this.password = password;
+        this.email = email;
+        this.userRole = UserRole.USER;
+        this.profile = profile;
+    }
 
-
+    public static UserEntity createUserEntity(String userName, String nickName, String password,
+            String email,
+            String profile) {
+        return UserEntity.builder()
+                .userName(userName)
+                .nickName(nickName)
+                .password(password)
+                .email(email)
+                .profile(profile)
+                .build();
+    }
 }
