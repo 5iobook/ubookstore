@@ -1,5 +1,10 @@
 package com.bookstore.user.user.domain.repository;
 
-public interface UserRepository {
+import com.bookstore.user.user.domain.entity.UserEntity;
+import org.apache.catalina.User;
 
+public interface UserRepository {
+    Boolean existsByEmail(String email);
+
+    void save(UserEntity user);
 }
