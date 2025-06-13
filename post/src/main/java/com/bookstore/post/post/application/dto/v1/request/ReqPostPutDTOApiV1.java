@@ -1,5 +1,7 @@
 package com.bookstore.post.post.application.dto.v1.request;
 
+import com.bookstore.post.post.domain.entity.PostEntity;
+import com.bookstore.post.post.domain.vo.PostStatus;
 import com.bookstore.post.post.domain.vo.ProductCondition;
 import java.util.List;
 import java.util.UUID;
@@ -16,7 +18,8 @@ public class ReqPostPutDTOApiV1 {
     public static class Post {
         private String title;
         private String content;
-        private int price;
+        private Integer price;
+        private PostStatus status;
         private ProductCondition condition;
         private List<Hashtag> hashtagList;
 
@@ -24,6 +27,10 @@ public class ReqPostPutDTOApiV1 {
         @Builder
         public static class Hashtag {
             private UUID hashtagId;
+        }
+
+        public void update(PostEntity postEntity) {
+            postEntity.update(title, content, price, status, condition);
         }
     }
 }
