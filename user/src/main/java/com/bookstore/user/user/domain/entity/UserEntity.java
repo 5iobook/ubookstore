@@ -67,4 +67,8 @@ public class UserEntity extends BaseEntity {
                 .profile(profile)
                 .build();
     }
+
+    public void encodePassword(String encodedPassword) {
+        this.password = encodedPassword;
+    }
 }
