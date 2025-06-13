@@ -1,15 +1,14 @@
-package com.bookstore.chat;
+package com.bookstore.alert;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@EnableFeignClients(basePackages = "com.bookstore.chat.presentation.advice")
 @SpringBootApplication
-public class ChatApplication {
+public class AlertApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ChatApplication.class, args);
+		SpringApplication.run(AlertApplication.class, args);
 	}
 
 }

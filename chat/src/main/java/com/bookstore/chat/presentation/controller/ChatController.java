@@ -74,6 +74,7 @@ public class ChatController {
             chatRoomService.roomSave(chatMessage);
         } else {
             // TODO: owner에게 알림 메시지 보내기 - alert 서비스 구현 필요
+            chatService.sendAlert();
         }
 
         messagingTemplate.convertAndSend("/topic/chatroom/" + message.getRoomId(), chatMessage);

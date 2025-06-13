@@ -10,6 +10,8 @@ allprojects {
 subprojects {
     apply plugin: 'java'
 
+
+
     java {
         toolchain {
             languageVersion = JavaLanguageVersion.of(17)
@@ -23,6 +25,7 @@ subprojects {
     }
 
     dependencies {
+        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
     }

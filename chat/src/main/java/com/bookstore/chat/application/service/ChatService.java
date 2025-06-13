@@ -7,6 +7,7 @@ import com.bookstore.chat.domain.chat.vo.ChatMessage;
 import com.bookstore.chat.domain.chat.entity.Chat;
 
 import com.bookstore.chat.infrastructure.persistence.chat.ChatRoomEnterJpaRepository;
+import com.bookstore.chat.presentation.advice.AlertClient;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ChatService {
 
+    private final AlertClient alertClient;
     private final ChatJpaRepository chatRepository;
     private final ChatRoomEnterJpaRepository chatRoomEnterJpaRepository;
 
@@ -42,4 +44,8 @@ public class ChatService {
     }
 
 
+    public void sendAlert() {
+        String message = "채팅방에 다른 사람이 입장했습니다.";
+        alertClient.sendAlert(message);
+    }
 }

@@ -29,7 +29,7 @@
   const senderName = prompt("이름을 입력하세요", "익명");
   const roomId = "room1";
 
-  const socket = new SockJS("http://localhost:8080/ws-chat");
+  const socket = new SockJS("http://localhost:8084/ws-chat");
   const stomp = Stomp.over(socket);
 
   stomp.connect({}, () => {

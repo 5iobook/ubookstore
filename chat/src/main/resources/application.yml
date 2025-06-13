@@ -1,7 +1,6 @@
 spring:
     application:
       name: chat
-
     logging:
       level:
         root: INFO  # 전체 기본 로그 레벨
@@ -25,3 +24,6 @@ spring:
       properties:
         hibernate:
           format_sql: true
+
+server:
+  port: 8084
