@@ -48,7 +48,6 @@ public class ChatController {
             sessionRoomManager.registerSession(sessionId, userId, roomId);
 
             if (!chatRoomService.existsEnterRecord(userId, roomId)) {
-
                 handleFirstTimeEntry(message);
             } else {
                 handleReEntry(userId, roomId);
@@ -61,16 +60,16 @@ public class ChatController {
     }
 
     private void handleFirstTimeEntry(ChatResponse message) {
-        //첫 입장
-        chatRoomService.saveEnterTime(message);
+
         ChatMessage chatMessage = ChatMessage.builder()
             .message(message.getSender() + " joined the chat")
             .sender(message.getSender())
             .roomId(message.getRoomId())
             .createdAt(LocalDateTime.now())
             .build();
-
         if ("OWNER".equals(message.getType())) {
+            //첫 입장
+            chatRoomService.saveEnterTime(message);
             chatRoomService.roomSave(chatMessage);
         } else {
             // TODO: owner에게 알림 메시지 보내기 - alert 서비스 구현 필요

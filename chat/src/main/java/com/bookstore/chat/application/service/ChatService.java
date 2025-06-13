@@ -11,9 +11,11 @@ import com.bookstore.chat.presentation.advice.AlertClient;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ChatService {
@@ -46,6 +48,10 @@ public class ChatService {
 
     public void sendAlert() {
         String message = "채팅방에 다른 사람이 입장했습니다.";
-        alertClient.sendAlert(message);
+        try {
+            alertClient.sendAlert(message);
+        } catch (Exception e) {
+            log.warn("Slack 알림 전송 실패: {}", e.getMessage());
+        }
     }
 }
