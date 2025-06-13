@@ -1,13 +1,12 @@
 package com.bookstore.post.hashtag.application.service.v1;
 
-import com.bookstore.common.application.exception.CustomException;
 import com.bookstore.post.hashtag.application.dto.v1.request.ReqHashtagPostDTOApiV1;
 import com.bookstore.post.hashtag.application.dto.v1.request.ReqHashtagPutDTOApiV1;
 import com.bookstore.post.hashtag.application.dto.v1.response.ResHashtagGetByIdDTOApiV1;
 import com.bookstore.post.hashtag.application.dto.v1.response.ResHashtagGetDTOApiV1;
 import com.bookstore.post.hashtag.application.dto.v1.response.ResHashtagPostDTOApiV1;
 import com.bookstore.post.hashtag.application.dto.v1.response.ResHashtagPutDTOApiV1;
-import com.bookstore.post.hashtag.application.exception.HashtagExceptionCode;
+import com.bookstore.post.hashtag.application.service.HashtagInternalService;
 import com.bookstore.post.hashtag.domain.entity.HashtagEntity;
 import com.bookstore.post.hashtag.domain.repository.HashtagRepository;
 import com.querydsl.core.types.Predicate;
@@ -24,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class HashtagServiceImplApiV1 implements HashtagServiceApiV1 {
 
     private final HashtagRepository hashtagRepository;
+    private final HashtagInternalService hashtagInternalService;
 
     @Override
     @Transactional
@@ -34,7 +34,7 @@ public class HashtagServiceImplApiV1 implements HashtagServiceApiV1 {
 
     @Override
     public ResHashtagGetByIdDTOApiV1 getBy(UUID id) {
-        HashtagEntity hashtagEntity = findById(id);
+        HashtagEntity hashtagEntity = hashtagInternalService.findById(id);
         return ResHashtagGetByIdDTOApiV1.of(hashtagEntity);
     }
 
@@ -47,7 +47,7 @@ public class HashtagServiceImplApiV1 implements HashtagServiceApiV1 {
     @Override
     @Transactional
     public ResHashtagPutDTOApiV1 putBy(UUID id, ReqHashtagPutDTOApiV1 dto) {
-        HashtagEntity hashtagEntity = findById(id);
+        HashtagEntity hashtagEntity = hashtagInternalService.findById(id);
         HashtagEntity updateHashtagEntity = hashtagEntity.update(dto.getHashtag().getName());
         return ResHashtagPutDTOApiV1.of(updateHashtagEntity);
     }
@@ -55,12 +55,8 @@ public class HashtagServiceImplApiV1 implements HashtagServiceApiV1 {
     @Override
     @Transactional
     public void deleteBy(UUID id) {
-        HashtagEntity hashtagEntity = findById(id);
+        HashtagEntity hashtagEntity = hashtagInternalService.findById(id);
         hashtagEntity.delete(1L);
     }
 
-    private HashtagEntity findById(UUID id) {
-        return hashtagRepository.findById(id)
-            .orElseThrow(() -> new CustomException(HashtagExceptionCode.HASHTAG_NOT_FOUND));
-    }
 }

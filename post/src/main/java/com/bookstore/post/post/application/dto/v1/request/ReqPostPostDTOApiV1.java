@@ -6,7 +6,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +19,7 @@ public class ReqPostPostDTOApiV1 {
     private Post post;
 
     public PostEntity createPost() {
-        return PostEntity.createPostEntity(
+        return PostEntity.create(
             post.getTitle(),
             post.getContent(),
             post.getPrice(),
@@ -39,7 +39,7 @@ public class ReqPostPostDTOApiV1 {
         @NotNull(message = "상품 상태 입력해주세요 [NEW, LIKE_NEW, GOOD, FAIR, POOR]")
         private ProductCondition condition;
         @NotNull(message = "게시글 해시태그를 입력해주세요.")
-        private List<Hashtag> hashtagList;
+        private Set<Hashtag> hashtagList;
 
         @Getter
         @Builder
