@@ -22,37 +22,47 @@
 <body>
 <h2>WebSocket 채팅 테스트</h2>
 <div id="chat"></div>
-<input type="text" id="msg" placeholder="메시지 입력..." />
+<input type="text" id="msg" placeholder="메시지 입력…" />
 <button onclick="send()">보내기</button>
 
 <script>
-  const senderName = prompt("이름을 입력하세요", "익명");
-  const roomId = "room1";
+  // URL에서 파리메터 확인
+  const urlParams = new URLSearchParams(window.location.search);
+  const roomId = urlParams.get("roomId") || "room1";
+  const userType = urlParams.get("type") || "GUEST";
 
+  // 이름을 입력
+  const senderName = prompt("이름을 입력하세요", "익명");
+
+  // WebSocket 연결
   const socket = new SockJS("http://localhost:8084/ws-chat");
+
   const stomp = Stomp.over(socket);
 
   stomp.connect({}, () => {
-    // 메시지 수신 구독
+    // 메시지 수신
     stomp.subscribe(`/topic/chatroom/${roomId}`, (msg) => {
       const data = JSON.parse(msg.body);
       const chatBox = document.getElementById("chat");
-      const newMsg = `<div><strong>${data.sender}</strong>: ${data.message}</div>`;
+
+      const newMsg = `<div><strong>${data.sender}</strong> [${data.type}] : ${data.message}</div>`;
       chatBox.innerHTML += newMsg;
       chatBox.scrollTop = chatBox.scrollHeight;
     });
 
-    // 입장 알림 전송
+    // 입장시 전달
     stomp.send("/api/chat/enter", {}, JSON.stringify({
       roomId: roomId,
       sender: senderName,
-      type: "ENTER"
+      type: userType // <- 이로 전달됩니다
     }));
+
   });
 
+  // 메시지 보내는 기능
   function send() {
-    const text = document.getElementById("msg").value;
-    if (text.trim() === "") return;
+    const text = document.getElementById("msg").value.trim();
+    if (text === '') return;
 
     stomp.send("/api/chat/send", {}, JSON.stringify({
       roomId: roomId,
@@ -60,8 +70,10 @@
       message: text,
       type: "TALK"
     }));
+
     document.getElementById("msg").value = "";
   }
 </script>
+
 </body>
 </html>
