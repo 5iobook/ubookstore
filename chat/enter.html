@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>채팅방 만들기</title>
+</head>
+<body>
+<h2>채팅방 만들기</h2>
+<button onclick="createRoom()">채팅방 만들고 입장하기</button>
+
+<script>
+  async function createRoom(){
+    try {
+      // 1. API로 채팅방 생성
+      const response = await fetch('/api/chatroom', {
+        method: 'POST'
+      });
+      if (!response.ok) {
+        throw new Error("채팅방 생성 실패.");
+      }
+      const data = await response.json();
+
+      // 2. 생성된 roomId로 넘어가기
+      const roomId = data.roomId;
+      window.location.href = `chat.html?roomId=${roomId}&type=OWNER`;
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
+  }
+</script>
+</body>
+</html>
