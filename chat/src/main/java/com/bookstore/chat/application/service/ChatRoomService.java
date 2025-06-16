@@ -1,13 +1,15 @@
 package com.bookstore.chat.application.service;
 
+import com.bookstore.chat.application.dto.request.ChatRoomRequest;
 import com.bookstore.chat.application.dto.response.ChatResponse;
+import com.bookstore.chat.application.dto.response.ChatRoomResponse;
 import com.bookstore.chat.domain.chat.entity.ChatRoom;
 import com.bookstore.chat.domain.chat.entity.ChatRoomEnter;
-import com.bookstore.chat.domain.chat.vo.ChatMessage;
 import com.bookstore.chat.infrastructure.persistence.chat.ChatJpaRepository;
 import com.bookstore.chat.infrastructure.persistence.chat.ChatRoomEnterJpaRepository;
 import com.bookstore.chat.infrastructure.persistence.chat.ChatRoomJpaRepository;
 import java.time.LocalDateTime;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,26 +22,35 @@ public class ChatRoomService {
     private final ChatRoomJpaRepository chatRoomJpaRepository;
     private final ChatJpaRepository chatJpaRepository;
 
-    public void saveEnterTime(ChatResponse message) {
+    public void saveEnterTime(String roomId, String userId) {
         chatRoomEnterJpaRepository.save(ChatRoomEnter.builder()
-            .userId(message.getSender())
-            .roomId(message.getRoomId())
-            .type(message.getType())
+            .userId(userId)
+            .roomId(roomId)
             .enterTime(LocalDateTime.now())
             .build()
         );
     }
 
-    public void roomSave(ChatMessage message){
-       chatRoomJpaRepository.save(ChatRoom.builder()
-            .roomId(message.getRoomId())
-            .owner(message.getSender())
+    @Transactional
+    public ChatRoomResponse roomSave(ChatRoomRequest request) {
+        ChatRoom chatRoom = ChatRoom.builder()
+            .roomId(UUID.randomUUID().toString()) // PK로 사용할 UUID
+            .owner(request.getOwner())
             .createdAt(LocalDateTime.now())
-            .build());
+            .build();
+
+        ChatRoom saved = chatRoomJpaRepository.save(chatRoom);
+        saveEnterTime(saved.getRoomId(), saved.getOwner());
+
+        return new ChatRoomResponse(saved);
     }
 
     public boolean existsEnterRecord(String sender, String roomId) {
         return chatRoomEnterJpaRepository.existsByUserIdAndRoomId(sender, roomId);
+    }
+
+    public ChatRoom findChatRoomById(String roomId) {
+        return chatRoomJpaRepository.findByRoomId(roomId);
     }
 
     @Transactional

@@ -25,9 +25,6 @@ public class ChatRoomEnter {
     private String userId;
 
     @Column(nullable = false)
-    private String type;
-
-    @Column(nullable = false)
     private String roomId;
 
     private LocalDateTime enterTime;
@@ -37,9 +34,8 @@ public class ChatRoomEnter {
     }
 
     @Builder
-    public ChatRoomEnter(String userId,String type, String roomId, LocalDateTime enterTime) {
+    public ChatRoomEnter(String userId, String roomId, LocalDateTime enterTime) {
         this.userId = userId;
-        this.type = type;
         this.roomId = roomId;
         this.enterTime = enterTime;
     }

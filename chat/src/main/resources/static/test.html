@@ -22,17 +22,26 @@
 <body>
 <h2>WebSocket 채팅 테스트</h2>
 <div id="chat"></div>
-<input type="text" id="msg" placeholder="메시지 입력…" />
+<input id="msg" type="text" placeholder="메시지 입력…" />
 <button onclick="send()">보내기</button>
+<button onclick="leave()">나가기</button>
 
 <script>
   // URL에서 파리메터 확인
   const urlParams = new URLSearchParams(window.location.search);
-  const roomId = urlParams.get("roomId") || "room1";
-  const userType = urlParams.get("type") || "GUEST";
+  const roomId = urlParams.get("roomId");
 
-  // 이름을 입력
-  const senderName = prompt("이름을 입력하세요", "익명");
+  // 만일 owner가 존재한다면 그것을 바로 사용할 것
+  let senderName = urlParams.get("owner");
+
+  if (!senderName) {
+    // owner가 없다면 이름을 직접 입력
+    senderName = prompt("이름을 입력해주세요.", "익명");
+
+    if (senderName === '' || senderName == null) {
+      senderName = "익명";
+    }
+  }
 
   // WebSocket 연결
   const socket = new SockJS("http://localhost:8084/ws-chat");
@@ -45,7 +54,7 @@
       const data = JSON.parse(msg.body);
       const chatBox = document.getElementById("chat");
 
-      const newMsg = `<div><strong>${data.sender}</strong> [${data.type}] : ${data.message}</div>`;
+      const newMsg = `<div><strong>${data.sender}</strong> ${data.message}</div>`;
       chatBox.innerHTML += newMsg;
       chatBox.scrollTop = chatBox.scrollHeight;
     });
@@ -54,7 +63,7 @@
     stomp.send("/api/chat/enter", {}, JSON.stringify({
       roomId: roomId,
       sender: senderName,
-      type: userType // <- 이로 전달됩니다
+      isOwner: (urlParams.get("owner") === senderName)
     }));
 
   });
@@ -67,11 +76,26 @@
     stomp.send("/api/chat/send", {}, JSON.stringify({
       roomId: roomId,
       sender: senderName,
-      message: text,
-      type: "TALK"
+      message: text
     }));
 
     document.getElementById("msg").value = "";
+  }
+
+  // 나가기 기능
+  function leave() {
+    // 나가기 메시지 전달
+    stomp.send("/api/chat/leave", {}, JSON.stringify({
+      roomId: roomId,
+      sender: senderName
+    }));
+
+    // 연결 해제
+    stomp.disconnect(() => {
+      console.log("WebSocket 연결이 해제되었습니다.");
+      // 연결 후 화면이나 페이지를 변경
+      window.location.href = "/enter.html";
+    });
   }
 </script>
 
