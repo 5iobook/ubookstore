@@ -23,18 +23,15 @@ public class UserServiceApiV1Impl implements UserServiceApiV1 {
 
     @Override
     public void signUp(ReqUserPostSignupDtoApiV1 dto) {
-        //1. 이메일 중복 확인
-        if(userRepository.existsByEmail(dto.getUser().getEmail())){
-            throw new CustomException(UserExceptionCode.DUPLICATE_EMAIL);
-        }
-        //2. 비밀번호 암호화
+
+        //1. 비밀번호 암호화
         String encrypted = passwordEncoder.encode(dto.getUser().getPassword());
 
-        //3. dto -> entity
+        //2. dto -> entity
         UserEntity user = dto.createUser(); //정적 팩토리 메서드로 객체 생성
         user.encodePassword(encrypted);
 
-        // 4. 저장 / 저장 시 중복 예외 발생 가능성에 대비 (동시성 대응)
+        // 3. 저장 / 저장 시 중복 예외 발생 가능성에 대비 (동시성 대응)
         try {
             userRepository.save(user); //저장
         } catch (DataIntegrityViolationException e) {
