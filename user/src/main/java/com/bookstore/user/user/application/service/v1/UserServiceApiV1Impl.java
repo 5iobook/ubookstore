@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional
 @Slf4j
-public class UserSeiviceApiV1Impl implements UserServiceApiV1 {
+public class UserServiceApiV1Impl implements UserServiceApiV1 {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
