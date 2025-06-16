@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: alert
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+
+
+server:
+  port: 8085
+
+
+alert:
+  service:
+    url: "http://localhost:8085"
+
+
+slack:
+  webhook:
+    url: "https://hooks.slack.com/services/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"

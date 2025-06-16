@@ -44,6 +44,7 @@ public class ResPostPostDTOApiV1 {
                 .build();
         }
 
+        @Getter
         @Builder
         public static class Hashtag {
             private String name;
