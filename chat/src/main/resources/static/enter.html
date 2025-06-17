@@ -6,14 +6,27 @@
 </head>
 <body>
 <h2>채팅방 만들기</h2>
+
+<label for="ownerName">소유자 이름</label>
+<input id="ownerName" type="text" placeholder="소유자 이름을 입력해주세요">
 <button onclick="createRoom()">채팅방 만들고 입장하기</button>
 
 <script>
   async function createRoom(){
     try {
+      // 0. input에서 owner 이름 가져오기
+      const owner = document.getElementById("ownerName").value.trim();
+
+      if (owner === '') {
+        alert("소유자 이름을 입력해주세요.");
+        return;
+      }
+
       // 1. API로 채팅방 생성
       const response = await fetch('/api/chatroom', {
-        method: 'POST'
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ owner })
       });
       if (!response.ok) {
         throw new Error("채팅방 생성 실패.");
@@ -22,12 +35,14 @@
 
       // 2. 생성된 roomId로 넘어가기
       const roomId = data.roomId;
-      window.location.href = `chat.html?roomId=${roomId}&type=OWNER`;
+      window.location.href = `test.html?roomId=${roomId}&owner=${encodeURIComponent(owner)}`;
+
     } catch (error) {
       console.error(error);
       alert(error.message);
     }
   }
 </script>
+
 </body>
 </html>
