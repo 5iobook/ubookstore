@@ -6,13 +6,17 @@ import com.bookstore.trade.application.dto.v1.response.ResTradeAcceptDtoApiV1;
 import com.bookstore.trade.application.dto.v1.response.ResTradeCancelDtoApiV1;
 import com.bookstore.trade.application.dto.v1.response.ResTradeCompleteDtoApiV1;
 import com.bookstore.trade.application.dto.v1.response.ResTradeGetDetailListDtoApiV1;
+import com.bookstore.trade.application.dto.v1.response.ResTradeGetSearchListDtoApiV1;
 import com.bookstore.trade.application.dto.v1.response.ResTradeRequestDtoApiV1;
 import com.bookstore.trade.domain.trade.entity.TradeEntity;
 import com.bookstore.trade.domain.trade.repository.TradeRepository;
 import com.bookstore.trade.domain.trade.vo.TradeStatus;
+import com.querydsl.core.types.Predicate;
 import jakarta.transaction.Transactional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -61,11 +65,16 @@ public class TradeServiceApiV1Impl implements TradeServiceApiV1 {
 		return ResTradeGetDetailListDtoApiV1.of(tradeEntity);
 	}
 
-	private TradeEntity updateTradeState(UUID id, String status) {
+	@Override
+	public ResTradeGetSearchListDtoApiV1 getTradeSearchList(Predicate predicate, Pageable pageable) {
+		Page<TradeEntity> tradePage = tradeRepository.findAll(predicate, pageable);
+		return ResTradeGetSearchListDtoApiV1.from(tradePage);
+	}
+
+	private void updateTradeState(UUID id, String status) {
 		TradeEntity tradeEntity = tradeRepository.findById(id)
 			.orElseThrow(() -> new RuntimeException("Trade not found"));
 		TradeStatus tradeStatus = TradeStatus.valueOf(status);
 		tradeEntity.updateStatus(tradeStatus);
-		return tradeEntity;
 	}
 }
