@@ -1,0 +1,2 @@
+### 1. 찜 생성
+POST http://localhost:8082/v1/wishes?postId=a3b34a91-8fc3-4ed3-b95c-d6d9a04228ca
