@@ -51,4 +51,8 @@ public class WishEntity {
             .postId(postId)
             .build();
     }
+
+    public boolean isOwnedBy(Long userId) {
+        return this.userId.equals(userId);
+    }
 }
