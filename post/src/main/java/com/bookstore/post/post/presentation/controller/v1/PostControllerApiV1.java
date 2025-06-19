@@ -108,4 +108,12 @@ public class PostControllerApiV1 {
             HttpStatus.NO_CONTENT
         );
     }
+
+    @GetMapping("/{id}/exists")
+    public ResponseEntity<Void> existsBy(
+        @PathVariable UUID id
+    ) {
+        postService.existsBy(id);
+        return ResponseEntity.ok().build();
+    }
 }
