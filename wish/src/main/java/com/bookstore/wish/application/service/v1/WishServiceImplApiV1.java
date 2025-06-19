@@ -1,6 +1,7 @@
 package com.bookstore.wish.application.service.v1;
 
 import com.bookstore.common.application.exception.CustomException;
+import com.bookstore.wish.application.dto.v1.response.ResWishGetDTOApiV1;
 import com.bookstore.wish.application.dto.v1.response.ResWishPostDTOApiV1;
 import com.bookstore.wish.application.exception.WishExceptionCode;
 import com.bookstore.wish.domain.entity.WishEntity;
@@ -8,6 +9,8 @@ import com.bookstore.wish.domain.repository.WishRepository;
 import com.bookstore.wish.infrastructure.client.PostFeignClientApiV1;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,5 +32,24 @@ public class WishServiceImplApiV1 implements WishServiceApiV1 {
         }
         WishEntity wishEntity = wishRepository.save(WishEntity.create(1L, postId));
         return ResWishPostDTOApiV1.of(wishEntity);
+    }
+
+    @Override
+    public ResWishGetDTOApiV1 getBy(Long userId, Pageable pageable) {
+        Page<WishEntity> wishList = wishRepository.findAllByUserId(userId, pageable);
+        return ResWishGetDTOApiV1.of(wishList);
+    }
+
+    @Override
+    @Transactional
+    public void deleteBy(Long userId, UUID id) {
+        WishEntity wishEntity = wishRepository.findById(id)
+            .orElseThrow(() -> new CustomException(WishExceptionCode.WISH_NOT_FOUND));
+
+        if (!wishEntity.isOwnedBy(userId)) {
+            throw new CustomException(WishExceptionCode.NOT_OWN_WISH);
+        }
+
+        wishRepository.deleteById(id);
     }
 }
