@@ -22,7 +22,7 @@ public class WishServiceImplApiV1 implements WishServiceApiV1 {
     @Override
     @Transactional
     public ResWishPostDTOApiV1 postBy(UUID postId) {
-        postFeignClientApiV1.getBy(postId);
+        postFeignClientApiV1.existsBy(postId);
 
         if (wishRepository.existsByUserIdAndPostId(1L, postId)) {
             throw new CustomException(WishExceptionCode.ALREADY_WISHED);
