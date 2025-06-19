@@ -1,10 +1,13 @@
 package com.bookstore.wish.presentation.controller.v1;
 
 import com.bookstore.common.application.dto.ResDTO;
+import com.bookstore.wish.application.dto.v1.response.ResWishGetDTOApiV1;
 import com.bookstore.wish.application.dto.v1.response.ResWishPostDTOApiV1;
 import com.bookstore.wish.application.service.v1.WishServiceApiV1;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,11 +41,15 @@ public class WishControllerApiV1 {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<ResDTO<Object>> getBy() {
+    public ResponseEntity<ResDTO<ResWishGetDTOApiV1>> getBy(
+        @PageableDefault(page = 0, size = 10) Pageable pageable
+    ) {
+        ResWishGetDTOApiV1 response = wishService.getBy(1L, pageable);
         return new ResponseEntity<>(
-            ResDTO.builder()
+            ResDTO.<ResWishGetDTOApiV1>builder()
                 .code("0")
                 .message("사용자 위시 리스트 조회에 성공했습니다.")
+                .data(response)
                 .build(),
             HttpStatus.OK
         );
@@ -52,12 +59,13 @@ public class WishControllerApiV1 {
     public ResponseEntity<ResDTO<Object>> deleteBy(
         @PathVariable UUID id
     ) {
+        wishService.deleteBy(1L, id);
         return new ResponseEntity<>(
             ResDTO.builder()
                 .code("0")
                 .message("위시를 취소했습니다.")
                 .build(),
-            HttpStatus.NO_CONTENT
+            HttpStatus.OK
         );
     }
 }
