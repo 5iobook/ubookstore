@@ -22,4 +22,8 @@ public interface PostServiceApiV1 {
     void deleteBy(UUID id);
 
     void existsBy(UUID id);
+
+    void increaseWishCount(UUID id);
+
+    void decreaseWishCount(UUID id);
 }

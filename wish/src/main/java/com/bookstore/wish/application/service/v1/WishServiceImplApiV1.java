@@ -30,7 +30,10 @@ public class WishServiceImplApiV1 implements WishServiceApiV1 {
         if (wishRepository.existsByUserIdAndPostId(1L, postId)) {
             throw new CustomException(WishExceptionCode.ALREADY_WISHED);
         }
+
         WishEntity wishEntity = wishRepository.save(WishEntity.create(1L, postId));
+        postFeignClientApiV1.increaseWishCount(postId);
+
         return ResWishPostDTOApiV1.of(wishEntity);
     }
 
@@ -51,5 +54,6 @@ public class WishServiceImplApiV1 implements WishServiceApiV1 {
         }
 
         wishRepository.deleteById(id);
+        postFeignClientApiV1.decreaseWishCount(wishEntity.getPostId());
     }
 }
