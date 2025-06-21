@@ -1,5 +1,6 @@
 package com.bookstore.trade.domain.trade.entity;
 
+import com.bookstore.common.domain.entity.BaseEntity;
 import com.bookstore.trade.domain.trade.vo.TradeMethod;
 import com.bookstore.trade.domain.trade.vo.TradeStatus;
 import jakarta.persistence.Column;
@@ -23,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TradeEntity {
+public class TradeEntity extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
