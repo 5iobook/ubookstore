@@ -1,5 +1,6 @@
 package com.bookstore.user.user.domain.entity;
 
+import com.bookstore.common.domain.entity.BaseEntity;
 import com.bookstore.user.user.domain.vo.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "p_user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserEntity {
+public class UserEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +30,7 @@ public class UserEntity {
     @Column(nullable = false)
     private String userName;
 
-    @Column(nullable = true)
+    @Column(nullable = true, name = "nickname")
     private String nickName;
 
     @Column(nullable = false)
@@ -43,6 +45,30 @@ public class UserEntity {
     @Column(nullable = true)
     private String profile;
 
+    @Builder(access = AccessLevel.PRIVATE)
+    public UserEntity(String userName, String nickName, String password, String email,
+            UserRole userRole, String profile) {
+        this.userName = userName;
+        this.nickName = nickName;
+        this.password = password;
+        this.email = email;
+        this.userRole = UserRole.USER;
+        this.profile = profile;
+    }
 
+    public static UserEntity createUserEntity(String userName, String nickName, String password,
+            String email,
+            String profile) {
+        return UserEntity.builder()
+                .userName(userName)
+                .nickName(nickName)
+                .password(password)
+                .email(email)
+                .profile(profile)
+                .build();
+    }
 
+    public void encodePassword(String encodedPassword) {
+        this.password = encodedPassword;
+    }
 }

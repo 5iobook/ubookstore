@@ -1,5 +1,5 @@
 ### 거래 요청
-POST http://localhost:8080/v1/trades
+POST http://localhost:8761/v1/trades
 Content-Type: application/json
 
 {
@@ -13,11 +13,11 @@ Content-Type: application/json
 }
 
 ### 판매자 수락
-POST http://localhost:8080/v1/trades/408b5f12-c077-4455-a1df-07504ca127a9/accept
+POST http://localhost:8761/v1/trades/408b5f12-c077-4455-a1df-07504ca127a9/accept
 Content-Type: application/json
 
 ### 거래 취소
-POST http://localhost:8080/v1/trades/408b5f12-c077-4455-a1df-07504ca127a9/cancel
+POST http://localhost:8761/v1/trades/408b5f12-c077-4455-a1df-07504ca127a9/cancel
 Content-Type: application/json
 
 {
@@ -27,9 +27,13 @@ Content-Type: application/json
 }
 
 ### 거래 완료
-POST http://localhost:8080/v1/trades/408b5f12-c077-4455-a1df-07504ca127a9/complete
+POST http://localhost:8761/v1/trades/408b5f12-c077-4455-a1df-07504ca127a9/complete
 Content-Type: application/json
 
 ### 거래 상세 조회
-GET http://localhost:8080/v1/trades/408b5f12-c077-4455-a1df-07504ca127a9
+GET http://localhost:8761/v1/trades/408b5f12-c077-4455-a1df-07504ca127a9
+Content-Type: application/json
+
+### 거래 내역 검색
+GET http://localhost:8761/v1/trades?status=REQUESTED
 Content-Type: application/json

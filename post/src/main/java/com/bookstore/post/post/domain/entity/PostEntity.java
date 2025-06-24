@@ -127,4 +127,12 @@ public class PostEntity extends BaseEntity {
     public void incrementViewCount() {
         viewCount++;
     }
+
+    public void incrementWishCount() {
+        wishCount++;
+    }
+
+    public void decreaseWishCount() {
+        wishCount--;
+    }
 }

@@ -1,5 +1,6 @@
 package com.bookstore.user.user.domain.entity;
 
+import com.bookstore.common.domain.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "p_refresh_token")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RefreshtokenEntity {
+public class RefreshTokenEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

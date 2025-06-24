@@ -98,6 +98,23 @@ public class PostServiceImplApiV1 implements PostServiceApiV1 {
         postEntity.delete(1L);
     }
 
+    @Override
+    public void existsBy(UUID id) {
+        findPostById(id);
+    }
+
+    @Override
+    @Transactional
+    public void increaseWishCount(UUID id) {
+        findPostById(id).incrementWishCount();
+    }
+
+    @Override
+    @Transactional
+    public void decreaseWishCount(UUID id) {
+        findPostById(id).decreaseWishCount();
+    }
+
     private PostEntity findPostById(UUID id) {
         return postRepository.findById(id)
             .orElseThrow(() -> new CustomException(PostExceptionCode.POST_NOT_FOUND));
