@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/slack")
 public class SlackController {
 
-    private final SlackService slackService;
+private final SlackService slackService;
 
-    @PostMapping("/send")
-    public ResponseEntity<String> sendSlack(@RequestParam("msg") String msg) {
-        slackService.sendSlackMessage(msg);
-        return ResponseEntity.ok("Alert Sent: " + msg);
-    }
+@PostMapping("/send")
+public ResponseEntity<String> sendSlack(@RequestParam("msg") String msg) {
+    slackService.sendSlackMessage(msg);
+    return ResponseEntity.ok("Alert Sent: " + msg);
+}
 }

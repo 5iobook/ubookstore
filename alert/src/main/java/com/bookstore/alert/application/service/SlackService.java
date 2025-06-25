@@ -1,5 +1,6 @@
 package com.bookstore.alert.application.service;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +17,12 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class SlackService {
 
-    @Value("${slack.webhook.url}")
-    private String slackWebhookUrl;
+    Dotenv dotenv = Dotenv.load();
 
     private final RestTemplate restTemplate = new RestTemplate();
 
     public void sendSlackMessage(String message) {
+
         // JSON 형식의 요청 바디 구성
         Map<String, String> body = new HashMap<>();
         body.put("text", message);
@@ -32,7 +33,7 @@ public class SlackService {
         HttpEntity<Map<String, String>> request = new HttpEntity<>(body, headers);
 
         try {
-            ResponseEntity<String> response = restTemplate.postForEntity(slackWebhookUrl, request, String.class);
+            ResponseEntity<String> response = restTemplate.postForEntity(dotenv.get("slack_webhook_url"), request, String.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 System.out.println("Slack message sent successfully!");
             } else {

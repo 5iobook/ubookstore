@@ -9,5 +9,5 @@ public class ChatResponse {
     private String message;
     private String sender;
     private String roomId;
-    private String type; //OWNER
+    private Boolean isOwner; //OWNER
 }

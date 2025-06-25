@@ -23,14 +23,11 @@ public class ChatService {
     private final AlertClient alertClient;
     private final ChatJpaRepository chatRepository;
     private final ChatRoomEnterJpaRepository chatRoomEnterJpaRepository;
-
+    private final ChatRoomService chatRoomService;
 
     public void save(ChatMessage chatMessage) {
-
-        Chat chat = ChatMessage.toEntity(chatMessage, ChatRoom.builder()
-            .owner(chatMessage.getSender())
-            .createdAt(LocalDateTime.now())
-            .build());
+        ChatRoom chatRoom = chatRoomService.findChatRoomById(chatMessage.getRoomId());
+        Chat chat = ChatMessage.toEntity(chatMessage,chatRoom);
         chatRepository.save(chat);
     }
 
