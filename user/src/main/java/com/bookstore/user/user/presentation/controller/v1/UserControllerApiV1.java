@@ -3,12 +3,14 @@ package com.bookstore.user.user.presentation.controller.v1;
 import com.bookstore.common.application.dto.ResDTO;
 import com.bookstore.user.user.application.dto.v1.req.ReqUserPostSigninDtoApiV1;
 import com.bookstore.user.user.application.dto.v1.req.ReqUserPostSignupDtoApiV1;
+import com.bookstore.user.user.application.dto.v1.res.ResTokenDtoApiV1;
 import com.bookstore.user.user.application.service.v1.UserServiceApiV1;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,15 +37,27 @@ public class UserControllerApiV1 {
 
     @PostMapping("/signin")
     public ResponseEntity<ResDTO<Object>> signinBy(@RequestBody @Valid ReqUserPostSigninDtoApiV1 dto){
-        userServiceApi.signIn(dto);
+        ResTokenDtoApiV1 tokenDto = userServiceApi.signIn(dto);
         return new ResponseEntity<>(
                 ResDTO.builder()
                         .code("0")
                         .message("로그인 되었습니다")
+                        .data(tokenDto)
                         .build(),
                 HttpStatus.OK
         );
     }
+
+    @GetMapping("/mypage")
+    public ResponseEntity<ResDTO<Object>> myPage() {
+        return ResponseEntity.ok(
+                ResDTO.builder()
+                        .code("0")
+                        .message("인증된 사용자만 볼 수 있는 마이페이지입니다.")
+                        .build()
+        );
+    }
+
 
 
 }
