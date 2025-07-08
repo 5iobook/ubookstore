@@ -16,7 +16,7 @@ public class ReqUserPostSignupDtoApiV1 {
     private User user;
 
     public UserEntity createUser(){
-        return UserEntity.createUserEntity(
+        return UserEntity.createForSignup(
                 user.getUserName(),
                 user.getNickName(),
                 user.getPassword(),

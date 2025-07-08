@@ -12,6 +12,8 @@ import jakarta.persistence.Id;
 
 import jakarta.persistence.Table;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -56,7 +58,7 @@ public class UserEntity extends BaseEntity {
         this.profile = profile;
     }
 
-    public static UserEntity createUserEntity(String userName, String nickName, String password,
+    public static UserEntity createForSignup(String userName, String nickName, String password,
             String email,
             String profile) {
         return UserEntity.builder()
@@ -65,6 +67,13 @@ public class UserEntity extends BaseEntity {
                 .password(password)
                 .email(email)
                 .profile(profile)
+                .build();
+    }
+
+    public static UserEntity createForSignin(String email, String password) {
+        return UserEntity.builder()
+                .email(email)
+                .password(password)
                 .build();
     }
 

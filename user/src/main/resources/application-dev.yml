@@ -23,3 +23,7 @@ eureka:
 
 server:
   port: 8083
+
+jwt:
+  secret: uCaK3U0oisRXgekvMLOMrvzzZXfSlsdibnZ4cHNSaaA=
+  accessTokenExpiration: 3600000  # 1시간 (1시간 = 60 * 60 * 1000)
