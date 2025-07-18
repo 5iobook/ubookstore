@@ -1,6 +1,6 @@
 
-###회원가입
-POST http://localhost:8080/v1/users/signup
+### 회원가입
+POST http://localhost:8083/v1/users/signup
 Content-Type: application/json
 
 {
@@ -12,3 +12,25 @@ Content-Type: application/json
     "profile": "https://profile.img"
   }
 }
+
+### 로그인 요청 (토큰 발급)
+POST http://localhost:8083/v1/users/signin
+Content-Type: application/json
+
+{
+  "user": {
+    "email": "test@example.com",
+    "password": "1234"
+  }
+}
+
+> {% client.global.set("token", response.body.data.token); %}
+
+
+### 보호된 마이페이지 접근
+GET http://localhost:8083/v1/users/mypage
+Authorization: Bearer {{token}}
+
+
+
+
