@@ -69,7 +69,10 @@ public class TradeServiceApiV1Impl implements TradeServiceApiV1 {
 
 	@Override
 	public ResTradeGetSearchListDtoApiV1 getTradeSearchList(Predicate predicate, Pageable pageable) {
-		Page<TradeEntity> tradePage = tradeRepository.findAll(predicate, pageable);
+		Page<TradeEntity> tradePage =
+				predicate == null
+				? tradeRepository.findAll(pageable)
+				: tradeRepository.findAll(predicate, pageable);
 		return ResTradeGetSearchListDtoApiV1.from(tradePage);
 	}
 
