@@ -1,7 +1,117 @@
-version: '3.8'
-
 services:
-  mysql:
+  setup:
+    profiles:
+      - setup
+    build:
+      context: setup/
+      args:
+        ELASTIC_VERSION: ${ELASTIC_VERSION}
+    init: true
+    volumes:
+      - ./setup/entrypoint.sh:/entrypoint.sh:ro,Z
+      - ./setup/lib.sh:/lib.sh:ro,Z
+      - ./setup/roles:/roles:ro,Z
+    environment:
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-}
+      LOGSTASH_PASSWORD: ${LOGSTASH_PASSWORD:-}
+      KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
+      METRICBEAT_INTERNAL_PASSWORD: ${METRICBEAT_INTERNAL_PASSWORD:-}
+      FILEBEAT_INTERNAL_PASSWORD: ${FILEBEAT_INTERNAL_PASSWORD:-}
+      HEARTBEAT_INTERNAL_PASSWORD: ${HEARTBEAT_INTERNAL_PASSWORD:-}
+      MONITORING_INTERNAL_PASSWORD: ${MONITORING_INTERNAL_PASSWORD:-}
+      BEATS_SYSTEM_PASSWORD: ${BEATS_SYSTEM_PASSWORD:-}
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+
+  elasticsearch:
+    image: elasticsearch:7.17.0
+    volumes:
+      - ./post/src/main/java/com/bookstore/post/post/infrastructure/elasticsearch/v2/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      node.name: elasticsearch
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-}
+      discovery.type: single-node
+    networks:
+      - elk
+    restart: unless-stopped
+
+  logstash:
+    image: logstash:7.17.0
+    volumes:
+      - ./post/src/main/java/com/bookstore/post/post/infrastructure/logstash/v2/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./post/src/main/java/com/bookstore/post/post/infrastructure/logstash/v2/pipeline:/usr/share/logstash/pipeline
+    ports:
+      - 5044:5044
+      - 50000:50000/tcp
+      - 50000:50000/udp
+      - 9600:9600
+    environment:
+      LS_JAVA_OPTS: -Xms256m -Xmx256m
+      LOGSTASH_PASSWORD: ${LOGSTASH_PASSWORD:-}
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+
+  kibana:
+    image: kibana:7.17.0
+    volumes:
+      - ./post/src/main/java/com/bookstore/post/post/infrastructure/kibana/v2/config/kibana.yml:/usr/share/kibana/config/kibana.yml
+    ports:
+      - 5601:5601
+    environment:
+      KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.1
+    platform: linux/amd64
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.1
+    platform: linux/amd64
+    ports:
+      - "9092:9092"
+    hostname: kafka
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:29092,OUTSIDE://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_LISTENERS: INSIDE://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      HOSTNAME_COMMAND: "route -n | awk '/UG[ \\t]/{print $$2}'"
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    platform: linux/amd64
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+      KAFKA_CLUSTERS_0_READONLY: "false"
+
+  trade-mysql:
     image: mysql:8.0
     container_name: trade-mysql
     ports:
@@ -15,5 +125,15 @@ services:
       - mysql-data:/var/lib/mysql
     restart: always
 
+  trade-frontend:
+    build: ./trade/src/main/resources/static
+    ports:
+      - "3000:80"
+
+networks:
+  elk:
+    driver: bridge
+
 volumes:
   mysql-data:
+  elasticsearch:
