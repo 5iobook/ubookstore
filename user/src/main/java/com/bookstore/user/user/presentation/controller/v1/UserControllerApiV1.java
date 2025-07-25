@@ -45,7 +45,7 @@ public class UserControllerApiV1 {
                 .secure(true)
                 .path("/")
                 .sameSite("Lax")
-                .maxAge(7 * 24 * 60 * 60) // 7일
+                .maxAge(7 * 24 * 60 * 60) // 30 분
                 .build();
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.SET_COOKIE, cookie.toString());
