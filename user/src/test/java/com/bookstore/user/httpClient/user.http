@@ -5,10 +5,10 @@ Content-Type: application/json
 
 {
   "user": {
-    "userName": "tester",
+    "userName": "tester1",
     "nickName": "nick",
     "password": "1234",
-    "email": "test@example.com",
+    "email": "test3@example.com",
     "profile": "https://profile.img"
   }
 }
@@ -19,14 +19,18 @@ Content-Type: application/json
 
 {
   "user": {
-    "email": "test@example.com",
+    "email": "test2@example.com",
     "password": "1234"
   }
 }
 
-> {% client.global.set("token", response.body.data.token); %}
-
-
+> {%
+  // 응답 본문의 data 객체에서 accessToken과 refreshToken을 추출하여 전역 변수에 저장
+  client.global.set("token", response.body.data.accessToken);
+  client.global.set("refreshToken", response.body.data.refreshToken); // 리프레시 토큰도 저장
+  console.log("Stored Access Token:", client.global.get("token"));
+  console.log("Stored Refresh Token:", client.global.get("refreshToken"));
+%}
 ### 보호된 마이페이지 접근
 GET http://localhost:8083/v1/users/mypage
 Authorization: Bearer {{token}}
