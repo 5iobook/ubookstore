@@ -8,7 +8,9 @@ import com.bookstore.user.user.application.service.v1.UserServiceApiV1;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,13 +39,28 @@ public class UserControllerApiV1 {
 
     @PostMapping("/signin")
     public ResponseEntity<ResDTO<Object>> signinBy(@RequestBody @Valid ReqUserPostSigninDtoApiV1 dto){
+        log.info("로그인: 로직 시작");
         ResTokenDtoApiV1 tokenDto = userServiceApi.signIn(dto);
+        log.info("로그인: dto 반환완료");
+        ResponseCookie cookie = ResponseCookie.from("refresh_token", tokenDto.getRefreshToken())
+                .httpOnly(true)
+                .secure(true)
+                .path("/")
+                .sameSite("Lax")
+                .maxAge(7 * 24 * 60 * 60) // 7일
+                .build();
+        log.info("로그인: 리프레쉬토큰 쿠키 생성 ");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.SET_COOKIE, cookie.toString());
+        log.info("로그인: 리프레쉬토큰 set cookie");
+
         return new ResponseEntity<>(
                 ResDTO.builder()
                         .code("0")
                         .message("로그인 되었습니다")
                         .data(tokenDto)
                         .build(),
+                headers,
                 HttpStatus.OK
         );
     }
