@@ -54,12 +54,10 @@ public class UserServiceApiV1Impl implements UserServiceApiV1 {
 
     @Override
     public ResTokenDtoApiV1 signIn(ReqUserPostSigninDtoApiV1 dto) {
-        log.info("로그인_서비스: 시작");
         //1. 이메일로 사용자 조회
         UserEntity user = userRepository.findByEmail(dto.getUser().getEmail())
                 .orElseThrow(() -> new CustomException(UserExceptionCode.NOT_FOUND_EMAIL));
 
-        log.info("로그인_서비스: 이메일 조회 완");
         //2. 비밀번호 일치 확인
         if(!passwordEncoder.matches(dto.getUser().getPassword(), user.getPassword())){
             throw new CustomException(UserExceptionCode.INVALID_PASSWORD);
@@ -71,22 +69,15 @@ public class UserServiceApiV1Impl implements UserServiceApiV1 {
         String accessToken = jwtUtil.generateAccessToken(user.getEmail(), user.getUserRole());
         String refreshToken = jwtUtil.generateRefreshToken(user.getEmail(), user.getUserRole());
 
-        log.info("로그인_서비스: 엑세스, 리프레쉬토큰 refreshToken: {}", refreshToken);
-
         Date expirationDate = jwtUtil.parseToken(refreshToken).getExpiration();
-        log.info("로그인_서비스: parse, expirationDate: {}", expirationDate);
 
         LocalDateTime expiresAt = expirationDate.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
-        log.info("로그인_서비스: expiresAt: {}", expiresAt);
 
         RefreshTokenEntity tokenEntity = refreshTokenRepository.findByUser_Email(user.getEmail())
                 .map(existing -> existing.updateToken(refreshToken))
                 .orElse(RefreshTokenEntity.of(user, refreshToken, expiresAt));
-
-        log.info("로그인_서비스: findbyuser");
-
 
         refreshTokenRepository.save(tokenEntity);
 

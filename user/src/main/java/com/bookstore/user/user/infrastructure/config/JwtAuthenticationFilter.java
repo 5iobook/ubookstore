@@ -31,7 +31,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // 0. 로그인, 회원가입 경로는 JWT 검사 없이 무조건 통과
         String path = request.getRequestURI();
-        System.out.println("JwtAuthenticationFilter: 현재 경로 = " + path); // 반드시 추가
 
         if (path.equals("/v1/users/signin") || path.equals("/v1/users/signup")) {
             System.out.println("JwtAuthenticationFilter: 로그인/회원가입 요청, 패스!");
