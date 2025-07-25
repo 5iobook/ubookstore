@@ -29,6 +29,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
 
+        // 0. 로그인, 회원가입 경로는 JWT 검사 없이 무조건 통과
+        String path = request.getRequestURI();
+        System.out.println("JwtAuthenticationFilter: 현재 경로 = " + path); // 반드시 추가
+
+        if (path.equals("/v1/users/signin") || path.equals("/v1/users/signup")) {
+            System.out.println("JwtAuthenticationFilter: 로그인/회원가입 요청, 패스!");
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         // 1. 헤더가 없거나 Bearer가 아닌 경우 -> 다음 필터로 넘김
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
@@ -45,6 +55,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         // 4. 토큰에서 이메일, 역할 꺼내기
+        //todo. 예외처리
         Claims claims = jwtUtil.parseToken(token);
         String email = claims.getSubject();
         String role = claims.get("role", String.class);
