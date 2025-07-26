@@ -8,11 +8,13 @@ import lombok.Getter;
 @Builder
 public class ResTokenDtoApiV1 {
 
-    private String token;
+    private String accessToken;
+    private String refreshToken;
 
-    public static ResTokenDtoApiV1 from(String token) {
+    public static ResTokenDtoApiV1 from(String accessToken, String refreshToken) {
         return ResTokenDtoApiV1.builder()
-                .token(token)
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
                 .build();
     }
 
@@ -20,5 +22,6 @@ public class ResTokenDtoApiV1 {
     @Builder
     public static class Token {
         private String accessToken;
+        private String refreshToken;
     }
 }

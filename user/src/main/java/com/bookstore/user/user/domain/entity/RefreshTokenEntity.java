@@ -36,4 +36,16 @@ public class RefreshTokenEntity extends BaseEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
+    public static RefreshTokenEntity of(UserEntity user, String refreshToken, LocalDateTime expiresAt) {
+        RefreshTokenEntity entity = new RefreshTokenEntity();
+        entity.token = refreshToken;
+        entity.user = user;
+        entity.expiresAt = expiresAt;
+        return entity;
+    }
+
+    public RefreshTokenEntity updateToken(String refreshToken) {
+        this.token = refreshToken;
+        return this;
+    }
 }
