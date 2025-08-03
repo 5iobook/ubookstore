@@ -3,8 +3,10 @@ package com.bookstore.user.user.presentation.controller.v1;
 import com.bookstore.common.application.dto.ResDTO;
 import com.bookstore.user.user.application.dto.v1.req.ReqUserPostSigninDtoApiV1;
 import com.bookstore.user.user.application.dto.v1.req.ReqUserPostSignupDtoApiV1;
+import com.bookstore.user.user.application.dto.v1.res.ResMyuserInfoDtoApiV1;
 import com.bookstore.user.user.application.dto.v1.res.ResTokenDtoApiV1;
 import com.bookstore.user.user.application.service.v1.UserServiceApiV1;
+import com.bookstore.user.user.infrastructure.config.CustomUserDetails;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -60,6 +63,22 @@ public class UserControllerApiV1 {
                 HttpStatus.OK
         );
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<ResDTO<Object>> userInfo(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        Long userid = userDetails.getUserId();
+        ResMyuserInfoDtoApiV1 dto = userServiceApi.getUserInfo(userid);
+        return ResponseEntity.ok(
+                ResDTO.builder()
+                        .code("0")
+                        .message("현재 로그인된 본인의 사용자 정보입니다")
+                        .data(dto)
+                        .build()
+        );
+    }
+
+
+
 
     @GetMapping("/mypage")
     public ResponseEntity<ResDTO<Object>> myPage() {
