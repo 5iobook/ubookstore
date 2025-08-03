@@ -11,6 +11,6 @@ public interface UserServiceApiV1 {
 
     ResTokenDtoApiV1 signIn(ReqUserPostSigninDtoApiV1 dto);
 
-    ResMyuserInfoDtoApiV1 getUserInfo(Long accessToken);
+    ResMyuserInfoDtoApiV1 getUserInfo(Long userId);
 
 }
