@@ -3,6 +3,8 @@ package com.bookstore.user.user.application.service.v1;
 import com.bookstore.common.application.exception.CustomException;
 import com.bookstore.user.user.application.dto.v1.req.ReqUserPostSigninDtoApiV1;
 import com.bookstore.user.user.application.dto.v1.req.ReqUserPostSignupDtoApiV1;
+import com.bookstore.user.user.application.dto.v1.res.ResMyuserInfoDtoApiV1;
+import com.bookstore.user.user.application.dto.v1.res.ResMyuserInfoDtoApiV1.User;
 import com.bookstore.user.user.application.dto.v1.res.ResTokenDtoApiV1;
 import com.bookstore.user.user.domain.entity.RefreshTokenEntity;
 import com.bookstore.user.user.domain.entity.UserEntity;
@@ -50,6 +52,7 @@ public class UserServiceApiV1Impl implements UserServiceApiV1 {
             log.warn("중복된 이메일로 인해 회원가입 실패: {}", user.getEmail());
             throw new CustomException(UserExceptionCode.DUPLICATE_EMAIL);
         }
+
     }
 
     @Override
@@ -66,7 +69,7 @@ public class UserServiceApiV1Impl implements UserServiceApiV1 {
         log.info("로그인_서비스: 비밀번호 일치 완");
         //3. jwt 토큰 확인하고 로그인 성공 후 반환
         //todo. 추후 확장성 고려 (String 타입-> Token 타입)
-        String accessToken = jwtUtil.generateAccessToken(user.getEmail(), user.getUserRole());
+        String accessToken = jwtUtil.generateAccessToken(user.getId(), user.getEmail(), user.getUserRole());
         String refreshToken = jwtUtil.generateRefreshToken(user.getEmail(), user.getUserRole());
 
         Date expirationDate = jwtUtil.parseToken(refreshToken).getExpiration();
@@ -83,5 +86,19 @@ public class UserServiceApiV1Impl implements UserServiceApiV1 {
 
         return ResTokenDtoApiV1.from(accessToken, refreshToken);
 
+    }
+
+    @Override
+    public ResMyuserInfoDtoApiV1 getUserInfo(Long userId) {
+        UserEntity user = userRepository.findById(userId).orElseThrow(() -> new CustomException(UserExceptionCode.NOT_FOUND_USER));
+        ResMyuserInfoDtoApiV1 resDto = ResMyuserInfoDtoApiV1.builder()
+                .user(ResMyuserInfoDtoApiV1.User.builder()
+                        .userName(user.getUserName())
+                        .email(user.getEmail())
+                        .profile(user.getProfile())
+                        .nickName(user.getNickName())
+                        .build())
+                .build();
+        return resDto;
     }
 }
