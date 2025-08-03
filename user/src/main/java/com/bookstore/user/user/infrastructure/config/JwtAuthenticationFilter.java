@@ -6,10 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -56,17 +53,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // 4. 토큰에서 이메일, 역할 꺼내기
         //todo. 예외처리
         Claims claims = jwtUtil.parseToken(token);
+        Long userId = claims.get("userId", Long.class);
         String email = claims.getSubject();
         String role = claims.get("role", String.class);
 
-            ////역할 GrantedAuthority 리스트 형으로 만들기
-        List<GrantedAuthority> authorities =
-                List.of(new SimpleGrantedAuthority("ROLE_" + role));
+//            ////역할 GrantedAuthority 리스트 형으로 만들기
+//        List<GrantedAuthority> authorities =
+//                List.of(new SimpleGrantedAuthority("ROLE_" + role));
+
+        CustomUserDetails customUserDetails = new CustomUserDetails(userId, email, role);
 
         // 5. 인증 객체 생성 및 등록
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(
-                        email, null, authorities
+                        customUserDetails,
+                        null, //비밀번호
+                        customUserDetails.getAuthorities()
                 );
 
             ////IP 주소, 세션 ID, 브라우저 정보 등 웹 요청의 메타데이터 자동입력(부가정보)
