@@ -5,10 +5,10 @@ Content-Type: application/json
 
 {
   "user": {
-    "userName": "tester1",
+    "userName": "tester2",
     "nickName": "nick",
     "password": "1234",
-    "email": "test3@example.com",
+    "email": "test4@example.com",
     "profile": "https://profile.img"
   }
 }
@@ -19,7 +19,7 @@ Content-Type: application/json
 
 {
   "user": {
-    "email": "test2@example.com",
+    "email": "test4@example.com",
     "password": "1234"
   }
 }
@@ -31,6 +31,15 @@ Content-Type: application/json
   console.log("Stored Access Token:", client.global.get("token"));
   console.log("Stored Refresh Token:", client.global.get("refreshToken"));
 %}
+
+### 내정보 보기
+GET http://localhost:8083/v1/users/me
+Authorization: Bearer {{token}}
+
+### 내정보 보기
+GET http://localhost:8083/v1/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEzLCJzdWIiOiJ0ZXN0NEBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSI
+
 ### 보호된 마이페이지 접근
 GET http://localhost:8083/v1/users/mypage
 Authorization: Bearer {{token}}
