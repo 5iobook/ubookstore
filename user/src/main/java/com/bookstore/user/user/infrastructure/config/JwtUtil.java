@@ -9,7 +9,6 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import java.security.Key;
 import java.util.Date;
-import javax.crypto.SecretKey;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,10 +38,11 @@ public class JwtUtil { // jwt 토큰을 만들고 파싱하고 검증하는 역�
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String generateAccessToken(String email, UserRole userRole) {
+    public String generateAccessToken(Long userId, String email, UserRole userRole) {
         Date now = new Date(); // 현재 시간
         Date expiry = new Date(now.getTime() + accessTokenExpiration); // 만료 시간
         return Jwts.builder()
+                .claim("userId", userId)
                 .setSubject(email)
                 .claim("role", userRole.name()) // 사용자 역할은 claim에 따로 추가
                 .setIssuedAt(now) // 발급 시각
