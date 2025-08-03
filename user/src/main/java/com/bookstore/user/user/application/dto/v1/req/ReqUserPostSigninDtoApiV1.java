@@ -12,12 +12,12 @@ public class ReqUserPostSigninDtoApiV1 {
 
     private User user;
 
-    public UserEntity createUser(){
-        return UserEntity.createForSignin(
-                user.getEmail(),
-                user.getPassword()
-        );
-    }
+//    public UserEntity createUser(){
+//        return UserEntity.createForSignin(
+//                user.getEmail(),
+//                user.getPassword()
+//        );
+//    }
 
     @Builder
     @Getter
