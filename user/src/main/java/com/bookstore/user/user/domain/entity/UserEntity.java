@@ -75,6 +75,18 @@ public class UserEntity extends BaseEntity {
                 .build();
     }
 
+    public static UserEntity createForUserInfo(String userName, String nickName,
+            String email,
+            String profile) {
+        return UserEntity.builder()
+                .userName(userName)
+                .nickName(nickName)
+                .email(email)
+                .profile(profile)
+                .build();
+    }
+
+
     public void encodePassword(String encodedPassword) {
         this.password = encodedPassword;
     }

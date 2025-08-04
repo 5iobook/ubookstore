@@ -2,14 +2,17 @@ package com.bookstore.user.user.infrastructure.config;
 
 import com.bookstore.user.user.domain.vo.UserRole;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.annotation.PostConstruct;
 import java.security.Key;
 import java.util.Date;
-import javax.crypto.SecretKey;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,10 +42,11 @@ public class JwtUtil { // jwt 토큰을 만들고 파싱하고 검증하는 역�
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String generateAccessToken(String email, UserRole userRole) {
+    public String generateAccessToken(Long userId, String email, UserRole userRole) {
         Date now = new Date(); // 현재 시간
         Date expiry = new Date(now.getTime() + accessTokenExpiration); // 만료 시간
         return Jwts.builder()
+                .claim("userId", userId)
                 .setSubject(email)
                 .claim("role", userRole.name()) // 사용자 역할은 claim에 따로 추가
                 .setIssuedAt(now) // 발급 시각
@@ -51,26 +55,19 @@ public class JwtUtil { // jwt 토큰을 만들고 파싱하고 검증하는 역�
                 .compact(); // JWT 문자열 생성
     }
 
-    public boolean isValid(String token) {
-        try {
-            Jwts.parserBuilder()
-                    .setSigningKey(this.key) //
-                    .build()
-                    .parseClaimsJws(token); // 서명+만료시간+구조검증
-            return true;
-        } catch (JwtException e) {
-            return false; // 유효하지 않으면 false
-            //todo. token custom exception 추가
-        }
-    }
 
-    //todo. 예외처리
-    public Claims parseToken(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(this.key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody(); // Claims: JWT 내부 데이터 (subject, issuedAt, 등등)
+    public Claims parseToken(String token) throws JwtException { // throws JwtException 추가
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(this.key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (SecurityException | MalformedJwtException | SignatureException |
+                 ExpiredJwtException | UnsupportedJwtException | IllegalArgumentException e) {
+            log.warn("JWT 파싱 중 오류 발생: {}", e.getMessage());
+            throw new JwtException("유효하지 않은 토큰입니다.", e); // 더 일반적인 JwtException으로 묶어서 던짐
+        }
     }
 
     public String generateRefreshToken(String email, UserRole userRole) {
