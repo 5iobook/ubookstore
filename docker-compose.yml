@@ -118,13 +118,12 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: ubookstore
-+     MYSQL_USER: user
-+     MYSQL_PASSWORD: 1234
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 1234
     ports:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   trade-frontend:
     build: ./trade/src/main/resources/static
