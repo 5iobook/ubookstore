@@ -13,15 +13,15 @@ import java.util.UUID;
 import org.springframework.data.domain.Pageable;
 
 public interface TradeServiceApiV1 {
-	ResTradeRequestDtoApiV1 postTradeRequest(ReqTradeRequestDtoApiV1 reqTradeRequestDtoApiV1);
+	ResTradeRequestDtoApiV1 postTradeRequest(ReqTradeRequestDtoApiV1 reqTradeRequestDtoApiV1, Long userId);
 
-	ResTradeAcceptDtoApiV1 postTradeAccept(UUID id); // TODO:: 현재 유저 정보 추가
+	ResTradeAcceptDtoApiV1 postTradeAccept(UUID id, Long userId);
 
-	ResTradeCancelDtoApiV1 postTradeCancel(UUID id, ReqTradeCancelDtoApiV1 reqTradeCancelDtoApiV1); // TODO:: 현재 유저 정보 추가
+	ResTradeCancelDtoApiV1 postTradeCancel(UUID id, ReqTradeCancelDtoApiV1 reqTradeCancelDtoApiV1, Long userId);
 
-	ResTradeCompleteDtoApiV1 postTradeComplete(UUID id); // TODO:: 현재 유저 정보 추가
+	ResTradeCompleteDtoApiV1 postTradeComplete(UUID id, Long userId);
 
-	ResTradeGetDetailListDtoApiV1 getTradeDetailList(UUID id); // TODO:: 현재 유저 정보 추가
+	ResTradeGetDetailListDtoApiV1 getTradeDetailList(UUID id, Long userId);
 
-	ResTradeGetSearchListDtoApiV1 getTradeSearchList(Predicate predicate, Pageable pageable);
+	ResTradeGetSearchListDtoApiV1 getTradeSearchList(Predicate predicate, Pageable pageable, Long userId);
 }

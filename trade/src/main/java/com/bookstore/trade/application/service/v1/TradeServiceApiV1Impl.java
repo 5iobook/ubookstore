@@ -30,13 +30,13 @@ public class TradeServiceApiV1Impl implements TradeServiceApiV1 {
 
 	@Override
 	public ResTradeRequestDtoApiV1 postTradeRequest(
-		ReqTradeRequestDtoApiV1 reqTradeRequestDtoApiV1) {
+		ReqTradeRequestDtoApiV1 reqTradeRequestDtoApiV1, Long userId) {
 		TradeEntity tradeEntity = tradeRepository.save(reqTradeRequestDtoApiV1.getTrade().toEntity());
 		return ResTradeRequestDtoApiV1.of(tradeEntity);
 	}
 
 	@Override
-	public ResTradeAcceptDtoApiV1 postTradeAccept(UUID id) {
+	public ResTradeAcceptDtoApiV1 postTradeAccept(UUID id, Long userId) {
 		updateTradeState(id, "ACCEPTED");
 		TradeEntity tradeEntity = tradeRepository.findById(id)
 			.orElseThrow(() -> new CustomException(TradeExceptionCode.TRADE_NOT_FOUND));
@@ -45,7 +45,7 @@ public class TradeServiceApiV1Impl implements TradeServiceApiV1 {
 
 	@Override
 	public ResTradeCancelDtoApiV1 postTradeCancel(UUID id,
-		ReqTradeCancelDtoApiV1 reqTradeCancelDtoApiV1) {
+		ReqTradeCancelDtoApiV1 reqTradeCancelDtoApiV1, Long userId) {
 		updateTradeState(id, "CANCELED");
 		TradeEntity tradeEntity = tradeRepository.findById(id)
 			.orElseThrow(() -> new CustomException(TradeExceptionCode.TRADE_NOT_FOUND));
@@ -53,7 +53,7 @@ public class TradeServiceApiV1Impl implements TradeServiceApiV1 {
 	}
 
 	@Override
-	public ResTradeCompleteDtoApiV1 postTradeComplete(UUID id) {
+	public ResTradeCompleteDtoApiV1 postTradeComplete(UUID id, Long userId) {
 		updateTradeState(id, "COMPLETED");
 		TradeEntity tradeEntity = tradeRepository.findById(id)
 			.orElseThrow(() -> new CustomException(TradeExceptionCode.TRADE_NOT_FOUND));
@@ -61,14 +61,14 @@ public class TradeServiceApiV1Impl implements TradeServiceApiV1 {
 	}
 
 	@Override
-	public ResTradeGetDetailListDtoApiV1 getTradeDetailList(UUID id) {
+	public ResTradeGetDetailListDtoApiV1 getTradeDetailList(UUID id, Long userId) {
 		TradeEntity tradeEntity = tradeRepository.findById(id)
 			.orElseThrow(() -> new CustomException(TradeExceptionCode.TRADE_NOT_FOUND));
 		return ResTradeGetDetailListDtoApiV1.of(tradeEntity);
 	}
 
 	@Override
-	public ResTradeGetSearchListDtoApiV1 getTradeSearchList(Predicate predicate, Pageable pageable) {
+	public ResTradeGetSearchListDtoApiV1 getTradeSearchList(Predicate predicate, Pageable pageable, Long userId) {
 		Page<TradeEntity> tradePage =
 				predicate == null
 				? tradeRepository.findAll(pageable)
