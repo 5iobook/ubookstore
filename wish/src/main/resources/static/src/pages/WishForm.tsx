@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createWish } from '../api/wishApi';
 
 function WishForm() {
-    const [userId, setUserId] = useState('');
-    const [bookId, setBookId] = useState('');
+    const [postId, setPostId] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
@@ -15,7 +14,7 @@ function WishForm() {
         setError(null);
 
         try {
-            await createWish({ userId, bookId });
+            await createWish(postId);
             alert('위시리스트에 추가되었습니다.');
             navigate('/');
         } catch (err) {
@@ -32,22 +31,13 @@ function WishForm() {
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <form onSubmit={handleSubmit}>
                 <div className="form-row">
-                    <label className="form-label">사용자 ID:</label>
+                    <label className="form-label">게시글 ID (UUID):</label>
                     <input
                         className="form-input"
                         type="text"
-                        value={userId}
-                        onChange={(e) => setUserId(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="form-row">
-                    <label className="form-label">도서 ID:</label>
-                    <input
-                        className="form-input"
-                        type="text"
-                        value={bookId}
-                        onChange={(e) => setBookId(e.target.value)}
+                        value={postId}
+                        onChange={(e) => setPostId(e.target.value)}
+                        placeholder="예: 550e8400-e29b-41d4-a716-446655440000"
                         required
                     />
                 </div>
