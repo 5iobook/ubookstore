@@ -9,6 +9,7 @@ USE bookstore;
 -- Wish tables would be created by JPA/Hibernate
 -- Trade tables would be created by JPA/Hibernate
 
--- Grant privileges
-GRANT ALL PRIVILEGES ON bookstore.* TO 'root'@'%';
+-- Grant privileges to root user from any host
+CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY '12345678';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
