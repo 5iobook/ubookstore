@@ -1,0 +1,10 @@
+CREATE DATABASE IF NOT EXISTS trade_db;
+CREATE DATABASE IF NOT EXISTS post_db;
+
+CREATE USER IF NOT EXISTS 'trade_user'@'%' IDENTIFIED BY 'trade_pw';
+CREATE USER IF NOT EXISTS 'post_user'@'%' IDENTIFIED BY 'post_pw';
+
+GRANT ALL PRIVILEGES ON trade_db.* TO 'trade_user'@'%';
+GRANT ALL PRIVILEGES ON post_db.* TO 'post_user'@'%';
+
+FLUSH PRIVILEGES;
