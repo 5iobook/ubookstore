@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { fetchWishListPage, Wish } from '../api/wishApi';
+import { fetchWishListPage } from '../api/wishApi';
+import type { Wish } from '../api/wishApi';
 
 function WishList() {
   const [wishes, setWishes] = useState<Wish[]>([]);

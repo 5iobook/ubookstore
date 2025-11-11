@@ -8,11 +8,11 @@ function App() {
     <Router>
       <nav style={{ marginBottom: 20 }}>
         <Link to="/" style={{ marginRight: 10 }}>위시리스트 목록</Link>
-        <Link to="/wish/new" style={{ marginRight: 10 }}>위시리스트 추가</Link>
+        <Link to="/new" style={{ marginRight: 10 }}>위시리스트 추가</Link>
       </nav>
       <Routes>
         <Route path="/" element={<WishList />} />
-        <Route path="/wish/new" element={<WishForm />} />
+        <Route path="/new" element={<WishForm />} />
       </Routes>
     </Router>
   );

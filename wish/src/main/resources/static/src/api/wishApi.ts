@@ -19,7 +19,7 @@ export interface WishListResponse {
 
 // 페이지네이션 목록 조회
 export async function fetchWishListPage(page: number, size: number): Promise<WishListResponse> {
-  const res = await axios.get(`${API_BASE}`, { params: { page, size } });
+  const res = await axios.get<any>(`${API_BASE}`, { params: { page, size } });
   return {
     items: res.data.data.content,
     totalPages: res.data.data.page.totalPages,
@@ -31,6 +31,6 @@ export async function fetchWishListPage(page: number, size: number): Promise<Wis
 
 // 위시리스트 생성
 export async function createWish(data: { userId: string; bookId: string }): Promise<Wish> {
-  const res = await axios.post(API_BASE, data);
+  const res = await axios.post<any>(API_BASE, data);
   return res.data.data;
 }
