@@ -200,7 +200,7 @@ function PostForm() {
                 onChange={(e) => setNewHashtagName(e.target.value)}
                 placeholder="새 해시태그 이름 (예: 소설, 과학)"
                 style={{ flex: 1, marginBottom: 0 }}
-                onKeyPress={(e) => {
+                onKeyDown={(e) => {
                   if (e.key === 'Enter') {
                     e.preventDefault();
                     handleCreateHashtag();

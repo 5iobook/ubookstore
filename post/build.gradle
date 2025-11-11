@@ -38,6 +38,7 @@ configurations {
 
 dependencies {
 	implementation 'com.github.5iobook:common:1.2.0'
+	implementation project(':user')
 
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
