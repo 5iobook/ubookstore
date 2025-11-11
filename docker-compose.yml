@@ -111,19 +111,17 @@ services:
       KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
       KAFKA_CLUSTERS_0_READONLY: "false"
 
-  trade-mysql:
+  mysql:
     image: mysql:8.0
-    container_name: trade-mysql
-    ports:
-      - "3306:3306"
+    container_name: mysql
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpw
-      MYSQL_DATABASE: trade_db
-      MYSQL_USER: trade_user
-      MYSQL_PASSWORD: trade_pw
+    ports:
+      - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
-    restart: always
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   trade-frontend:
     build: ./trade/src/main/resources/static
