@@ -76,7 +76,20 @@ export interface HashtagListResponse {
   };
 }
 
+export interface CreateHashtagRequest {
+  hashtag: {
+    name: string;
+  };
+}
+
 export async function fetchHashtagList(page: number = 0, size: number = 100): Promise<HashtagListResponse> {
   const res = await axios.get('/v1/hashtags', { params: { page, size } });
   return res.data.data;
+}
+
+export async function createHashtag(name: string): Promise<HashtagItem> {
+  const res = await axios.post('/v1/hashtags', {
+    hashtag: { name }
+  });
+  return res.data.data.hashtag;
 }
