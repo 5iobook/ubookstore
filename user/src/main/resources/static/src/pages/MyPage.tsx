@@ -36,6 +36,7 @@ function MyPage() {
             if (err.response?.status === 401) {
                 setError('인증이 만료되었습니다. 다시 로그인해주세요.');
                 localStorage.removeItem('accessToken');
+                delete axios.defaults.headers.common['Authorization'];
             } else {
                 setError('사용자 정보를 불러오는데 실패했습니다.');
             }
@@ -49,33 +50,95 @@ function MyPage() {
         delete axios.defaults.headers.common['Authorization'];
         alert('로그아웃되었습니다.');
         navigate('/');
+        window.location.reload(); // 네비게이션 상태 업데이트
     }
 
-    if (loading) return <div>로딩 중...</div>;
+    if (loading) return <div style={{ textAlign: 'center', marginTop: '50px' }}>로딩 중...</div>;
     
     if (error) {
         return (
-            <div>
-                <p style={{ color: 'red' }}>{error}</p>
-                <button onClick={() => navigate('/')}>로그인 페이지로</button>
+            <div style={{ textAlign: 'center', marginTop: '50px' }}>
+                <p style={{ color: 'red', fontSize: '1.1rem' }}>{error}</p>
+                <button 
+                    onClick={() => navigate('/')}
+                    style={{
+                        marginTop: 20,
+                        background: '#1976d2',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '6px',
+                        padding: '10px 24px',
+                        cursor: 'pointer',
+                        fontSize: '1rem'
+                    }}
+                >
+                    로그인 페이지로
+                </button>
             </div>
         );
     }
     
-    if (!user) return <div>사용자 정보가 없습니다.</div>;
+    if (!user) return <div style={{ textAlign: 'center', marginTop: '50px' }}>사용자 정보가 없습니다.</div>;
 
     return (
-        <div>
-            <h2>마이페이지</h2>
-            <div style={{ marginTop: '20px', textAlign: 'left', maxWidth: '600px', margin: '20px auto' }}>
-                <p><strong>사용자명:</strong> {user.userName}</p>
-                <p><strong>닉네임:</strong> {user.nickName || '-'}</p>
-                <p><strong>이메일:</strong> {user.email}</p>
-                <p><strong>프로필:</strong> {user.profile || '-'}</p>
+        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+            <h2 style={{ textAlign: 'center', color: '#1976d2', marginBottom: '30px' }}>마이페이지</h2>
+            <div style={{ 
+                background: '#fff',
+                padding: '30px',
+                borderRadius: '12px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+            }}>
+                <div style={{ marginBottom: '20px' }}>
+                    <label style={{ fontWeight: 'bold', color: '#555', display: 'block', marginBottom: '8px' }}>
+                        사용자명
+                    </label>
+                    <div style={{ padding: '10px', background: '#f5f5f5', borderRadius: '6px' }}>
+                        {user.userName}
+                    </div>
+                </div>
+                <div style={{ marginBottom: '20px' }}>
+                    <label style={{ fontWeight: 'bold', color: '#555', display: 'block', marginBottom: '8px' }}>
+                        닉네임
+                    </label>
+                    <div style={{ padding: '10px', background: '#f5f5f5', borderRadius: '6px' }}>
+                        {user.nickName || '-'}
+                    </div>
+                </div>
+                <div style={{ marginBottom: '20px' }}>
+                    <label style={{ fontWeight: 'bold', color: '#555', display: 'block', marginBottom: '8px' }}>
+                        이메일
+                    </label>
+                    <div style={{ padding: '10px', background: '#f5f5f5', borderRadius: '6px' }}>
+                        {user.email}
+                    </div>
+                </div>
+                <div style={{ marginBottom: '20px' }}>
+                    <label style={{ fontWeight: 'bold', color: '#555', display: 'block', marginBottom: '8px' }}>
+                        프로필
+                    </label>
+                    <div style={{ padding: '10px', background: '#f5f5f5', borderRadius: '6px' }}>
+                        {user.profile || '-'}
+                    </div>
+                </div>
+                <div style={{ textAlign: 'center', marginTop: '30px' }}>
+                    <button 
+                        onClick={handleLogout}
+                        style={{
+                            background: '#d32f2f',
+                            color: '#fff',
+                            border: 'none',
+                            borderRadius: '6px',
+                            padding: '12px 32px',
+                            cursor: 'pointer',
+                            fontSize: '1rem',
+                            fontWeight: '500'
+                        }}
+                    >
+                        로그아웃
+                    </button>
+                </div>
             </div>
-            <button onClick={handleLogout} style={{ marginTop: 20 }}>
-                로그아웃
-            </button>
         </div>
     );
 }

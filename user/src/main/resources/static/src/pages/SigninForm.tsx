@@ -27,6 +27,7 @@ function SigninForm() {
             
             alert('로그인되었습니다.');
             navigate('/mypage');
+            window.location.reload(); // 네비게이션 상태 업데이트를 위해 새로고침
         } catch (err: any) {
             console.error('로그인 실패:', err);
             setError(err.response?.data?.message || '로그인에 실패했습니다.');
