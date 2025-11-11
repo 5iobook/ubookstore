@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchPostListPage, Post } from '../api/postApi';
+import { fetchPostListPage, type Post } from '../api/postApi';
 
 function PostList() {
   const [posts, setPosts] = useState<Post[]>([]);

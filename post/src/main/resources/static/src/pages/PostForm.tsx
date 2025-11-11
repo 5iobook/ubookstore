@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createPost, fetchHashtagList, HashtagItem } from '../api/postApi';
+import { createPost, fetchHashtagList, type HashtagItem } from '../api/postApi';
 
 function PostForm() {
   const navigate = useNavigate();

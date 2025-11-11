@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchPostDetail, Post } from '../api/postApi';
+import { fetchPostDetail, type Post } from '../api/postApi';
 
 function PostDetail() {
   const { id } = useParams<{ id: string }>();
