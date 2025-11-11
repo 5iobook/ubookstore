@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { signin } from '../api/userApi';
 
 function SigninForm() {
-    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -17,7 +17,7 @@ function SigninForm() {
         try {
             const tokenData = await signin({
                 user: {
-                    userName,
+                    email,
                     password,
                 }
             });
@@ -42,13 +42,13 @@ function SigninForm() {
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <form onSubmit={handleSubmit}>
                 <div className="form-row">
-                    <label className="form-label">사용자명:</label>
+                    <label className="form-label">이메일:</label>
                     <input
                         className="form-input"
-                        type="text"
-                        value={userName}
-                        onChange={(e) => setUserName(e.target.value)}
-                        placeholder="사용자명을 입력하세요"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="이메일을 입력하세요"
                         required
                     />
                 </div>
