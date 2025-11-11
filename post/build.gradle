@@ -54,6 +54,10 @@ dependencies {
 	
 	// 테스트용 H2 데이터베이스
 	testImplementation 'com.h2database:h2'
+	
+	// Spring Security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
