@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 // Mock API 사용 여부 (백엔드가 준비되면 false로 변경)
-const USE_MOCK_API = true;
+const USE_MOCK_API = false;
 
 // Mock API import
 import * as mockApi from './mockBookApi';
 
 // Book 백엔드 API (Naver API 프록시)
-const API_BASE = 'http://localhost:8081/v1/books';
+const API_BASE = 'http://localhost:8087/v1/books';
 
 // 페이지네이션용 도서 목록 조회
 export async function fetchBookListPage(page: number, size: number) {

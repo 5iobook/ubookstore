@@ -12,17 +12,26 @@ const BookList: React.FC = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Number(searchParams.get('page')) || 0;
+  const query = searchParams.get('query') || 'spring';
 
   useEffect(() => {
     setLoading(true);
-    fetchBookListPage(page, PAGE_SIZE)
-      .then(res => {
-        setBooks(res.books);
-        setTotalPages(res.totalPages);
+    setError(null);
+    
+    // query 파라미터를 API에 전달
+    const apiUrl = `http://localhost:8087/v1/books?query=${encodeURIComponent(query)}&page=${page}&size=${PAGE_SIZE}`;
+    
+    fetch(apiUrl)
+      .then(res => res.json())
+      .then(data => {
+        const bookPage = data.data.bookPage;
+        const pageInfo = bookPage.page || {};
+        setBooks(bookPage.content || []);
+        setTotalPages(pageInfo.totalPages || 1);
       })
       .catch(() => setError('도서 목록을 불러오지 못했습니다.'))
       .finally(() => setLoading(false));
-  }, [page]);
+  }, [page, query]);
 
   const goToPage = (p: number) => {
     setSearchParams({ page: String(p) });
@@ -37,25 +46,27 @@ const BookList: React.FC = () => {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+            <th>이미지</th>
             <th>제목</th>
             <th>저자</th>
-            <th>ISBN</th>
+            <th>출판사</th>
             <th>가격</th>
-            <th>재고</th>
+            <th>ISBN</th>
           </tr>
         </thead>
         <tbody>
-          {books.map(book => (
-            <tr key={book.id}>
+          {books.map((book, index) => (
+            <tr key={book.isbn || index}>
               <td>
-                <Link to={`/book/${book.id}${window.location.search}`}>{book.id}</Link>
+                {book.image && <img src={book.image} alt={book.title} style={{width: '50px', height: '70px', objectFit: 'cover'}} />}
               </td>
-              <td>{book.title}</td>
-              <td>{book.author}</td>
+              <td>
+                <Link to={`/book/${book.isbn}${window.location.search}`} dangerouslySetInnerHTML={{__html: book.title}} />
+              </td>
+              <td dangerouslySetInnerHTML={{__html: book.author}} />
+              <td>{book.publisher}</td>
+              <td>{book.discount ? `${Number(book.discount).toLocaleString()}원` : '-'}</td>
               <td>{book.isbn}</td>
-              <td>{book.price?.toLocaleString()}원</td>
-              <td>{book.stock}</td>
             </tr>
           ))}
         </tbody>

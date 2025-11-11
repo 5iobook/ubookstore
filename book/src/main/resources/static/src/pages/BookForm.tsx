@@ -1,73 +1,46 @@
 import React, { useState } from 'react';
-import { createBook } from '../api/bookApi';
+import { useNavigate } from 'react-router-dom';
 import '../App.css';
 
 const BookForm: React.FC = () => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [isbn, setIsbn] = useState('');
-  const [price, setPrice] = useState('');
-  const [stock, setStock] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
+  const [query, setQuery] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setSuccess(false);
-    try {
-      await createBook({ 
-        title, 
-        author, 
-        isbn, 
-        price: Number(price), 
-        stock: Number(stock) 
-      });
-      setSuccess(true);
-      // 폼 초기화
-      setTitle('');
-      setAuthor('');
-      setIsbn('');
-      setPrice('');
-      setStock('');
-    } catch {
-      setError('도서 등록에 실패했습니다.');
-    } finally {
-      setLoading(false);
+    if (query.trim()) {
+      // 검색어를 URL 파라미터로 전달하여 목록 페이지로 이동
+      navigate(`/?query=${encodeURIComponent(query)}`);
     }
   };
 
   return (
     <div>
-      <h2>도서 등록</h2>
+      <h2>도서 검색</h2>
+      <p style={{color: '#666', marginBottom: '20px'}}>
+        Naver Book Search API를 사용하여 도서를 검색합니다.
+      </p>
       <form onSubmit={handleSubmit}>
         <div className="form-row">
-          <label className="form-label">제목:</label>
-          <input className="form-input" value={title} onChange={e => setTitle(e.target.value)} required />
+          <label className="form-label">검색어:</label>
+          <input 
+            className="form-input" 
+            value={query} 
+            onChange={e => setQuery(e.target.value)} 
+            placeholder="책 제목, 저자, 출판사 등을 입력하세요"
+            required 
+          />
         </div>
-        <div className="form-row">
-          <label className="form-label">저자:</label>
-          <input className="form-input" value={author} onChange={e => setAuthor(e.target.value)} required />
-        </div>
-        <div className="form-row">
-          <label className="form-label">ISBN:</label>
-          <input className="form-input" value={isbn} onChange={e => setIsbn(e.target.value)} required />
-        </div>
-        <div className="form-row">
-          <label className="form-label">가격:</label>
-          <input className="form-input" type="number" value={price} onChange={e => setPrice(e.target.value)} required />
-        </div>
-        <div className="form-row">
-          <label className="form-label">재고:</label>
-          <input className="form-input" type="number" value={stock} onChange={e => setStock(e.target.value)} required />
-        </div>
-        <button type="submit" disabled={loading}>등록</button>
+        <button type="submit">검색</button>
       </form>
-      {loading && <div>등록 중...</div>}
-      {error && <div style={{color:'red'}}>{error}</div>}
-      {success && <div style={{color:'green'}}>도서가 등록되었습니다!</div>}
+      <div style={{marginTop: '30px', padding: '15px', background: '#f0f4f8', borderRadius: '8px'}}>
+        <h3 style={{marginTop: 0, color: '#1976d2'}}>💡 검색 팁</h3>
+        <ul style={{lineHeight: '1.8'}}>
+          <li>책 제목, 저자명, 출판사명으로 검색할 수 있습니다</li>
+          <li>여러 단어를 입력하면 AND 검색이 됩니다</li>
+          <li>예: "스프링 부트", "이펙티브 자바", "마틴 파울러" 등</li>
+        </ul>
+      </div>
     </div>
   );
 };
