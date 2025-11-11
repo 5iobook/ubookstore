@@ -113,15 +113,17 @@ services:
 
   mysql:
     image: mysql:8.0
-    container_name: mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpw
+    container_name: bookstore-mysql
     ports:
       - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: bookstore
     volumes:
       - mysql-data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
 
   trade-frontend:
     build: ./trade/src/main/resources/static

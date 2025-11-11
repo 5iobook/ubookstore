@@ -1,10 +1,14 @@
-CREATE DATABASE IF NOT EXISTS trade_db;
-CREATE DATABASE IF NOT EXISTS post_db;
+-- Create database
+CREATE DATABASE IF NOT EXISTS bookstore CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-CREATE USER IF NOT EXISTS 'trade_user'@'%' IDENTIFIED BY 'trade_pw';
-CREATE USER IF NOT EXISTS 'post_user'@'%' IDENTIFIED BY 'post_pw';
+USE bookstore;
 
-GRANT ALL PRIVILEGES ON trade_db.* TO 'trade_user'@'%';
-GRANT ALL PRIVILEGES ON post_db.* TO 'post_user'@'%';
+-- User tables would be created by JPA/Hibernate
+-- Post tables would be created by JPA/Hibernate
+-- Chat tables would be created by JPA/Hibernate
+-- Wish tables would be created by JPA/Hibernate
+-- Trade tables would be created by JPA/Hibernate
 
+-- Grant privileges
+GRANT ALL PRIVILEGES ON bookstore.* TO 'root'@'%';
 FLUSH PRIVILEGES;
