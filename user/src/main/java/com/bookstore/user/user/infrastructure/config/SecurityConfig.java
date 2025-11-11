@@ -24,6 +24,9 @@ public class SecurityConfig {
         http
                 //CSRF 방어 비활성화 (REST API 용)
                 .csrf(csrf -> csrf.disable())
+                
+                //CORS 설정
+                .cors(cors -> cors.configure(http))
 
                 //요청 URL별로 접근 권한을 설정
                 .authorizeHttpRequests(auth -> auth
