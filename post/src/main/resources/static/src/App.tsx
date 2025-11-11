@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import PostList from './pages/PostList';
-import PostDetail from './pages/PostDetail';
 import PostForm from './pages/PostForm';
 import './App.css';
 
@@ -41,7 +40,6 @@ function App() {
       </nav>
       <Routes>
         <Route path="/" element={<PostList />} />
-        <Route path="/post/:id" element={<PostDetail />} />
         <Route path="/post/new" element={<PostForm />} />
       </Routes>
     </Router>

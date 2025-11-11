@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { fetchPostListPage, Post } from '../api/postApi';
 
 function PostList() {
@@ -18,8 +17,8 @@ function PostList() {
     setError(null);
     try {
       const data = await fetchPostListPage(page, 10);
-      setPosts(data.items);
-      setTotalPages(data.totalPages);
+      setPosts(data.postPage.content);
+      setTotalPages(data.postPage.page.totalPages);
     } catch (err) {
       console.error('게시글 목록 조회 실패:', err);
       setError('게시글 목록을 불러오는데 실패했습니다.');
@@ -29,7 +28,7 @@ function PostList() {
   }
 
   return (
-    <div style={{ maxWidth: 1000, margin: '0 auto', padding: 20 }}>
+    <div style={{ maxWidth: 1200, margin: '0 auto', padding: 20 }}>
       <h2>게시글 목록</h2>
       
       {error && <div style={{ color: 'red', marginBottom: 16 }}>{error}</div>}
@@ -41,24 +40,34 @@ function PostList() {
           <table>
             <thead>
               <tr>
-                <th>ID</th>
                 <th>제목</th>
-                <th>작성자 ID</th>
-                <th>작성일</th>
-                <th>상세</th>
+                <th>가격</th>
+                <th>상태</th>
+                <th>조회수</th>
+                <th>찜</th>
+                <th>해시태그</th>
               </tr>
             </thead>
             <tbody>
-              {posts.map((post) => (
-                <tr key={post.id}>
-                  <td>{post.id}</td>
+              {posts.map((post, index) => (
+                <tr key={index}>
                   <td>{post.title}</td>
-                  <td>{post.authorId}</td>
-                  <td>{new Date(post.createdAt).toLocaleString('ko-KR')}</td>
+                  <td>{post.price.amount.toLocaleString()} {post.price.currency}</td>
+                  <td>{post.condition}</td>
+                  <td>{post.viewCount}</td>
+                  <td>{post.wishCount}</td>
                   <td>
-                    <Link to={`/post/${post.id}`}>
-                      <button>보기</button>
-                    </Link>
+                    {post.hashtagList.map((tag, i) => (
+                      <span key={i} style={{ 
+                        background: '#e3f2fd', 
+                        padding: '2px 8px', 
+                        borderRadius: 4, 
+                        marginRight: 4,
+                        fontSize: '0.85rem'
+                      }}>
+                        #{tag.name}
+                      </span>
+                    ))}
                   </td>
                 </tr>
               ))}

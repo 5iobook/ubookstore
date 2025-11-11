@@ -45,9 +45,6 @@ function PostDetail() {
         marginBottom: 20
       }}>
         <div style={{ marginBottom: 16 }}>
-          <strong>ID:</strong> {post.id}
-        </div>
-        <div style={{ marginBottom: 16 }}>
           <strong>제목:</strong> {post.title}
         </div>
         <div style={{ marginBottom: 16 }}>
@@ -63,10 +60,36 @@ function PostDetail() {
           </div>
         </div>
         <div style={{ marginBottom: 16 }}>
-          <strong>작성자 ID:</strong> {post.authorId}
+          <strong>가격:</strong> {post.price.amount.toLocaleString()} {post.price.currency}
         </div>
         <div style={{ marginBottom: 16 }}>
-          <strong>작성일:</strong> {new Date(post.createdAt).toLocaleString('ko-KR')}
+          <strong>상품 상태:</strong> {post.condition}
+        </div>
+        <div style={{ marginBottom: 16 }}>
+          <strong>게시글 상태:</strong> {post.status}
+        </div>
+        <div style={{ marginBottom: 16 }}>
+          <strong>조회수:</strong> {post.viewCount}
+        </div>
+        <div style={{ marginBottom: 16 }}>
+          <strong>찜 수:</strong> {post.wishCount}
+        </div>
+        <div style={{ marginBottom: 16 }}>
+          <strong>해시태그:</strong>
+          <div style={{ marginTop: 8 }}>
+            {post.hashtagList.map((tag, i) => (
+              <span key={i} style={{ 
+                background: '#e3f2fd', 
+                padding: '4px 12px', 
+                borderRadius: 4, 
+                marginRight: 8,
+                display: 'inline-block',
+                marginBottom: 4
+              }}>
+                #{tag.name}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
