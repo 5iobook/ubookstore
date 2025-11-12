@@ -29,6 +29,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/v1/users/signup", "/v1/users/signin") // 특정 경로를 지정
                         .permitAll() //인증 없이도 모두 허용
+                        .requestMatchers("/v1/posts/**", "/v1/hashtags/**") // 게시글 관련 경로
+                        .permitAll() //인증 없이도 모두 허용
                         .anyRequest().authenticated() //이외의 요청은 인증된 사용자만 접근 가능
                 )
                 // JWT 인증 필터를 UsernamePasswordAuthenticationFilter 앞에 추가
