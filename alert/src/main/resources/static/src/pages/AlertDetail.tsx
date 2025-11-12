@@ -1,15 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchAlertDetail } from '../api/alertApi';
-
-interface Alert {
-  id: string;
-  userId: string;
-  message: string;
-  type: string;
-  isRead: boolean;
-  createdAt: string;
-}
+import { fetchAlertDetail, markAlertAsRead, type Alert } from '../api/alertApi';
 
 function AlertDetail() {
   const { id } = useParams<{ id: string }>();
@@ -29,11 +20,27 @@ function AlertDetail() {
     setLoading(true);
     setError(null);
     try {
-      const data = await fetchAlertDetail(id);
+      const data = await fetchAlertDetail(Number(id));
       setAlert(data);
     } catch (err) {
       console.error('알림 상세 조회 실패:', err);
       setError('알림 정보를 불러오는데 실패했습니다.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleMarkAsRead() {
+    if (!id || !alert) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const updatedAlert = await markAlertAsRead(Number(id));
+      setAlert(updatedAlert);
+      alert('알림을 읽음 처리했습니다.');
+    } catch (err) {
+      console.error('알림 읽음 처리 실패:', err);
+      setError('알림 읽음 처리에 실패했습니다.');
     } finally {
       setLoading(false);
     }
@@ -54,9 +61,16 @@ function AlertDetail() {
         <p><strong>읽음 여부:</strong> {alert.isRead ? '읽음' : '안읽음'}</p>
         <p><strong>생성일:</strong> {new Date(alert.createdAt).toLocaleString()}</p>
         
-        <button onClick={() => navigate('/')} style={{ marginTop: 20 }}>
-          목록으로 돌아가기
-        </button>
+        <div style={{ marginTop: 20, display: 'flex', gap: 10 }}>
+          {!alert.isRead && (
+            <button onClick={handleMarkAsRead} disabled={loading}>
+              읽음 처리
+            </button>
+          )}
+          <button onClick={() => navigate('/')}>
+            목록으로 돌아가기
+          </button>
+        </div>
       </div>
     </div>
   );

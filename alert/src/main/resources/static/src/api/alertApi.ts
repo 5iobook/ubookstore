@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const API_BASE = 'http://localhost:8085/v1/alerts';
 
-interface Alert {
-  id: string;
+export interface Alert {
+  id: number;
   userId: string;
   message: string;
   type: string;
@@ -18,12 +18,26 @@ interface PageInfo {
   size: number;
 }
 
-interface AlertListResponse {
+export interface AlertListResponse {
   items: Alert[];
   totalPages: number;
   totalElements: number;
   page: number;
   size: number;
+}
+
+export interface CreateAlertRequest {
+  userId: string;
+  message: string;
+  type: string;
+}
+
+/**
+ * 알림 생성
+ */
+export async function createAlert(request: CreateAlertRequest): Promise<Alert> {
+  const res = await axios.post(`${API_BASE}`, request);
+  return res.data.data;
 }
 
 /**
@@ -43,7 +57,15 @@ export async function fetchAlertListPage(page: number, size: number): Promise<Al
 /**
  * 알림 상세 조회
  */
-export async function fetchAlertDetail(id: string): Promise<Alert> {
+export async function fetchAlertDetail(id: number): Promise<Alert> {
   const res = await axios.get(`${API_BASE}/${id}`);
+  return res.data.data;
+}
+
+/**
+ * 알림 읽음 처리
+ */
+export async function markAlertAsRead(id: number): Promise<Alert> {
+  const res = await axios.put(`${API_BASE}/${id}/read`);
   return res.data.data;
 }

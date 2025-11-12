@@ -1,15 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchAlertListPage } from '../api/alertApi';
-
-interface Alert {
-  id: string;
-  userId: string;
-  message: string;
-  type: string;
-  isRead: boolean;
-  createdAt: string;
-}
+import { fetchAlertListPage, createAlert, type Alert } from '../api/alertApi';
 
 function AlertList() {
   const [alerts, setAlerts] = useState<Alert[]>([]);
@@ -19,6 +10,11 @@ function AlertList() {
   const [totalPages, setTotalPages] = useState(0);
   const [totalElements, setTotalElements] = useState(0);
   const size = 10;
+
+  // 새 알림 생성 폼
+  const [userId, setUserId] = useState('user1');
+  const [message, setMessage] = useState('');
+  const [type, setType] = useState('INFO');
 
   useEffect(() => {
     loadAlerts();
@@ -40,6 +36,28 @@ function AlertList() {
     }
   }
 
+  async function handleCreateAlert() {
+    if (!message.trim()) {
+      alert('메시지를 입력해주세요.');
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    try {
+      await createAlert({ userId, message, type });
+      alert('알림이 생성되었습니다.');
+      setMessage('');
+      setPage(0);
+      loadAlerts();
+    } catch (err) {
+      console.error('알림 생성 실패:', err);
+      setError('알림 생성에 실패했습니다.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   function handlePrevPage() {
     if (page > 0) setPage(page - 1);
   }
@@ -51,6 +69,48 @@ function AlertList() {
   return (
     <div>
       <h2>알림 목록</h2>
+      
+      <div style={{ marginBottom: 20, padding: 20, background: '#f5f5f5', borderRadius: 8 }}>
+        <h3>새 알림 생성</h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+            <label style={{ width: 100 }}>사용자 ID:</label>
+            <input
+              type="text"
+              value={userId}
+              onChange={(e) => setUserId(e.target.value)}
+              style={{ flex: 1, padding: 8 }}
+            />
+          </div>
+          <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+            <label style={{ width: 100 }}>타입:</label>
+            <select
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              style={{ flex: 1, padding: 8 }}
+            >
+              <option value="INFO">INFO</option>
+              <option value="WARNING">WARNING</option>
+              <option value="ERROR">ERROR</option>
+              <option value="SUCCESS">SUCCESS</option>
+            </select>
+          </div>
+          <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+            <label style={{ width: 100 }}>메시지:</label>
+            <input
+              type="text"
+              placeholder="알림 메시지 입력"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              style={{ flex: 1, padding: 8 }}
+            />
+          </div>
+          <button onClick={handleCreateAlert} disabled={loading}>
+            알림 생성
+          </button>
+        </div>
+      </div>
+
       <p>총 {totalElements}개의 알림</p>
 
       {loading && <p>로딩 중...</p>}
