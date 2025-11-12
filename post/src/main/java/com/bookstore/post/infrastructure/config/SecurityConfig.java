@@ -26,8 +26,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/v1/posts/**", "/v1/hashtags/**").permitAll() // Post 관련 API는 모두 허용
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll() // 모든 요청 허용 (인증은 선택적)
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
