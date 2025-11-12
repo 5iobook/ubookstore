@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchMyChatRooms, getOrCreateDirectChat, ChatRoom } from '../api/chatApi';
+import { fetchMyChatRooms, getOrCreateDirectChat, type ChatRoom } from '../api/chatApi';
 
 function ChatRoomList() {
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);

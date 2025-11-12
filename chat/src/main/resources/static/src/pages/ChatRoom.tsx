@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchChatRoomDetail, ChatRoom as ChatRoomType } from '../api/chatApi';
+import { fetchChatRoomDetail, type ChatRoom as ChatRoomType } from '../api/chatApi';
 
 function ChatRoom() {
   const { id } = useParams<{ id: string }>();
