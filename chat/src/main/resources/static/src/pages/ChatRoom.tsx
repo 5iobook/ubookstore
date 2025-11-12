@@ -36,20 +36,20 @@ function ChatRoom() {
 
   return (
     <div>
-      <h2>채팅방: {chatRoom.name}</h2>
+      <h2>채팅방</h2>
       <div style={{ textAlign: 'left', maxWidth: 600, margin: '0 auto' }}>
-        <p><strong>채팅방 ID:</strong> {chatRoom.id}</p>
-        <p><strong>채팅방 이름:</strong> {chatRoom.name}</p>
-        <p><strong>참여자:</strong></p>
-        <ul>
-          {chatRoom.participants.map((participant, index) => (
-            <li key={index}>{participant}</li>
-          ))}
-        </ul>
+        <p><strong>채팅방 ID:</strong> {chatRoom.roomId}</p>
+        <p><strong>방장:</strong> {chatRoom.owner}</p>
         <p><strong>생성일:</strong> {new Date(chatRoom.createdAt).toLocaleString()}</p>
-        <div style={{ marginTop: 30, padding: 20, background: '#f5f5f5', borderRadius: 8 }}>
-          <p style={{ color: '#666' }}>채팅 기능은 추후 구현 예정입니다.</p>
+        
+        <div style={{ marginTop: 30, padding: 20, background: '#f5f5f5', borderRadius: 8, minHeight: 300 }}>
+          <h3>채팅 메시지</h3>
+          <p style={{ color: '#666' }}>WebSocket 채팅 기능은 추후 구현 예정입니다.</p>
+          <p style={{ color: '#666', fontSize: '0.9em', marginTop: 10 }}>
+            현재는 채팅방 생성 및 목록 조회 기능만 사용 가능합니다.
+          </p>
         </div>
+        
         <button onClick={() => navigate('/')} style={{ marginTop: 20 }}>
           목록으로 돌아가기
         </button>
