@@ -17,11 +17,24 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class SlackService {
 
-    Dotenv dotenv = Dotenv.load();
-
+    private final Dotenv dotenv;
     private final RestTemplate restTemplate = new RestTemplate();
 
+    public SlackService() {
+        // .env 파일이 없어도 실행되도록 ignoreIfMissing 옵션 사용
+        this.dotenv = Dotenv.configure()
+                .ignoreIfMissing()
+                .load();
+    }
+
     public void sendSlackMessage(String message) {
+        String webhookUrl = dotenv.get("slack_webhook_url");
+        
+        // Webhook URL이 설정되지 않은 경우 로그만 출력하고 종료
+        if (webhookUrl == null || webhookUrl.isEmpty()) {
+            System.out.println("Slack webhook URL not configured. Message: " + message);
+            return;
+        }
 
         // JSON 형식의 요청 바디 구성
         Map<String, String> body = new HashMap<>();
@@ -33,7 +46,7 @@ public class SlackService {
         HttpEntity<Map<String, String>> request = new HttpEntity<>(body, headers);
 
         try {
-            ResponseEntity<String> response = restTemplate.postForEntity(dotenv.get("slack_webhook_url"), request, String.class);
+            ResponseEntity<String> response = restTemplate.postForEntity(webhookUrl, request, String.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 System.out.println("Slack message sent successfully!");
             } else {
