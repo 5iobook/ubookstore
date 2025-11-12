@@ -13,7 +13,7 @@ dependencyManagement {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'com.h2database:h2'
+	runtimeOnly 'com.mysql:mysql-connector-j'
 	implementation 'com.github.5iobook:common:1.2.0'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 	compileOnly 'org.projectlombok:lombok'
