@@ -36,6 +36,7 @@ public class ResHashtagGetDTOApiV1 {
         @Getter
         @Builder
         public static class Hashtag {
+            private java.util.UUID id;
             private String name;
 
             public static List<Hashtag> from(List<HashtagEntity> hashtagEntityList) {
@@ -46,6 +47,7 @@ public class ResHashtagGetDTOApiV1 {
 
             public static Hashtag from(HashtagEntity hashtagEntity) {
                 return Hashtag.builder()
+                    .id(hashtagEntity.getId())
                     .name(hashtagEntity.getName())
                     .build();
             }

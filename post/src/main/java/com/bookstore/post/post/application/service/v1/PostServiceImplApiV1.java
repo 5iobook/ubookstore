@@ -36,8 +36,11 @@ public class PostServiceImplApiV1 implements PostServiceApiV1 {
 
     @Override
     @Transactional
-    public ResPostPostDTOApiV1 postBy(ReqPostPostDTOApiV1 dto) {
+    public ResPostPostDTOApiV1 postBy(ReqPostPostDTOApiV1 dto, Long userId) {
         PostEntity postEntity = postRepository.save(dto.createPost());
+        
+        // userId가 있으면 작성자 정보 설정 (향후 PostEntity에 authorId 필드 추가 시 사용)
+        // postEntity.setAuthorId(userId);
 
         List<PostHashtagEntity> postHashtagEntityList = dto.getPost().getHashtagList().stream()
             .map(hashtag -> {
@@ -75,8 +78,14 @@ public class PostServiceImplApiV1 implements PostServiceApiV1 {
 
     @Override
     @Transactional
-    public ResPostPutDTOApiV1 putBy(UUID id, ReqPostPutDTOApiV1 dto) {
+    public ResPostPutDTOApiV1 putBy(UUID id, ReqPostPutDTOApiV1 dto, Long userId) {
         PostEntity postEntity = findPostById(id);
+        
+        // userId가 있으면 권한 체크 (향후 PostEntity에 authorId 필드 추가 시 사용)
+        // if (userId != null && !postEntity.getAuthorId().equals(userId)) {
+        //     throw new CustomException(PostExceptionCode.UNAUTHORIZED);
+        // }
+        
         dto.getPost().update(postEntity);
 
         if (dto.getPost().getHashtagList() != null) {
@@ -93,9 +102,15 @@ public class PostServiceImplApiV1 implements PostServiceApiV1 {
 
     @Override
     @Transactional
-    public void deleteBy(UUID id) {
+    public void deleteBy(UUID id, Long userId) {
         PostEntity postEntity = findPostById(id);
-        postEntity.delete(1L);
+        
+        // userId가 있으면 권한 체크 (향후 PostEntity에 authorId 필드 추가 시 사용)
+        // if (userId != null && !postEntity.getAuthorId().equals(userId)) {
+        //     throw new CustomException(PostExceptionCode.UNAUTHORIZED);
+        // }
+        
+        postEntity.delete(userId != null ? userId : 1L);
     }
 
     @Override

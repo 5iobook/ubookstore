@@ -11,15 +11,15 @@ import java.util.UUID;
 import org.springframework.data.domain.Pageable;
 
 public interface PostServiceApiV1 {
-    ResPostPostDTOApiV1 postBy(ReqPostPostDTOApiV1 dto);
+    ResPostPostDTOApiV1 postBy(ReqPostPostDTOApiV1 dto, Long userId);
 
     ResPostGetByIdDTOApiV1 getBy(UUID id);
 
     ResPostGetDTOApiV1 getBy(Predicate predicate, Pageable pageable);
 
-    ResPostPutDTOApiV1 putBy(UUID id, ReqPostPutDTOApiV1 dto);
+    ResPostPutDTOApiV1 putBy(UUID id, ReqPostPutDTOApiV1 dto, Long userId);
 
-    void deleteBy(UUID id);
+    void deleteBy(UUID id, Long userId);
 
     void existsBy(UUID id);
 
