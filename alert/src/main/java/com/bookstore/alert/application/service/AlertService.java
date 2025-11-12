@@ -52,11 +52,19 @@ public class AlertService {
 
     @Transactional
     public AlertResponse markAsRead(Long id) {
+        log.info("markAsRead called for id: {}", id);
         Alert alert = alertJpaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Alert not found with id: " + id));
         
+        log.info("Before markAsRead - isRead: {}", alert.isRead());
         alert.markAsRead();
+        log.info("After markAsRead - isRead: {}", alert.isRead());
+        
         Alert updatedAlert = alertJpaRepository.save(alert);
-        return AlertResponse.from(updatedAlert);
+        log.info("After save - isRead: {}", updatedAlert.isRead());
+        
+        AlertResponse response = AlertResponse.from(updatedAlert);
+        log.info("Response isRead: {}", response.isRead());
+        return response;
     }
 }

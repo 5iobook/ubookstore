@@ -1,6 +1,7 @@
 package com.bookstore.alert.application.dto.response;
 
 import com.bookstore.alert.domain.alert.entity.Alert;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +13,10 @@ public class AlertResponse {
     private String userId;
     private String message;
     private String type;
+    
+    @JsonProperty("isRead")
     private boolean isRead;
+    
     private LocalDateTime createdAt;
 
     public static AlertResponse from(Alert alert) {
