@@ -6,14 +6,14 @@ import './App.css';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/book">
       <nav style={{ marginBottom: 20 }}>
         <Link to="/" style={{ marginRight: 10 }}>도서 목록</Link>
         <Link to="/search" style={{ marginRight: 10 }}>도서 검색</Link>
       </nav>
       <Routes>
         <Route path="/" element={<BookList />} />
-        <Route path="/book/:id" element={<BookDetail />} />
+        <Route path="/:id" element={<BookDetail />} />
         <Route path="/search" element={<BookForm />} />
       </Routes>
     </Router>

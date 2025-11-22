@@ -26,36 +26,51 @@ public class ChatRoomController {
     private final ChatRoomService chatRoomService;
 
     @PostMapping
-    public ResponseEntity<ChatRoomResponse> createChatRoom(@RequestBody ChatRoomRequest chatRoomRequest) {
+    public ResponseEntity<Map<String, Object>> createChatRoom(@RequestBody ChatRoomRequest chatRoomRequest) {
         ChatRoomResponse chatRoom = chatRoomService.roomSave(chatRoomRequest);
-
-        return ResponseEntity.ok(chatRoom);
+        Map<String, Object> response = new HashMap<>();
+        response.put("code", "0");
+        response.put("message", "채팅방 생성 성공");
+        response.put("data", chatRoom);
+        return ResponseEntity.ok(response);
     }
 
     // 내 채팅방 목록 조회
     @GetMapping("/my")
-    public ResponseEntity<List<ChatRoomResponse>> getMyChatRooms(@RequestParam String userId) {
+    public ResponseEntity<Map<String, Object>> getMyChatRooms(@RequestParam String userId) {
         List<ChatRoomResponse> chatRooms = chatRoomService.getMyChatRooms(userId);
-        return ResponseEntity.ok(chatRooms);
+        Map<String, Object> response = new HashMap<>();
+        response.put("code", "0");
+        response.put("message", "채팅방 목록 조회 성공");
+        response.put("data", chatRooms);
+        return ResponseEntity.ok(response);
     }
 
     // 채팅방 상세 조회
     @GetMapping("/{roomId}")
-    public ResponseEntity<ChatRoomResponse> getChatRoom(@PathVariable String roomId) {
+    public ResponseEntity<Map<String, Object>> getChatRoom(@PathVariable String roomId) {
         ChatRoom chatRoom = chatRoomService.findChatRoomById(roomId);
         if (chatRoom == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(new ChatRoomResponse(chatRoom));
+        Map<String, Object> response = new HashMap<>();
+        response.put("code", "0");
+        response.put("message", "채팅방 조회 성공");
+        response.put("data", new ChatRoomResponse(chatRoom));
+        return ResponseEntity.ok(response);
     }
 
     // 1:1 채팅방 생성 또는 기존 방 반환
     @PostMapping("/direct")
-    public ResponseEntity<ChatRoomResponse> getOrCreateDirectChat(
+    public ResponseEntity<Map<String, Object>> getOrCreateDirectChat(
         @RequestParam String currentUser,
         @RequestParam String targetUser
     ) {
         ChatRoomResponse chatRoom = chatRoomService.getOrCreateChatRoom(currentUser, targetUser);
-        return ResponseEntity.ok(chatRoom);
+        Map<String, Object> response = new HashMap<>();
+        response.put("code", "0");
+        response.put("message", "채팅방 조회/생성 성공");
+        response.put("data", chatRoom);
+        return ResponseEntity.ok(response);
     }
 }

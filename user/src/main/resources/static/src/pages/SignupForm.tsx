@@ -19,12 +19,14 @@ function SignupForm() {
 
         try {
             await signup({
-                username: userName,
+                userName,
+                nickName: nickName || userName,
                 password,
                 email,
+                profile
             });
             alert('회원가입이 완료되었습니다.');
-            navigate('/');
+            navigate('/signin');
         } catch (err: any) {
             console.error('회원가입 실패:', err);
             setError(err.response?.data?.message || '회원가입에 실패했습니다.');
