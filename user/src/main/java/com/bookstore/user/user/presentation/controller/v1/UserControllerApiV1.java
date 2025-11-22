@@ -90,6 +90,47 @@ public class UserControllerApiV1 {
         );
     }
 
+    @GetMapping
+    public ResponseEntity<ResDTO<Object>> getUserList(
+            @org.springframework.web.bind.annotation.RequestParam(defaultValue = "0") int page,
+            @org.springframework.web.bind.annotation.RequestParam(defaultValue = "10") int size) {
+        
+        // 임시로 빈 목록 반환 (실제 구현은 서비스 레이어에서)
+        java.util.Map<String, Object> pageInfo = new java.util.HashMap<>();
+        pageInfo.put("totalPages", 0);
+        pageInfo.put("totalElements", 0);
+        pageInfo.put("number", page);
+        pageInfo.put("size", size);
+        
+        java.util.Map<String, Object> data = new java.util.HashMap<>();
+        data.put("content", new java.util.ArrayList<>());
+        data.put("page", pageInfo);
+        
+        return ResponseEntity.ok(
+                ResDTO.builder()
+                        .code("0")
+                        .message("사용자 목록 조회 성공")
+                        .data(data)
+                        .build()
+        );
+    }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ResDTO<Object>> getUserDetail(@org.springframework.web.bind.annotation.PathVariable Long id) {
+        // 임시로 더미 데이터 반환
+        java.util.Map<String, Object> user = new java.util.HashMap<>();
+        user.put("id", id);
+        user.put("username", "user" + id);
+        user.put("email", "user" + id + "@example.com");
+        user.put("createdAt", java.time.LocalDateTime.now().toString());
+        
+        return ResponseEntity.ok(
+                ResDTO.builder()
+                        .code("0")
+                        .message("사용자 상세 조회 성공")
+                        .data(user)
+                        .build()
+        );
+    }
 
 }
