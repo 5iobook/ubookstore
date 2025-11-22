@@ -36,6 +36,9 @@ out/
 ### VS Code ###
 .vscode/
 
+### Kiro ###
+.kiro/
+
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,intellij+all,java
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,intellij+all,java
 
@@ -213,3 +216,12 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,intellij+all,java
+
+### Frontend (Node.js / Vite) ###
+**/src/main/resources/static/node_modules/
+**/src/main/resources/static/.vite/
+**/src/main/resources/static/dist/
+**/src/main/resources/static/.bin/
+**/src/main/resources/static/package-lock.json
+**/src/main/resources/static/yarn.lock
+**/src/main/resources/static/pnpm-lock.yaml
