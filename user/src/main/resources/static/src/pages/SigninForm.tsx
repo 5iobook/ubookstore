@@ -16,16 +16,17 @@ function SigninForm() {
 
         try {
             const tokenData = await signin({
-                username: email,
+                email,
                 password,
             });
             
             // 액세스 토큰을 로컬 스토리지에 저장
-            localStorage.setItem('accessToken', tokenData.accessToken);
+            if (tokenData?.accessToken) {
+                localStorage.setItem('accessToken', tokenData.accessToken);
+            }
             
             alert('로그인되었습니다.');
-            navigate('/mypage');
-            window.location.reload(); // 네비게이션 상태 업데이트를 위해 새로고침
+            navigate('/');
         } catch (err: any) {
             console.error('로그인 실패:', err);
             setError(err.response?.data?.message || '로그인에 실패했습니다.');

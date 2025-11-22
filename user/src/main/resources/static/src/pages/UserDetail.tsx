@@ -52,9 +52,11 @@ function UserDetail() {
             <h2>사용자 상세</h2>
             <div style={{ marginTop: '20px', textAlign: 'left', maxWidth: '600px', margin: '20px auto' }}>
                 <p><strong>ID:</strong> {user.id}</p>
-                <p><strong>사용자명:</strong> {user.username}</p>
+                <p><strong>사용자명:</strong> {user.userName}</p>
+                <p><strong>닉네임:</strong> {user.nickName || '-'}</p>
                 <p><strong>이메일:</strong> {user.email}</p>
-                <p><strong>생성일:</strong> {new Date(user.createdAt).toLocaleString()}</p>
+                <p><strong>프로필:</strong> {user.profile || '-'}</p>
+                {user.createdAt && <p><strong>생성일:</strong> {new Date(user.createdAt).toLocaleString()}</p>}
             </div>
         </div>
     );

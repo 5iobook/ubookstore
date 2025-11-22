@@ -11,6 +11,8 @@ public class ResMyuserInfoDtoApiV1 {
     @Builder
     @Getter
     public static class User{
+        private Long id;
+        
         private String userName;
 
         private String nickName;

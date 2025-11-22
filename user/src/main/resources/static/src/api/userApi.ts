@@ -3,11 +3,11 @@ import axios from 'axios';
 const API_BASE = '/v1/users';
 
 export interface User {
-  id: string;
-  username: string;
+  id: number;
+  userName: string;
   email: string;
-  createdAt: string;
-  nickname?: string;
+  createdAt?: string;
+  nickName?: string;
   profile?: string;
 }
 
@@ -44,14 +44,27 @@ export async function createUser(data: { username: string; email: string }): Pro
 }
 
 // 회원가입
-export async function signup(data: { username: string; password: string; email: string }): Promise<any> {
-  const res = await axios.post<any>(`${API_BASE}/signup`, data);
+export async function signup(data: { userName: string; nickName?: string; password: string; email: string; profile?: string }): Promise<any> {
+  const res = await axios.post<any>(`${API_BASE}/signup`, {
+    user: {
+      userName: data.userName,
+      nickName: data.nickName || data.userName,
+      password: data.password,
+      email: data.email,
+      profile: data.profile || ''
+    }
+  });
   return res.data.data;
 }
 
 // 로그인
-export async function signin(data: { username: string; password: string }): Promise<any> {
-  const res = await axios.post<any>(`${API_BASE}/signin`, data);
+export async function signin(data: { email: string; password: string }): Promise<any> {
+  const res = await axios.post<any>(`${API_BASE}/signin`, {
+    user: {
+      email: data.email,
+      password: data.password
+    }
+  });
   return res.data.data;
 }
 

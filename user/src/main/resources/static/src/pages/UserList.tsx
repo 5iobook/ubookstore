@@ -52,9 +52,9 @@ function UserList() {
                             {users.map((user) => (
                                 <tr key={user.id}>
                                     <td>{user.id}</td>
-                                    <td>{user.username}</td>
+                                    <td>{user.userName}</td>
                                     <td>{user.email}</td>
-                                    <td>{new Date(user.createdAt).toLocaleString()}</td>
+                                    <td>{user.createdAt ? new Date(user.createdAt).toLocaleString() : '-'}</td>
                                     <td>
                                         <Link to={`/user/${user.id}`} style={{ color: '#1976d2' }}>
                                             보기

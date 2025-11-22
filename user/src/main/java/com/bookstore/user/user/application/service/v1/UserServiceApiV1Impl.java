@@ -93,6 +93,7 @@ public class UserServiceApiV1Impl implements UserServiceApiV1 {
         UserEntity user = userRepository.findById(userId).orElseThrow(() -> new CustomException(UserExceptionCode.NOT_FOUND_USER));
         ResMyuserInfoDtoApiV1 resDto = ResMyuserInfoDtoApiV1.builder()
                 .user(ResMyuserInfoDtoApiV1.User.builder()
+                        .id(user.getId())
                         .userName(user.getUserName())
                         .email(user.getEmail())
                         .profile(user.getProfile())
@@ -100,5 +101,20 @@ public class UserServiceApiV1Impl implements UserServiceApiV1 {
                         .build())
                 .build();
         return resDto;
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public org.springframework.data.domain.Page<ResMyuserInfoDtoApiV1> getUserList(org.springframework.data.domain.Pageable pageable) {
+        return userRepository.findAll(pageable)
+                .map(user -> ResMyuserInfoDtoApiV1.builder()
+                        .user(ResMyuserInfoDtoApiV1.User.builder()
+                                .id(user.getId())
+                                .userName(user.getUserName())
+                                .email(user.getEmail())
+                                .profile(user.getProfile())
+                                .nickName(user.getNickName())
+                                .build())
+                        .build());
     }
 }
