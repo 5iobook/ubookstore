@@ -16,10 +16,8 @@ function SigninForm() {
 
         try {
             const tokenData = await signin({
-                user: {
-                    email,
-                    password,
-                }
+                username: email,
+                password,
             });
             
             // 액세스 토큰을 로컬 스토리지에 저장

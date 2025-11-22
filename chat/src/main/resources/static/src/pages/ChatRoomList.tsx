@@ -6,7 +6,7 @@ function ChatRoomList() {
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [currentUserId, setCurrentUserId] = useState('user1'); // 임시 사용자 ID
+  const [currentUserId] = useState('user1'); // 임시 사용자 ID
   const [targetUserId, setTargetUserId] = useState('');
 
   useEffect(() => {

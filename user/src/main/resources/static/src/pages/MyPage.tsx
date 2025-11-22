@@ -94,7 +94,7 @@ function MyPage() {
                         사용자명
                     </label>
                     <div style={{ padding: '10px', background: '#f5f5f5', borderRadius: '6px' }}>
-                        {user.userName}
+                        {user.username}
                     </div>
                 </div>
                 <div style={{ marginBottom: '20px' }}>
@@ -102,7 +102,7 @@ function MyPage() {
                         닉네임
                     </label>
                     <div style={{ padding: '10px', background: '#f5f5f5', borderRadius: '6px' }}>
-                        {user.nickName || '-'}
+                        {user.nickname || '-'}
                     </div>
                 </div>
                 <div style={{ marginBottom: '20px' }}>
