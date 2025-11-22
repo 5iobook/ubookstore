@@ -115,6 +115,24 @@ public class UserControllerApiV1 {
         );
     }
 
+    @PostMapping
+    public ResponseEntity<ResDTO<Object>> createUser(@RequestBody java.util.Map<String, String> request) {
+        // 임시로 더미 데이터 반환
+        java.util.Map<String, Object> user = new java.util.HashMap<>();
+        user.put("id", System.currentTimeMillis());
+        user.put("username", request.get("username"));
+        user.put("email", request.get("email"));
+        user.put("createdAt", java.time.LocalDateTime.now().toString());
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                ResDTO.builder()
+                        .code("0")
+                        .message("사용자 등록 성공")
+                        .data(user)
+                        .build()
+        );
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ResDTO<Object>> getUserDetail(@org.springframework.web.bind.annotation.PathVariable Long id) {
         // 임시로 더미 데이터 반환
