@@ -7,6 +7,8 @@ export interface User {
   username: string;
   email: string;
   createdAt: string;
+  nickname?: string;
+  profile?: string;
 }
 
 export interface UserListResponse {
@@ -38,5 +40,23 @@ export async function fetchUserDetail(id: string): Promise<User> {
 // 사용자 생성
 export async function createUser(data: { username: string; email: string }): Promise<User> {
   const res = await axios.post<any>(API_BASE, data);
+  return res.data.data;
+}
+
+// 회원가입
+export async function signup(data: { username: string; password: string; email: string }): Promise<any> {
+  const res = await axios.post<any>(`${API_BASE}/signup`, data);
+  return res.data.data;
+}
+
+// 로그인
+export async function signin(data: { username: string; password: string }): Promise<any> {
+  const res = await axios.post<any>(`${API_BASE}/signin`, data);
+  return res.data.data;
+}
+
+// 내 정보 조회
+export async function fetchMyInfo(): Promise<User> {
+  const res = await axios.get<any>(`${API_BASE}/me`);
   return res.data.data;
 }

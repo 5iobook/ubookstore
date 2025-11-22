@@ -45,17 +45,17 @@ export interface CreatePostRequest {
 }
 
 export async function fetchPostListPage(page: number, size: number): Promise<PostListResponse> {
-  const res = await axios.get(`${API_BASE}`, { params: { page, size } });
+  const res = await axios.get<any>(`${API_BASE}`, { params: { page, size } });
   return res.data.data;
 }
 
 export async function fetchPostDetail(id: string): Promise<Post> {
-  const res = await axios.get(`${API_BASE}/${id}`);
+  const res = await axios.get<any>(`${API_BASE}/${id}`);
   return res.data.data.post;
 }
 
 export async function createPost(data: CreatePostRequest): Promise<Post> {
-  const res = await axios.post(API_BASE, data);
+  const res = await axios.post<any>(API_BASE, data);
   return res.data.data.post;
 }
 
@@ -83,12 +83,12 @@ export interface CreateHashtagRequest {
 }
 
 export async function fetchHashtagList(page: number = 0, size: number = 100): Promise<HashtagListResponse> {
-  const res = await axios.get('/v1/hashtags', { params: { page, size } });
+  const res = await axios.get<any>('/v1/hashtags', { params: { page, size } });
   return res.data.data;
 }
 
 export async function createHashtag(name: string): Promise<HashtagItem> {
-  const res = await axios.post('/v1/hashtags', {
+  const res = await axios.post<any>('/v1/hashtags', {
     hashtag: { name }
   });
   return res.data.data.hashtag;

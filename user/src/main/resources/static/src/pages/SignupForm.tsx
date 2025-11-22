@@ -19,13 +19,9 @@ function SignupForm() {
 
         try {
             await signup({
-                user: {
-                    userName,
-                    nickName: nickName || undefined,
-                    password,
-                    email,
-                    profile: profile || undefined,
-                }
+                username: userName,
+                password,
+                email,
             });
             alert('회원가입이 완료되었습니다.');
             navigate('/');
