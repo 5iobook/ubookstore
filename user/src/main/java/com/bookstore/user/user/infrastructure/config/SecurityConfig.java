@@ -34,6 +34,8 @@ public class SecurityConfig {
                         .permitAll() //인증 없이도 모두 허용
                         .requestMatchers("/v1/posts/**", "/v1/hashtags/**") // 게시글 관련 경로
                         .permitAll() //인증 없이도 모두 허용
+                        .requestMatchers("/", "/index.html", "/static/**", "/assets/**", "/*.js", "/*.css", "/*.svg", "/*.png", "/*.jpg", "/vite.svg") // 정적 리소스
+                        .permitAll() //프론트엔드 접근 허용
                         .anyRequest().authenticated() //이외의 요청은 인증된 사용자만 접근 가능
                 )
                 // JWT 인증 필터를 UsernamePasswordAuthenticationFilter 앞에 추가
