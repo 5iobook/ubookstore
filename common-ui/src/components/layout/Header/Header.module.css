@@ -1,0 +1,276 @@
+/* Header Styles */
+.header {
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-secondary);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all var(--transition-base);
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-4);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Brand Section */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: color var(--transition-fast);
+}
+
+.brand:hover {
+  color: var(--color-primary-500);
+}
+
+.brandIcon {
+  font-size: var(--font-size-2xl);
+  line-height: 1;
+}
+
+.brandText {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Actions Section */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+/* User Section */
+.userSection {
+  position: relative;
+}
+
+.userButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  background-color: transparent;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-height: 44px;
+}
+
+.userButton:hover {
+  background-color: var(--bg-secondary);
+  border-color: var(--color-primary-500);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary-500);
+  color: var(--color-neutral-0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-sm);
+}
+
+.userName {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  display: none;
+}
+
+.dropdownIcon {
+  font-size: var(--font-size-xs);
+  color: var(--text-tertiary);
+  transition: transform var(--transition-fast);
+}
+
+/* Dropdown Menu */
+.dropdown {
+  position: absolute;
+  top: calc(100% + var(--spacing-2));
+  right: 0;
+  min-width: 240px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-2);
+  animation: slideInDown var(--transition-base);
+  z-index: 1001;
+}
+
+.dropdownHeader {
+  padding: var(--spacing-3);
+}
+
+.dropdownUserInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.dropdownUserName {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.dropdownUserEmail {
+  font-size: var(--font-size-sm);
+  color: var(--text-tertiary);
+}
+
+.dropdownDivider {
+  height: 1px;
+  background-color: var(--border-secondary);
+  margin: var(--spacing-2) 0;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  width: 100%;
+  padding: var(--spacing-3);
+  text-decoration: none;
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-base);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  background: none;
+  border: none;
+  text-align: left;
+}
+
+.dropdownItem:hover {
+  background-color: var(--bg-secondary);
+  color: var(--color-primary-500);
+}
+
+.logoutButton {
+  color: var(--color-error);
+}
+
+.logoutButton:hover {
+  background-color: rgba(244, 67, 54, 0.1);
+  color: var(--color-error);
+}
+
+/* Auth Buttons */
+.authButtons {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.signinButton,
+.signupButton {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  border-radius: var(--radius-base);
+  transition: all var(--transition-fast);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signinButton {
+  color: var(--text-primary);
+  background-color: transparent;
+  border: 1px solid var(--border-primary);
+}
+
+.signinButton:hover {
+  background-color: var(--bg-secondary);
+  border-color: var(--color-primary-500);
+  color: var(--color-primary-500);
+}
+
+.signupButton {
+  color: var(--color-neutral-0);
+  background-color: var(--color-primary-500);
+  border: 1px solid var(--color-primary-500);
+}
+
+.signupButton:hover {
+  background-color: var(--color-primary-600);
+  border-color: var(--color-primary-600);
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--spacing-6);
+  }
+
+  .userName {
+    display: block;
+  }
+
+  .brandText {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+/* Desktop and up */
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 var(--spacing-8);
+  }
+
+  .authButtons {
+    gap: var(--spacing-3);
+  }
+
+  .signinButton,
+  .signupButton {
+    padding: var(--spacing-3) var(--spacing-5);
+  }
+}
+
+/* Accessibility */
+.userButton:focus-visible,
+.dropdownItem:focus-visible,
+.signinButton:focus-visible,
+.signupButton:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+/* Animation */
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,63 @@
+/* App Layout Styles */
+.appLayout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  padding: var(--spacing-6) 0 var(--spacing-4);
+}
+
+/* Mobile - Account for bottom navigation */
+@media (max-width: 767px) {
+  .main {
+    padding: var(--spacing-4) 0 calc(var(--spacing-4) + 64px);
+  }
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .main {
+    padding: var(--spacing-8) 0 var(--spacing-6);
+  }
+}
+
+/* Desktop and up */
+@media (min-width: 1024px) {
+  .main {
+    padding: var(--spacing-10) 0 var(--spacing-8);
+  }
+}
+
+.mainContainer {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-4);
+}
+
+@media (min-width: 768px) {
+  .mainContainer {
+    padding: 0 var(--spacing-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .mainContainer {
+    padding: 0 var(--spacing-8);
+  }
+}
+
+.footer {
+  padding: var(--spacing-4);
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-secondary);
+}
+
+/* Mobile - Account for bottom navigation */
+@media (max-width: 767px) {
+  .footer {
+    margin-bottom: 64px;
+  }
+}
