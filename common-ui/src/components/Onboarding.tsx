@@ -200,16 +200,17 @@ const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
                     alignItems: 'center',
                     gap: 'var(--spacing-3)'
                 }}>
-                    <Button
-                        variant="outline"
-                        onClick={prevSlide}
-                        disabled={currentSlide === 0}
-                        style={{
-                            opacity: currentSlide === 0 ? 0.5 : 1
-                        }}
-                    >
-                        이전
-                    </Button>
+                    <div style={{
+                        opacity: currentSlide === 0 ? 0.5 : 1
+                    }}>
+                        <Button
+                            variant="outline"
+                            onClick={prevSlide}
+                            disabled={currentSlide === 0}
+                        >
+                            이전
+                        </Button>
+                    </div>
 
                     <span style={{
                         fontSize: 'var(--font-size-sm)',
