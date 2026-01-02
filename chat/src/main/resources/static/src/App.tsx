@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AppLayout } from '@bookstore/common-ui';
+import { AppLayout, AuthGuard } from '@bookstore/common-ui';
 import ChatRoomList from './pages/ChatRoomList';
 import ChatRoom from './pages/ChatRoom';
 import './styles-common.css';
@@ -11,19 +11,21 @@ function App() {
   ];
 
   return (
-    <Router>
-      <AppLayout 
-        title="채팅" 
-        navItems={navItems}
-        pageTitle="채팅"
-        pageDescription="실시간 채팅을 통해 다른 사용자들과 소통하세요."
-      >
-        <Routes>
-          <Route path="/" element={<ChatRoomList />} />
-          <Route path="/chat/:id" element={<ChatRoom />} />
-        </Routes>
-      </AppLayout>
-    </Router>
+    <AuthGuard serviceName="채팅 서비스">
+      <Router>
+        <AppLayout
+          title="채팅"
+          navItems={navItems}
+          pageTitle="채팅"
+          pageDescription="실시간 채팅을 통해 다른 사용자들과 소통하세요."
+        >
+          <Routes>
+            <Route path="/" element={<ChatRoomList />} />
+            <Route path="/chat/:id" element={<ChatRoom />} />
+          </Routes>
+        </AppLayout>
+      </Router>
+    </AuthGuard>
   );
 }
 
