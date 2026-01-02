@@ -1,30 +1,25 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
 import { AppLayout, AuthGuard } from '@bookstore/common-ui';
 import MyBooks from './pages/MyBooks';
 import BookSearch from './pages/BookSearch';
 import BookDetail from './pages/BookDetail';
-
 import './styles-common.css';
 import './App.css';
 
 function App() {
   const navItems = [
-
-    { label: '???�서', path: '/' },
-
-    { label: '?�서 검??, path: '/search' }
+    { label: '내 도서', path: '/' },
+    { label: '도서 검색', path: '/search' }
   ];
 
   return (
-
-    <AuthGuard serviceName="?�서 관�??�비??>
+    <AuthGuard serviceName="도서 관리 서비스">
       <Router>
         <AppLayout 
-          title="?�서 관�? 
+          title="도서 관리" 
           navItems={navItems}
-          pageTitle="?�서 관�?
-          pageDescription="?�서 ?�보�?검?�하�?관리할 ???�습?�다."
+          pageTitle="도서 관리"
+          pageDescription="도서 정보를 검색하고 관리할 수 있습니다."
         >
           <Routes>
             <Route path="/" element={<MyBooks />} />
@@ -34,7 +29,6 @@ function App() {
         </AppLayout>
       </Router>
     </AuthGuard>
-
   );
 }
 

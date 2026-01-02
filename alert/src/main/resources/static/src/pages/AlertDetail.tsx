@@ -27,8 +27,8 @@ function AlertDetail() {
       const data = await fetchAlertDetail(Number(id));
       setAlertData(data);
     } catch (err) {
-      console.error('?�림 ?�세 조회 ?�패:', err);
-      setError('?�림 ?�보�?불러?�는???�패?�습?�다.');
+      console.error('알림 상세 조회 실패:', err);
+      setError('알림 정보를 불러오는데 실패했습니다.');
     } finally {
       setLoading(false);
     }
@@ -41,10 +41,10 @@ function AlertDetail() {
     try {
       const updatedAlert = await markAlertAsRead(Number(id));
       setAlertData(updatedAlert);
-      window.alert('?�림???�음 처리?�습?�다.');
+      window.alert('알림을 읽음 처리했습니다.');
     } catch (err) {
-      console.error('?�림 ?�음 처리 ?�패:', err);
-      setError('?�림 ?�음 처리???�패?�습?�다.');
+      console.error('알림 읽음 처리 실패:', err);
+      setError('알림 읽음 처리에 실패했습니다.');
     } finally {
       setLoading(false);
     }
@@ -55,7 +55,7 @@ function AlertDetail() {
     return (
       <Container maxWidth="xl" className="alert-detail">
         <div className="alert-detail__loading" role="status" aria-live="polite">
-          <Loading size="lg" text="?�림 ?�보�?불러?�는 �?.." />
+          <Loading size="lg" text="알림 정보를 불러오는 중.." />
         </div>
       </Container>
     );
@@ -67,7 +67,7 @@ function AlertDetail() {
         <div className="alert-detail__error" role="alert" aria-live="assertive">
           <p className="alert-detail__error-message">{error}</p>
           <Button onClick={() => navigate('/')} variant="primary">
-            목록?�로 ?�아가�?
+            목록으로 돌아가기
           </Button>
         </div>
       </Container>
@@ -78,9 +78,9 @@ function AlertDetail() {
     return (
       <Container maxWidth="xl" className="alert-detail">
         <div className="alert-detail__empty" role="status">
-          <p>?�림??찾을 ???�습?�다.</p>
+          <p>알림을 찾을 수 없습니다.</p>
           <Button onClick={() => navigate('/')} variant="primary">
-            목록?�로 ?�아가�?
+            목록으로 돌아가기
           </Button>
         </div>
       </Container>
@@ -90,7 +90,7 @@ function AlertDetail() {
   return (
     <Container maxWidth="xl" className="alert-detail">
       <header className="alert-detail__header">
-        <h1 className="alert-detail__title">?�림 ?�세</h1>
+        <h1 className="alert-detail__title">알림 상세</h1>
       </header>
       
       <Card className="alert-detail__content">
@@ -101,7 +101,7 @@ function AlertDetail() {
           </div>
           
           <div className="alert-detail__field">
-            <span className="alert-detail__field-label">?�용??ID:</span>
+            <span className="alert-detail__field-label">사용자 ID:</span>
             <span className="alert-detail__field-value">{alertData.userId}</span>
           </div>
           
@@ -113,21 +113,21 @@ function AlertDetail() {
           </div>
           
           <div className="alert-detail__field">
-            <span className="alert-detail__field-label">?�??</span>
+            <span className="alert-detail__field-label">유형:</span>
             <span className={`alert-type-badge alert-type-${alertData.type.toLowerCase()}`}>
               {alertData.type}
             </span>
           </div>
           
           <div className="alert-detail__field">
-            <span className="alert-detail__field-label">?�음 ?��?:</span>
+            <span className="alert-detail__field-label">읽음 상태:</span>
             <span className={`alert-read-status ${alertData.isRead ? 'read' : 'unread'}`}>
-              {alertData.isRead ? '???�음' : '???�읽??}
+              {alertData.isRead ? '읽음' : '안읽음'}
             </span>
           </div>
           
           <div className="alert-detail__field">
-            <span className="alert-detail__field-label">?�성??</span>
+            <span className="alert-detail__field-label">생성일:</span>
             <span className="alert-detail__field-value">
               {new Date(alertData.createdAt).toLocaleString()}
             </span>
@@ -142,7 +142,7 @@ function AlertDetail() {
               disabled={loading}
               variant="primary"
             >
-              ?�음 처리
+              읽음 처리
             </Button>
           )}
           <Button 
@@ -156,7 +156,7 @@ function AlertDetail() {
               </svg>
             }
           >
-            목록?�로
+            목록으로
           </Button>
         </div>
       </Card>

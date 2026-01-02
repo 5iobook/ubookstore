@@ -25,8 +25,8 @@ function WishList() {
             setWishes(data.items);
             setTotalPages(data.totalPages);
         } catch (err) {
-            console.error('?�시리스??목록 조회 ?�패:', err);
-            setError('?�시리스??목록??불러?�는???�패?�습?�다.');
+            console.error('위시리스트 목록 조회 실패:', err);
+            setError('위시리스트 목록을 불러오는데 실패했습니다.');
         } finally {
             setLoading(false);
         }
@@ -36,13 +36,13 @@ function WishList() {
 
         <Container maxWidth="xl" className="wish-list">
             <header className="wish-list__header">
-                <h1 className="wish-list__title">?�시리스??목록</h1>
-                <p className="wish-list__subtitle">관???�는 ?�서�??�인?�세??/p>
+                <h1 className="wish-list__title">위시리스트 목록</h1>
+                <p className="wish-list__subtitle">관심있는 도서를 확인하세요</p>
             </header>
             
             {loading && (
                 <div className="wish-list__loading" role="status" aria-live="polite">
-                    <Loading size="lg" text="?�시리스??목록??불러?�는 �?.." />
+                    <Loading size="lg" text="위시리스트 목록을 불러오는 중.." />
                 </div>
             )}
             
@@ -50,28 +50,28 @@ function WishList() {
                 <div className="wish-list__error" role="alert" aria-live="assertive">
                     <p className="wish-list__error-message">{error}</p>
                     <Button variant="primary" onClick={loadWishes}>
-                        ?�시 ?�도
+                        다시 시도
                     </Button>
                 </div>
             )}
             
             {!loading && !error && wishes.length === 0 && (
                 <div className="wish-list__empty" role="status">
-                    <p>?�시리스?��? 비어?�습?�다.</p>
+                    <p>위시리스트가 비어있습니다.</p>
                 </div>
             )}
             
             {!loading && !error && wishes.length > 0 && (
                 <>
-                    <section aria-label="?�시리스??목록 ?�이�? className="wish-list__table">
+                    <section aria-label="위시리스트 목록 테이블" className="wish-list__table">
 
                         <table>
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>?�용??ID</th>
+                                    <th>사용자 ID</th>
                                     <th>게시글 ID</th>
-                                    <th>?�성??/th>
+                                    <th>생성일</th>
                                 </tr>
                             </thead>
                             <tbody>

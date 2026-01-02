@@ -226,3 +226,6 @@ $RECYCLE.BIN/
 **/src/main/resources/static/package-lock.json
 **/src/main/resources/static/yarn.lock
 **/src/main/resources/static/pnpm-lock.yaml
+
+### Local Configuration ###
+**/application-local.yml

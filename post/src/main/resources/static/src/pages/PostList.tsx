@@ -26,8 +26,8 @@ function PostList() {
       setPosts(data.postPage.content);
       setTotalPages(data.postPage.page.totalPages);
     } catch (err) {
-      console.error('게시글 목록 조회 ?�패:', err);
-      setError('게시글 목록??불러?�는???�패?�습?�다.');
+      console.error('게시글 목록 조회 ?�패:', err);
+      setError('게시글 목록을 불러오는데 실패했습니다.');
     } finally {
       setLoading(false);
     }
@@ -39,13 +39,13 @@ function PostList() {
       <header className="post-list__header">
         <h1 className="post-list__title">게시글 목록</h1>
         <p className="post-list__subtitle" aria-live="polite">
-          �?{totalPages > 0 ? (totalPages - 1) * size + posts.length : 0}개의 게시글
+          �?{totalPages > 0 ? (totalPages - 1) * size + posts.length : 0}개의 게시글
         </p>
       </header>
 
       {loading && (
         <div className="post-list__loading" role="status" aria-live="polite">
-          <Loading size="lg" text="게시글 목록??불러?�는 �?.." />
+          <Loading size="lg" text="게시글 목록??불러?�는 �?.." />
         </div>
       )}
 
@@ -53,28 +53,28 @@ function PostList() {
         <div className="post-list__error" role="alert" aria-live="assertive">
           <p className="post-list__error-message">{error}</p>
           <Button variant="primary" onClick={loadPosts}>
-            ?�시 ?�도
+            ?�시 ?�도
           </Button>
         </div>
       )}
 
       {!loading && !error && posts.length === 0 && (
         <div className="post-list__empty" role="status">
-          <p>?�록??게시글???�습?�다.</p>
+          <p>등록된 게시글이 없습니다.</p>
         </div>
       )}
 
       {!loading && !error && posts.length > 0 && (
         <>
-          <section aria-label="게시글 목록 ?�이�? className="post-list__table">
+          <section aria-label="게시글 목록 ?�이�? className="post-list__table">
             <table>
               <thead>
                 <tr>
-                  <th>?�목</th>
-                  <th>가�?/th>
-                  <th>?�태</th>
+                  <th>?�목</th>
+                  <th>가�?/th>
+                  <th>?�태</th>
                   <th>조회??/th>
-                  <th>관?�수</th>
+                  <th>관?�수</th>
                 </tr>
               </thead>
               <tbody>
@@ -95,12 +95,12 @@ function PostList() {
                     <td className="post-price">
                       {post.price?.amount ?
                         `${post.price.amount.toLocaleString()}${post.price.currency || '??}` :
-                        '가�?미정'
+                        '가�?미정'
                       }
                     </td>
                     <td>
                       <span className={`status-badge status-${post.status?.toLowerCase() || 'unknown'}`}>
-                        {post.status || '?�태 미정'}
+                        {post.status || '?�태 미정'}
                       </span>
                     </td>
                     <td>{post.viewCount || 0}</td>

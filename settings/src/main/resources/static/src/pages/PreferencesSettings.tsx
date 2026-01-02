@@ -15,8 +15,8 @@ const PreferencesSettings: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: API ?�출�??�경?�정 ?�데?�트
-    alert('?�경?�정???�?�되?�습?�다.');
+    // TODO: API ?�출�??�경?�정 ?�데?�트
+    alert('환경설정이 저장되었습니다.');
   };
 
 
@@ -57,13 +57,13 @@ const PreferencesSettings: React.FC = () => {
           fontSize: 'var(--font-size-2xl)', 
           fontWeight: 'var(--font-weight-bold)' 
         }}>
-          ?�경 ?�정
+          ?�경 ?�정
         </h1>
         <p style={{ 
           margin: 'var(--spacing-2) 0 0', 
           color: 'var(--text-secondary)' 
         }}>
-          ?�스???�용 ?�경??개인?�하?�요.
+          시스템 사용 환경을 개인화하세요.
         </p>
       </header>
 
@@ -78,7 +78,7 @@ const PreferencesSettings: React.FC = () => {
                 fontWeight: 'var(--font-weight-medium)',
                 color: 'var(--text-primary)'
               }}>
-                ?�마
+                ?�마
               </label>
               <select
                 name="theme"
@@ -93,9 +93,9 @@ const PreferencesSettings: React.FC = () => {
                   backgroundColor: 'var(--background-primary)'
                 }}
               >
-                <option value="light">?�이??모드</option>
-                <option value="dark">?�크 모드</option>
-                <option value="auto">?�스???�정 ?�름</option>
+                <option value="light">?�이??모드</option>
+                <option value="dark">?�크 모드</option>
+                <option value="auto">시스템 설정 따름</option>
               </select>
             </div>
 
@@ -107,7 +107,7 @@ const PreferencesSettings: React.FC = () => {
                 fontWeight: 'var(--font-weight-medium)',
                 color: 'var(--text-primary)'
               }}>
-                ?�어
+                ?�어
               </label>
               <select
                 name="language"
@@ -122,9 +122,9 @@ const PreferencesSettings: React.FC = () => {
                   backgroundColor: 'var(--background-primary)'
                 }}
               >
-                <option value="ko">?�국??/option>
+                <option value="ko">?�국??/option>
                 <option value="en">English</option>
-                <option value="ja">?�本�?/option>
+                <option value="ja">?�本�?/option>
               </select>
             </div>
 
@@ -136,7 +136,7 @@ const PreferencesSettings: React.FC = () => {
                 fontWeight: 'var(--font-weight-medium)',
                 color: 'var(--text-primary)'
               }}>
-                ?�간?�
+                ?�간?�
               </label>
               <select
                 name="timezone"
@@ -151,10 +151,10 @@ const PreferencesSettings: React.FC = () => {
                   backgroundColor: 'var(--background-primary)'
                 }}
               >
-                <option value="Asia/Seoul">?�울 (UTC+9)</option>
-                <option value="Asia/Tokyo">?�쿄 (UTC+9)</option>
-                <option value="America/New_York">?�욕 (UTC-5)</option>
-                <option value="Europe/London">?�던 (UTC+0)</option>
+                <option value="Asia/Seoul">?�울 (UTC+9)</option>
+                <option value="Asia/Tokyo">?�쿄 (UTC+9)</option>
+                <option value="America/New_York">?�욕 (UTC-5)</option>
+                <option value="Europe/London">?�던 (UTC+0)</option>
               </select>
             </div>
 
@@ -166,7 +166,7 @@ const PreferencesSettings: React.FC = () => {
                 fontWeight: 'var(--font-weight-medium)',
                 color: 'var(--text-primary)'
               }}>
-                ?�이지????�� ??
+                페이지당 항목 수
               </label>
               <select
                 name="itemsPerPage"
@@ -181,10 +181,10 @@ const PreferencesSettings: React.FC = () => {
                   backgroundColor: 'var(--background-primary)'
                 }}
               >
-                <option value="5">5�?/option>
-                <option value="10">10�?/option>
-                <option value="20">20�?/option>
-                <option value="50">50�?/option>
+                <option value="5">5�?/option>
+                <option value="10">10�?/option>
+                <option value="20">20�?/option>
+                <option value="50">50�?/option>
               </select>
             </div>
           </div>
@@ -196,20 +196,20 @@ const PreferencesSettings: React.FC = () => {
               fontSize: 'var(--font-size-lg)',
               fontWeight: 'var(--font-weight-semibold)'
             }}>
-              기능 ?�정
+              기능 ?�정
             </h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-2)' }}>
               <Checkbox
                 id="autoSave"
-                label="?�동 ?�???�성??
+                label="자동 저장 활성화"
                 checked={preferences.autoSave}
                 onChange={handleCheckboxChange('autoSave')}
               />
 
               <Checkbox
                 id="showTutorials"
-                label="?�토리얼 �??��?�??�시"
+                label="?�토리얼 �??��?�??�시"
                 checked={preferences.showTutorials}
                 onChange={handleCheckboxChange('showTutorials')}
               />
@@ -228,10 +228,10 @@ const PreferencesSettings: React.FC = () => {
               variant="outline"
               onClick={resetToDefaults}
             >
-              기본값으�?복원
+              기본값으�?복원
             </Button>
             <Button type="submit" variant="primary">
-              ?�??
+              ?�??
             </Button>
           </div>
         </form>

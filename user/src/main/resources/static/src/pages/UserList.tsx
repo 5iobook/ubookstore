@@ -29,8 +29,8 @@ function UserList() {
             setUsers(data.items);
             setTotalPages(data.totalPages);
         } catch (err) {
-            console.error('?�용??목록 조회 ?�패:', err);
-            setError('?�용??목록??불러?�는???�패?�습?�다.');
+            console.error('사용자 목록 조회 실패:', err);
+            setError('사용자 목록을 불러오는데 실패했습니다.');
         } finally {
             setLoading(false);
         }
@@ -43,15 +43,15 @@ function UserList() {
     return (
         <Container maxWidth="xl" className="user-list">
             <header className="user-list__header">
-                <h1 className="user-list__title">?�용??목록</h1>
+                <h1 className="user-list__title">?�용??목록</h1>
                 <p className="user-list__subtitle" aria-live="polite">
-                    �?{totalPages > 0 ? (totalPages - 1) * size + users.length : 0}명의 ?�용??
+                    �?{totalPages > 0 ? (totalPages - 1) * size + users.length : 0}명의 ?�용??
                 </p>
             </header>
 
             {loading && (
                 <div className="user-list__loading" role="status" aria-live="polite">
-                    <Loading size="lg" text="?�용??목록??불러?�는 �?.." />
+                    <Loading size="lg" text="?�용??목록??불러?�는 �?.." />
                 </div>
             )}
 
@@ -59,20 +59,20 @@ function UserList() {
                 <div className="user-list__error" role="alert" aria-live="assertive">
                     <p className="user-list__error-message">{error}</p>
                     <Button variant="primary" onClick={loadUsers}>
-                        ?�시 ?�도
+                        ?�시 ?�도
                     </Button>
                 </div>
             )}
 
             {!loading && !error && users.length === 0 && (
                 <div className="user-list__empty" role="status">
-                    <p>?�록???�용?��? ?�습?�다.</p>
+                    <p>등록된 사용자가 없습니다.</p>
                 </div>
             )}
 
             {!loading && !error && users.length > 0 && (
                 <>
-                    <section aria-label="?�용??카드 목록">
+                    <section aria-label="?�용??카드 목록">
                         <Grid columns={12} gap="md" responsive className="user-list__grid">
                             {users.map((user) => (
                                 <Grid.Item key={user.id} span={12} spanMd={6} spanLg={4}>

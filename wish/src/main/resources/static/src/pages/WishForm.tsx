@@ -13,7 +13,7 @@ function WishForm() {
         e.preventDefault();
 
         if (!postId.trim()) {
-            setError('게시글 ID�??�력?�주?�요.');
+            setError('게시글 ID를 입력해주세요.');
             return;
         }
 
@@ -22,11 +22,11 @@ function WishForm() {
 
         try {
             await createWish(postId);
-            alert('?�시리스?�에 추�??�었?�니??');
+            alert('위시리스트에 추가되었습니다.');
             navigate('/');
         } catch (err) {
-            console.error('?�시리스??추�? ?�패:', err);
-            setError('?�시리스??추�????�패?�습?�다. ?�시 ?�도?�주?�요.');
+            console.error('위시리스트 추가 실패:', err);
+            setError('위시리스트 추가에 실패했습니다. 다시 시도해주세요.');
         } finally {
             setLoading(false);
         }
@@ -46,7 +46,7 @@ function WishForm() {
                         </svg>
                     }
                 >
-                    목록?�로
+                    목록으로
                 </Button>
             </div>
 
@@ -60,14 +60,14 @@ function WishForm() {
                     fontWeight: 'var(--font-weight-bold)',
                     color: 'var(--color-neutral-900)'
                 }}>
-                    ?�시리스??추�?
+                    위시리스트 추가
                 </h1>
                 <p style={{
                     margin: 'var(--spacing-2) 0 0',
                     color: 'var(--text-secondary)',
                     fontSize: 'var(--font-size-base)'
                 }}>
-                    관???�는 게시글???�시리스?�에 추�??�세??
+                    관심있는 게시글을 위시리스트에 추가하세요
                 </p>
             </header>
 
@@ -89,7 +89,7 @@ function WishForm() {
                     <div style={{ display: 'grid', gap: 'var(--spacing-4)' }}>
                         <Input
                             label="게시글 ID (UUID)"
-                            placeholder="?? 550e8400-e29b-41d4-a716-446655440000"
+                            placeholder="예: 550e8400-e29b-41d4-a716-446655440000"
                             value={postId}
                             onChange={(value) => setPostId(value)}
                             required
@@ -117,7 +117,7 @@ function WishForm() {
                             variant="primary"
                             disabled={loading}
                         >
-                            {loading ? '추�? �?..' : '?�시리스??추�?'}
+                            {loading ? '추가 중..' : '위시리스트에 추가'}
                         </Button>
                     </div>
                 </form>
@@ -130,7 +130,7 @@ function WishForm() {
                         padding: 'var(--spacing-4)',
                         marginTop: 'var(--spacing-4)'
                     }}>
-                        <Loading size="md" text="?�시리스?�에 추�??�는 �?.." />
+                        <Loading size="md" text="위시리스트에 추가하는 중.." />
                     </div>
                 )}
             </Card>

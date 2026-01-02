@@ -11,17 +11,17 @@ function App() {
   const navItems = [
     { label: '게시글 목록', path: '/' },
 
-    { label: '게시글 ?�성', path: '/new' }
+    { label: '게시글 ?�성', path: '/new' }
   ];
 
   return (
-    <AuthGuard serviceName="게시글 관�??�비??>
+    <AuthGuard serviceName="게시글 관�??�비??>
       <Router>
         <AppLayout 
-          title="게시글 관�? 
+          title="게시글 관�? 
           navItems={navItems}
-          pageTitle="게시글 관�?
-          pageDescription="커�??�티 게시글???�성?�고 관리할 ???�습?�다."
+          pageTitle="게시글 관�?
+          pageDescription="커뮤니티 게시글을 작성하고 관리할 수 있습니다."
         >
           <Routes>
             <Route path="/" element={<PostList />} />

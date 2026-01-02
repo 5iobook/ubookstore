@@ -115,7 +115,7 @@
 }
 
 
-/* ?�이지?�이??버튼 hover ?�과 ?�정 - ?��????�거?�고 글?�색 개선 */
+/* 페이지네이션 버튼 hover 효과 정의 - 색상을 더 진하게 글자색 개선 */
 .wish-list__pagination .btn:hover:not(:disabled) {
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
@@ -124,18 +124,18 @@
 .wish-list__pagination .btn--outline:hover:not(:disabled) {
   background-color: var(--color-primary-600) !important;
   border-color: var(--color-primary-700) !important;
-  color: var(--color-neutral-0) !important; /* ?��???*/
+  color: var(--color-neutral-0) !important; /* 흰색 */
 }
 
 .wish-list__pagination .btn.btn--outline {
   border-color: var(--color-primary-500);
-  color: var(--color-primary-700); /* 기본 ?�태?�서????진한 ?�상 */
+  color: var(--color-primary-700); /* 기본 상태에서 더 진한 색상 */
 }
 
 .wish-list__pagination .btn.btn--outline:hover:not(:disabled) {
   background-color: var(--color-primary-600) !important;
   border-color: var(--color-primary-700) !important;
-  color: var(--color-neutral-0) !important; /* ?�버 ???��???*/
+  color: var(--color-neutral-0) !important; /* 호버 시 흰색 */
 }
 
 

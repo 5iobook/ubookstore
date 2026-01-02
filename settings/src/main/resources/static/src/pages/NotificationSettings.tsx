@@ -18,8 +18,8 @@ const NotificationSettings: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: API ?�출�??�림 ?�정 ?�데?�트
-    alert('?�림 ?�정???�?�되?�습?�다.');
+    // TODO: API ?�출�??�림 ?�정 ?�데?�트
+    alert('알림 설정이 저장되었습니다.');
   };
 
 
@@ -43,13 +43,13 @@ const NotificationSettings: React.FC = () => {
           fontSize: 'var(--font-size-2xl)', 
           fontWeight: 'var(--font-weight-bold)' 
         }}>
-          ?�림 ?�정
+          ?�림 ?�정
         </h1>
         <p style={{ 
           margin: 'var(--spacing-2) 0 0', 
           color: 'var(--text-secondary)' 
         }}>
-          받고 ?��? ?�림 ?�형???�택?�세??
+          받고 싶은 알림 유형을 선택하세요
         </p>
       </header>
 
@@ -62,27 +62,27 @@ const NotificationSettings: React.FC = () => {
               fontSize: 'var(--font-size-lg)',
               fontWeight: 'var(--font-weight-semibold)'
             }}>
-              ?�림 방식
+              ?�림 방식
             </h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-2)' }}>
               <Checkbox
                 id="emailNotifications"
-                label="?�메???�림"
+                label="이메일 알림"
                 checked={notifications.emailNotifications}
                 onChange={handleChange('emailNotifications')}
               />
 
               <Checkbox
                 id="pushNotifications"
-                label="?�시 ?�림"
+                label="?�시 ?�림"
                 checked={notifications.pushNotifications}
                 onChange={handleChange('pushNotifications')}
               />
 
               <Checkbox
                 id="smsNotifications"
-                label="SMS ?�림"
+                label="SMS ?�림"
                 checked={notifications.smsNotifications}
                 onChange={handleChange('smsNotifications')}
               />
@@ -96,7 +96,7 @@ const NotificationSettings: React.FC = () => {
               fontSize: 'var(--font-size-lg)',
               fontWeight: 'var(--font-weight-semibold)'
             }}>
-              ?�림 ?�용
+              ?�림 ?�용
             </h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-2)' }}>
@@ -109,35 +109,35 @@ const NotificationSettings: React.FC = () => {
 
               <Checkbox
                 id="tradeUpdates"
-                label="거래 ?�데?�트"
+                label="거래 ?�데?�트"
                 checked={notifications.tradeUpdates}
                 onChange={handleChange('tradeUpdates')}
               />
 
               <Checkbox
                 id="bookRecommendations"
-                label="?�서 추천"
+                label="?�서 추천"
                 checked={notifications.bookRecommendations}
                 onChange={handleChange('bookRecommendations')}
               />
 
               <Checkbox
                 id="systemUpdates"
-                label="?�스???�데?�트"
+                label="시스템 업데이트"
                 checked={notifications.systemUpdates}
                 onChange={handleChange('systemUpdates')}
               />
 
               <Checkbox
                 id="marketingEmails"
-                label="마�????�메??
+                label="마케팅 이메일"
                 checked={notifications.marketingEmails}
                 onChange={handleChange('marketingEmails')}
               />
 
               <Checkbox
                 id="weeklyDigest"
-                label="주간 ?�약"
+                label="주간 ?�약"
                 checked={notifications.weeklyDigest}
                 onChange={handleChange('weeklyDigest')}
               />
@@ -162,10 +162,10 @@ const NotificationSettings: React.FC = () => {
                 setNotifications(allOff);
               }}
             >
-              모두 ?�기
+              모두 ?�기
             </Button>
             <Button type="submit" variant="primary">
-              ?�??
+              ?�??
             </Button>
           </div>
         </form>
