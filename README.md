@@ -91,10 +91,12 @@ npm run dev
 |--------|------------|----------------|------|
 | Eureka Server | 8761 | - | 서비스 디스커버리 |
 | User Service  | 8083 | 5173 | 사용자 관리 |
+| Wish Service  | 8082 | 5179 | 위시리스트 |
 | Post Service  | 8081 | 5175 | 게시글 관리 |
-| Book Service  | 8087 | 5176 | 도서 관리 |
 | Chat Service  | 8084 | 5177 | 채팅 |
 | Alert Service | 8085 | 5174 | 알림 |
+| Trade Service | 8086 | 5178 | 거래 관리 |
+| Book Service  | 8087 | 5176 | 도서 관리 |
 | MySQL         | 3306 | - | 데이터베이스 |
 
 ## 📦 프로젝트 구조

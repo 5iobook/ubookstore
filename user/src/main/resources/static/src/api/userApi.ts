@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getCacheData, setCacheData, generateCacheKey } from '@bookstore/common-ui';
 
 const API_BASE = '/v1/users';
 
@@ -21,20 +22,56 @@ export interface UserListResponse {
 
 // 페이지네이션 목록 조회
 export async function fetchUserListPage(page: number, size: number): Promise<UserListResponse> {
-  const res = await axios.get<any>(`${API_BASE}`, { params: { page, size } });
-  return {
-    items: res.data.data.content,
-    totalPages: res.data.data.page.totalPages,
-    totalElements: res.data.data.page.totalElements,
-    page: res.data.data.page.number,
-    size: res.data.data.page.size,
-  };
+  const cacheKey = generateCacheKey(`${API_BASE}`, { page, size });
+
+  try {
+    const res = await axios.get<any>(`${API_BASE}`, { params: { page, size } });
+    const data = {
+      items: res.data.data.content,
+      totalPages: res.data.data.page.totalPages,
+      totalElements: res.data.data.page.totalElements,
+      page: res.data.data.page.number,
+      size: res.data.data.page.size,
+    };
+
+    // 성공 시 캐시에 저장
+    setCacheData(cacheKey, data);
+    return data;
+  } catch (error) {
+    // 네트워크 오류 시 캐시된 데이터 반환
+    if (!navigator.onLine) {
+      const cachedData = getCacheData<UserListResponse>(cacheKey);
+      if (cachedData) {
+        console.log('오프라인: 캐시된 사용자 목록 반환');
+        return cachedData;
+      }
+    }
+    throw error;
+  }
 }
 
 // 상세 조회
 export async function fetchUserDetail(id: string): Promise<User> {
-  const res = await axios.get<any>(`${API_BASE}/${id}`);
-  return res.data.data;
+  const cacheKey = generateCacheKey(`${API_BASE}/${id}`);
+
+  try {
+    const res = await axios.get<any>(`${API_BASE}/${id}`);
+    const data = res.data.data;
+
+    // 성공 시 캐시에 저장
+    setCacheData(cacheKey, data);
+    return data;
+  } catch (error) {
+    // 네트워크 오류 시 캐시된 데이터 반환
+    if (!navigator.onLine) {
+      const cachedData = getCacheData<User>(cacheKey);
+      if (cachedData) {
+        console.log('오프라인: 캐시된 사용자 정보 반환');
+        return cachedData;
+      }
+    }
+    throw error;
+  }
 }
 
 // 사용자 생성
