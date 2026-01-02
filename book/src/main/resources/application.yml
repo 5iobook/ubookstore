@@ -11,3 +11,9 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+naver:
+  api:
+    client-id: eY6Xy4XmnZ5hwEmYepFa
+    client-secret: 54LEsfYv0V
+    book-search-url: https://openapi.naver.com/v1/search/book.json

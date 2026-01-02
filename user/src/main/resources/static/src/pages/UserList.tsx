@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchUserListPage } from '../api/userApi';
 import type { User } from '../api/userApi';
-import { Container, Grid, UserCard, Button, Loading } from '@bookstore/common-ui';
+import { Container, Grid, UserCard, Button, Loading, Pagination } from '@bookstore/common-ui';
 import './UserList.css';
 
 function UserList() {
@@ -87,55 +87,14 @@ function UserList() {
                         </Grid>
                     </section>
 
-                    <nav
-                        className="user-list__pagination"
-                        role="navigation"
-                        aria-label="페이지네이션"
-                    >
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => setPage(0)}
-                            disabled={page === 0}
-                            aria-label="첫 페이지로 이동"
-                        >
-                            처음
-                        </Button>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => setPage(page - 1)}
-                            disabled={page === 0}
-                            aria-label="이전 페이지로 이동"
-                        >
-                            이전
-                        </Button>
-                        <span
-                            className="user-list__pagination-info"
-                            aria-current="page"
-                            aria-label={`현재 페이지 ${page + 1}, 전체 ${totalPages || 1} 페이지`}
-                        >
-                            {page + 1} / {totalPages || 1}
-                        </span>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => setPage(page + 1)}
-                            disabled={page >= totalPages - 1}
-                            aria-label="다음 페이지로 이동"
-                        >
-                            다음
-                        </Button>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => setPage(totalPages - 1)}
-                            disabled={page >= totalPages - 1}
-                            aria-label="마지막 페이지로 이동"
-                        >
-                            마지막
-                        </Button>
-                    </nav>
+                    <Pagination
+                        currentPage={page + 1}
+                        totalPages={totalPages}
+                        totalItems={totalPages > 0 ? (totalPages - 1) * size + users.length : 0}
+                        itemsPerPage={size}
+                        onPageChange={(newPage) => setPage(newPage - 1)}
+                        showInfo={true}
+                    />
                 </>
             )}
         </Container>

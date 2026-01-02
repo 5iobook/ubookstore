@@ -1,34 +1,34 @@
-.post-list {
+.my-trades {
   padding-top: var(--spacing-6);
   padding-bottom: var(--spacing-8);
 }
 
-.post-list__header {
+.my-trades__header {
   margin-bottom: var(--spacing-6);
   text-align: center;
 }
 
-.post-list__title {
+.my-trades__title {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-neutral-900);
   margin: 0 0 var(--spacing-2) 0;
 }
 
-.post-list__subtitle {
+.my-trades__subtitle {
   font-size: var(--font-size-base);
   color: var(--color-neutral-600);
   margin: 0;
 }
 
-.post-list__loading {
+.my-trades__loading {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 400px;
 }
 
-.post-list__error {
+.my-trades__error {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,13 +37,13 @@
   gap: var(--spacing-4);
 }
 
-.post-list__error-message {
+.my-trades__error-message {
   color: var(--color-error);
   font-size: var(--font-size-lg);
   margin: 0;
 }
 
-.post-list__empty {
+.my-trades__empty {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,7 +52,7 @@
   font-size: var(--font-size-lg);
 }
 
-.post-list__table {
+.my-trades__table {
   margin-bottom: var(--spacing-8);
   background: var(--bg-primary);
   border-radius: var(--radius-lg);
@@ -60,13 +60,13 @@
   overflow: hidden;
 }
 
-.post-list__table table {
+.my-trades__table table {
   width: 100%;
   border-collapse: collapse;
   font-size: var(--font-size-sm);
 }
 
-.post-list__table th {
+.my-trades__table th {
   background-color: var(--bg-secondary);
   color: var(--text-primary);
   font-weight: var(--font-weight-semibold);
@@ -75,44 +75,26 @@
   border-bottom: 1px solid var(--border-secondary);
 }
 
-.post-list__table td {
+.my-trades__table td {
   padding: var(--spacing-4) var(--spacing-6);
   border-bottom: 1px solid var(--border-secondary);
   color: var(--text-secondary);
 }
 
-.post-list__table tbody tr:hover {
+.my-trades__table tbody tr:hover {
   background-color: var(--bg-secondary);
 }
 
-.post-list__table tbody tr:last-child td {
+.my-trades__table tbody tr:last-child td {
   border-bottom: none;
 }
 
-.post-title {
+.trade-title {
   font-weight: var(--font-weight-medium);
   color: var(--text-primary);
-  max-width: 300px;
 }
 
-.post-hashtags {
-  margin-top: var(--spacing-1);
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-1);
-}
-
-.hashtag {
-  display: inline-block;
-  background-color: var(--color-primary-100);
-  color: var(--color-primary-700);
-  padding: 2px var(--spacing-2);
-  border-radius: var(--radius-sm);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-}
-
-.post-price {
+.trade-price {
   font-weight: var(--font-weight-semibold);
   color: var(--color-primary-600);
 }
@@ -132,7 +114,12 @@
   color: var(--color-neutral-0);
 }
 
-.status-sold {
+.status-completed {
+  background-color: var(--color-info);
+  color: var(--color-neutral-0);
+}
+
+.status-canceled {
   background-color: var(--color-error);
   color: var(--color-neutral-0);
 }
@@ -142,12 +129,7 @@
   color: var(--color-neutral-0);
 }
 
-.status-unknown {
-  background-color: var(--color-neutral-400);
-  color: var(--color-neutral-0);
-}
-
-.post-list__pagination {
+.my-trades__pagination {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -155,19 +137,7 @@
   padding: var(--spacing-4) 0;
 }
 
-/* 페이지네이션 버튼 hover 효과 */
-.post-list__pagination button:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-}
-
-.post-list__pagination button[class*="btn--outline"]:hover:not(:disabled) {
-  background-color: var(--color-primary-600);
-  border-color: var(--color-primary-700);
-  color: var(--color-neutral-0); /* 하얀색 */
-}
-
-.post-list__pagination-info {
+.my-trades__pagination-info {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
   color: var(--color-neutral-700);
@@ -178,34 +148,30 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .post-list__header {
+  .my-trades__header {
     text-align: left;
   }
 
-  .post-list__title {
+  .my-trades__title {
     font-size: var(--font-size-2xl);
   }
 
-  .post-list__table {
+  .my-trades__table {
     overflow-x: auto;
   }
 
-  .post-list__table th,
-  .post-list__table td {
+  .my-trades__table th,
+  .my-trades__table td {
     padding: var(--spacing-3) var(--spacing-4);
     font-size: var(--font-size-xs);
   }
 
-  .post-title {
-    max-width: 200px;
-  }
-
-  .post-list__pagination {
+  .my-trades__pagination {
     flex-wrap: wrap;
     gap: var(--spacing-1);
   }
 
-  .post-list__pagination-info {
+  .my-trades__pagination-info {
     width: 100%;
     margin: var(--spacing-2) 0;
   }

@@ -4,6 +4,8 @@
     border-bottom: 1px solid var(--border-secondary);
     padding: var(--spacing-6) 0 var(--spacing-4);
     margin-top: 0;
+    min-height: 180px;
+    /* 최소 높이 고정 */
 }
 
 .container {
@@ -14,14 +16,16 @@
 
 .headerContent {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
     gap: var(--spacing-6);
     margin-bottom: var(--spacing-6);
+    text-align: center;
 }
 
 .titleSection {
     flex: 1;
+    text-align: center;
 }
 
 .title {
@@ -50,12 +54,21 @@
 .localNav {
     border-top: 1px solid var(--border-secondary);
     padding-top: var(--spacing-4);
+    display: flex;
+    justify-content: center;
+    min-height: 60px;
+    /* 네비게이션 영역 최소 높이 고정 */
+    align-items: flex-start;
 }
 
 .navList {
     display: flex;
-    gap: var(--spacing-1);
+    gap: var(--spacing-2);
     flex-wrap: wrap;
+    justify-content: center;
+    max-width: 800px;
+    /* 최대 너비 제한 */
+    margin: 0 auto;
 }
 
 .navItem {
@@ -70,6 +83,8 @@
     transition: all var(--transition-fast);
     border: 1px solid transparent;
     background-color: var(--bg-secondary);
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .navItem:hover {
@@ -98,6 +113,8 @@
 
     .pageHeader {
         padding: var(--spacing-8) 0 var(--spacing-6);
+        min-height: 200px;
+        /* 태블릿에서 최소 높이 */
     }
 
     .title {
@@ -117,6 +134,8 @@
 
     .pageHeader {
         padding: var(--spacing-10) 0 var(--spacing-8);
+        min-height: 220px;
+        /* 데스크톱에서 최소 높이 */
     }
 }
 
@@ -124,20 +143,22 @@
 @media (max-width: 767px) {
     .headerContent {
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
         gap: var(--spacing-4);
+        text-align: center;
     }
 
     .actions {
-        justify-content: flex-start;
+        justify-content: center;
     }
 
     .navList {
         gap: var(--spacing-2);
+        justify-content: center;
     }
 
     .navItem {
-        flex: 1;
+        flex-shrink: 0;
         justify-content: center;
         min-width: 0;
     }

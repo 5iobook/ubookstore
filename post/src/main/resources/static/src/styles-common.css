@@ -264,9 +264,6 @@ img {
 button {
   font-family: inherit;
   cursor: pointer;
-  border: none;
-  background: none;
-  padding: 0;
 }
 
 button:disabled {

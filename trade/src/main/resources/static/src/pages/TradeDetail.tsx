@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Container, Card, Button, Loading } from '@bookstore/common-ui';
 import { fetchTradeDetail } from '../api/tradeApi';
-import { useParams } from 'react-router-dom';
 
 // TradeStatus, TradeMethod 한글 매핑
 const TRADE_STATUS_MAP: Record<string, string> = {
@@ -17,6 +18,7 @@ const TRADE_METHOD_MAP: Record<string, string> = {
 
 const TradeDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [trade, setTrade] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -29,21 +31,109 @@ const TradeDetail: React.FC = () => {
       .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <div>로딩 중...</div>;
-  if (error) return <div>{error}</div>;
-  if (!trade) return <div>거래 정보가 없습니다.</div>;
+  if (loading) {
+    return (
+      <Container maxWidth="md">
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '400px' }}>
+          <Loading size="lg" text="거래 정보를 불러오는 중..." />
+        </div>
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container maxWidth="md">
+        <Card>
+          <div style={{ textAlign: 'center', padding: 'var(--spacing-6)' }}>
+            <p style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-4)' }}>{error}</p>
+            <Button variant="primary" onClick={() => navigate('/')}>
+              목록으로 돌아가기
+            </Button>
+          </div>
+        </Card>
+      </Container>
+    );
+  }
+
+  if (!trade) {
+    return (
+      <Container maxWidth="md">
+        <Card>
+          <div style={{ textAlign: 'center', padding: 'var(--spacing-6)' }}>
+            <p style={{ marginBottom: 'var(--spacing-4)' }}>거래 정보가 없습니다.</p>
+            <Button variant="primary" onClick={() => navigate('/')}>
+              목록으로 돌아가기
+            </Button>
+          </div>
+        </Card>
+      </Container>
+    );
+  }
 
   return (
-    <div>
-      <button onClick={() => window.history.back()} style={{marginBottom: 16, padding: '6px 16px', borderRadius: 4, border: '1px solid #1976d2', background: '#1976d2', color: '#fff', cursor: 'pointer'}}>← 뒤로 가기</button>
-      <h2>거래 상세</h2>
-      <p><strong>id:</strong> {trade.id}</p>
-      <p><strong>상태:</strong> {TRADE_STATUS_MAP[trade.status] ?? trade.status}</p>
-      <p><strong>방법:</strong> {TRADE_METHOD_MAP[trade.method] ?? trade.method}</p>
-      <p><strong>만남 장소:</strong> {trade.meetUpLocation || '-'}</p>
-      <p><strong>취소 사유:</strong> {trade.cancelReason || '-'}</p>
-      <p><strong>완료일:</strong> {trade.completedAt || '-'}</p>
-    </div>
+    <Container maxWidth="md">
+      <div style={{ marginBottom: 'var(--spacing-4)' }}>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => navigate('/')}
+          icon={
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20" height="20">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+          }
+        >
+          목록으로
+        </Button>
+      </div>
+
+      <Card>
+        <header style={{ marginBottom: 'var(--spacing-6)' }}>
+          <h1 style={{ margin: 0, fontSize: 'var(--font-size-2xl)', fontWeight: 'var(--font-weight-bold)' }}>
+            거래 상세 정보
+          </h1>
+        </header>
+
+        <div style={{ display: 'grid', gap: 'var(--spacing-4)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 'var(--spacing-3)', backgroundColor: 'var(--bg-secondary)', borderRadius: 'var(--radius-base)' }}>
+            <span style={{ fontWeight: 'var(--font-weight-medium)' }}>거래 ID</span>
+            <span style={{ fontFamily: 'var(--font-family-mono)', fontSize: 'var(--font-size-sm)' }}>
+              {trade.id}
+            </span>
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 'var(--spacing-3)', backgroundColor: 'var(--bg-secondary)', borderRadius: 'var(--radius-base)' }}>
+            <span style={{ fontWeight: 'var(--font-weight-medium)' }}>상태</span>
+            <span className={`status-badge status-${trade.status.toLowerCase()}`}>
+              {TRADE_STATUS_MAP[trade.status] ?? trade.status}
+            </span>
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 'var(--spacing-3)', backgroundColor: 'var(--bg-secondary)', borderRadius: 'var(--radius-base)' }}>
+            <span style={{ fontWeight: 'var(--font-weight-medium)' }}>거래 방법</span>
+            <span>{TRADE_METHOD_MAP[trade.method] ?? trade.method}</span>
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 'var(--spacing-3)', backgroundColor: 'var(--bg-secondary)', borderRadius: 'var(--radius-base)' }}>
+            <span style={{ fontWeight: 'var(--font-weight-medium)' }}>만남 장소</span>
+            <span>{trade.meetUpLocation || '미정'}</span>
+          </div>
+
+          {trade.cancelReason && (
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 'var(--spacing-3)', backgroundColor: 'var(--color-error-50)', borderRadius: 'var(--radius-base)', border: '1px solid var(--color-error-200)' }}>
+              <span style={{ fontWeight: 'var(--font-weight-medium)', color: 'var(--color-error-700)' }}>취소 사유</span>
+              <span style={{ color: 'var(--color-error-700)' }}>{trade.cancelReason}</span>
+            </div>
+          )}
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 'var(--spacing-3)', backgroundColor: 'var(--bg-secondary)', borderRadius: 'var(--radius-base)' }}>
+            <span style={{ fontWeight: 'var(--font-weight-medium)' }}>완료일</span>
+            <span>{trade.completedAt ? new Date(trade.completedAt).toLocaleString() : '미완료'}</span>
+          </div>
+        </div>
+      </Card>
+    </Container>
   );
 };
 

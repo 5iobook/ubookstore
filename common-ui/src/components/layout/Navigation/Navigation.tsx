@@ -9,11 +9,6 @@ interface NavigationProps {
     avatar?: string;
   };
   title?: string;
-  customNavItems?: Array<{
-    label: string;
-    path: string;
-    external?: boolean;
-  }>;
 }
 
 interface NavItem {
@@ -28,8 +23,8 @@ interface NavItem {
 const globalNavItems: NavItem[] = [
   { path: 'http://localhost:5173', label: '사용자', icon: '👤', external: true },
   { path: 'http://localhost:5175', label: '게시글', icon: '📝', external: true },
-  { path: 'http://localhost:5176/book/', label: '도서', icon: '📚', external: true },
-  { path: 'http://localhost:5177/chat/', label: '채팅', icon: '💬', external: true },
+  { path: 'http://localhost:5176', label: '도서', icon: '📚', external: true },
+  { path: 'http://localhost:5177', label: '채팅', icon: '💬', external: true },
   { path: 'http://localhost:5174', label: '알림', icon: '🔔', external: true },
   { path: 'http://localhost:5178', label: '거래', icon: '💰', external: true },
   { path: 'http://localhost:5179', label: '위시', icon: '⭐', external: true },
@@ -38,12 +33,18 @@ const globalNavItems: NavItem[] = [
 
 const Navigation: React.FC<NavigationProps> = ({
   isAuthenticated = false,
-  title = '책거래',
-  customNavItems
+  title = '책거래'
 }) => {
   const location = useLocation();
 
   const isActive = (path: string) => {
+    // 외부 링크의 경우 현재 포트와 비교
+    if (path.startsWith('http://localhost:')) {
+      const currentPort = window.location.port;
+      const linkPort = new URL(path).port;
+      return currentPort === linkPort;
+    }
+    
     if (path === '/') {
       return location.pathname === '/';
     }
@@ -143,22 +144,6 @@ const Navigation: React.FC<NavigationProps> = ({
             <div className={styles.desktopNav}>
               {visibleItems.map((item) => renderDesktopNavLink(item))}
             </div>
-
-            {/* 로컬 네비게이션 (현재 서비스 내부) - 시각적으로 분리 */}
-            {customNavItems && customNavItems.length > 0 && (
-              <div className={styles.localNav}>
-                {customNavItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    className={`${styles.localNavItem} ${isActive(item.path) ? styles.active : ''}`}
-                    aria-current={isActive(item.path) ? 'page' : undefined}
-                  >
-                    <span>{item.label}</span>
-                  </Link>
-                ))}
-              </div>
-            )}
           </div>
         </div>
       </nav>
