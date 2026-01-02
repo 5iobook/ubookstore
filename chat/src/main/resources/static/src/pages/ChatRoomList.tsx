@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Container, Card, Input, Button, Loading } from '@bookstore/common-ui';
 import { fetchMyChatRooms, getOrCreateDirectChat, type ChatRoom } from '../api/chatApi';
 
 function ChatRoomList() {
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [currentUserId] = useState('user1'); // 임시 사용자 ID
+  const [currentUserId] = useState('user1');
   const [targetUserId, setTargetUserId] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadChatRooms();
@@ -39,7 +41,7 @@ function ChatRoomList() {
       const chatRoom = await getOrCreateDirectChat(currentUserId, targetUserId);
       alert(`채팅방이 생성되었습니다: ${chatRoom.roomId}`);
       setTargetUserId('');
-      loadChatRooms(); // 목록 새로고침
+      loadChatRooms();
     } catch (err) {
       console.error('채팅방 생성 실패:', err);
       setError('채팅방 생성에 실패했습니다.');
@@ -48,64 +50,54 @@ function ChatRoomList() {
     }
   }
 
+  if (loading) return <Loading />;
+
   return (
-    <div>
+    <Container>
       <h2>내 채팅방 목록</h2>
       
-      <div style={{ marginBottom: 20, padding: 20, background: '#f5f5f5', borderRadius: 8 }}>
+      <Card style={{ marginBottom: '2rem' }}>
         <h3>새 채팅 시작</h3>
-        <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-          <input
-            type="text"
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end', marginTop: '1rem' }}>
+          <Input
+            label="상대방 ID"
             placeholder="상대방 ID 입력"
             value={targetUserId}
             onChange={(e) => setTargetUserId(e.target.value)}
-            style={{ flex: 1, padding: 8 }}
           />
-          <button onClick={handleCreateDirectChat} disabled={loading}>
+          <Button onClick={handleCreateDirectChat} disabled={loading}>
             채팅 시작
-          </button>
+          </Button>
         </div>
-        <p style={{ fontSize: '0.9em', color: '#666', marginTop: 10 }}>
+        <p style={{ fontSize: '0.9rem', color: 'var(--color-text-secondary)', marginTop: '1rem' }}>
           현재 사용자: {currentUserId}
         </p>
-      </div>
+      </Card>
 
-      {loading && <p>로딩 중...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {!loading && !error && (
-        <>
-          {chatRooms.length === 0 ? (
-            <p>참여 중인 채팅방이 없습니다.</p>
-          ) : (
-            <table>
-              <thead>
-                <tr>
-                  <th>채팅방 ID</th>
-                  <th>방장</th>
-                  <th>생성일</th>
-                  <th>액션</th>
-                </tr>
-              </thead>
-              <tbody>
-                {chatRooms.map((room) => (
-                  <tr key={room.roomId}>
-                    <td>{room.roomId.substring(0, 8)}...</td>
-                    <td>{room.owner}</td>
-                    <td>{new Date(room.createdAt).toLocaleString()}</td>
-                    <td>
-                      <Link to={`/chat/${room.roomId}`}>
-                        <button>입장</button>
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </>
+      {error && <div style={{ color: 'var(--color-error)', marginBottom: '1rem' }}>{error}</div>}
+      
+      {chatRooms.length === 0 ? (
+        <Card>
+          <p>참여 중인 채팅방이 없습니다.</p>
+        </Card>
+      ) : (
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          {chatRooms.map((room) => (
+            <Card key={room.roomId} style={{ cursor: 'pointer' }} onClick={() => navigate(`/chat/${room.roomId}`)}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <h4 style={{ margin: 0 }}>채팅방 ID: {room.roomId.substring(0, 8)}...</h4>
+                  <p style={{ margin: '0.5rem 0 0', color: 'var(--color-text-secondary)' }}>
+                    방장: {room.owner} | 생성일: {new Date(room.createdAt).toLocaleString()}
+                  </p>
+                </div>
+                <Button size="small">입장</Button>
+              </div>
+            </Card>
+          ))}
+        </div>
       )}
-    </div>
+    </Container>
   );
 }
 

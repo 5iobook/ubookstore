@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Button, Card, Loading } from '@bookstore/common-ui';
 import { fetchAlertDetail, markAlertAsRead, type Alert } from '../api/alertApi';
 
 function AlertDetail() {
@@ -46,32 +47,123 @@ function AlertDetail() {
     }
   }
 
-  if (loading) return <p>로딩 중...</p>;
-  if (error) return <p style={{ color: 'red' }}>{error}</p>;
-  if (!alertData) return <p>알림을 찾을 수 없습니다.</p>;
+  if (loading && !alertData) {
+    return <Loading size="lg" text="알림 정보를 불러오는 중..." />;
+  }
 
-  return (
-    <div>
-      <h2>알림 상세</h2>
-      <div style={{ textAlign: 'left', maxWidth: 600, margin: '0 auto' }}>
-        <p><strong>ID:</strong> {alertData.id}</p>
-        <p><strong>사용자 ID:</strong> {alertData.userId}</p>
-        <p><strong>메시지:</strong> {alertData.message}</p>
-        <p><strong>타입:</strong> {alertData.type}</p>
-        <p><strong>읽음 여부:</strong> {alertData.isRead ? '읽음' : '안읽음'}</p>
-        <p><strong>생성일:</strong> {new Date(alertData.createdAt).toLocaleString()}</p>
-        
-        <div style={{ marginTop: 20, display: 'flex', gap: 10 }}>
-          {!alertData.isRead && (
-            <button onClick={handleMarkAsRead} disabled={loading}>
-              읽음 처리
-            </button>
-          )}
-          <button onClick={() => navigate('/')}>
+  if (error) {
+    return (
+      <div className="container">
+        <div className="error-container" role="alert">
+          {error}
+        </div>
+        <div style={{ marginTop: '20px' }}>
+          <Button onClick={() => navigate('/')} variant="secondary">
             목록으로 돌아가기
-          </button>
+          </Button>
         </div>
       </div>
+    );
+  }
+
+  if (!alertData) {
+    return (
+      <div className="container">
+        <Card>
+          <p style={{ textAlign: 'center', color: '#666' }}>알림을 찾을 수 없습니다.</p>
+        </Card>
+        <div style={{ marginTop: '20px' }}>
+          <Button onClick={() => navigate('/')} variant="secondary">
+            목록으로 돌아가기
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container">
+      <h2>알림 상세</h2>
+      <Card>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+          <div>
+            <strong style={{ display: 'block', marginBottom: '5px', color: '#666' }}>
+              ID:
+            </strong>
+            <span>{alertData.id}</span>
+          </div>
+          
+          <div>
+            <strong style={{ display: 'block', marginBottom: '5px', color: '#666' }}>
+              사용자 ID:
+            </strong>
+            <span>{alertData.userId}</span>
+          </div>
+          
+          <div>
+            <strong style={{ display: 'block', marginBottom: '5px', color: '#666' }}>
+              메시지:
+            </strong>
+            <span>{alertData.message}</span>
+          </div>
+          
+          <div>
+            <strong style={{ display: 'block', marginBottom: '5px', color: '#666' }}>
+              타입:
+            </strong>
+            <span style={{
+              padding: '4px 12px',
+              borderRadius: '4px',
+              fontSize: '14px',
+              display: 'inline-block',
+              backgroundColor: 
+                alertData.type === 'ERROR' ? '#fee' :
+                alertData.type === 'WARNING' ? '#ffeaa7' :
+                alertData.type === 'SUCCESS' ? '#dfe6e9' :
+                '#e3f2fd'
+            }}>
+              {alertData.type}
+            </span>
+          </div>
+          
+          <div>
+            <strong style={{ display: 'block', marginBottom: '5px', color: '#666' }}>
+              읽음 여부:
+            </strong>
+            <span style={{
+              color: alertData.isRead ? '#27ae60' : '#e74c3c',
+              fontWeight: 'bold'
+            }}>
+              {alertData.isRead ? '✓ 읽음' : '✗ 안읽음'}
+            </span>
+          </div>
+          
+          <div>
+            <strong style={{ display: 'block', marginBottom: '5px', color: '#666' }}>
+              생성일:
+            </strong>
+            <span>{new Date(alertData.createdAt).toLocaleString()}</span>
+          </div>
+        </div>
+        
+        <div style={{ marginTop: '30px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+          {!alertData.isRead && (
+            <Button 
+              onClick={handleMarkAsRead} 
+              disabled={loading}
+              variant="primary"
+            >
+              읽음 처리
+            </Button>
+          )}
+          <Button 
+            onClick={() => navigate('/')}
+            variant="secondary"
+          >
+            목록으로 돌아가기
+          </Button>
+        </div>
+      </Card>
     </div>
   );
 }

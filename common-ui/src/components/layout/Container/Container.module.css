@@ -1,0 +1,48 @@
+/* Container Base Styles */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Padding Options */
+.withPadding {
+  padding-left: var(--spacing-4);
+  padding-right: var(--spacing-4);
+}
+
+/* Max Width Variants */
+.maxWidth-sm {
+  max-width: 640px;
+}
+
+.maxWidth-md {
+  max-width: 768px;
+}
+
+.maxWidth-lg {
+  max-width: 1024px;
+}
+
+.maxWidth-xl {
+  max-width: 1280px;
+}
+
+.maxWidth-full {
+  max-width: 100%;
+}
+
+/* Responsive Padding */
+@media (min-width: 768px) {
+  .withPadding {
+    padding-left: var(--spacing-6);
+    padding-right: var(--spacing-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .withPadding {
+    padding-left: var(--spacing-8);
+    padding-right: var(--spacing-8);
+  }
+}

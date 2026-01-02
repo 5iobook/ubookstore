@@ -1,0 +1,17 @@
+{
+  "name": "알림 서비스",
+  "short_name": "알림",
+  "description": "중고책거래 플랫폼 알림 서비스",
+  "theme_color": "#FF9F43",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

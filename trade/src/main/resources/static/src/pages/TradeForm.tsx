@@ -46,11 +46,13 @@ const TradeForm: React.FC = () => {
           <label className="form-label">만남 장소:</label>
           <input className="form-input" value={meetUpLocation} onChange={e => setMeetUpLocation(e.target.value)} />
         </div>
-        <button type="submit" disabled={loading}>등록</button>
+        <button type="submit" disabled={loading}>
+          {loading ? '등록 중...' : '거래 등록'}
+        </button>
       </form>
-      {loading && <div>등록 중...</div>}
-      {error && <div style={{color:'red'}}>{error}</div>}
-      {success && <div style={{color:'green'}}>거래가 등록되었습니다!</div>}
+      {loading && <div className="loading-message">등록 중...</div>}
+      {error && <div className="error-message">{error}</div>}
+      {success && <div className="success-message">거래가 등록되었습니다!</div>}
     </div>
   );
 };
