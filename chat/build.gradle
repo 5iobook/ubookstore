@@ -3,6 +3,11 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
+repositories {
+	mavenCentral()
+	maven { url 'https://jitpack.io' }
+}
+
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:2023.0.0"
@@ -27,4 +32,13 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+// processResources 최적화: node_modules 제외
+processResources {
+	exclude '**/node_modules/**'
+	exclude '**/.vite/**'
+	exclude '**/dev-dist/**'
+	exclude '**/.tmp/**'
+	exclude '**/.vite-temp/**'
 }

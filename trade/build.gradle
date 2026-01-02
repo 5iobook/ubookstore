@@ -69,3 +69,12 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// processResources 최적화: node_modules 제외
+processResources {
+	exclude '**/node_modules/**'
+	exclude '**/.vite/**'
+	exclude '**/dev-dist/**'
+	exclude '**/.tmp/**'
+	exclude '**/.vite-temp/**'
+}
