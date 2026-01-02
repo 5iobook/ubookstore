@@ -6,7 +6,7 @@
     margin-top: 0;
 
     min-height: 180px;
-    /* 최소 ?�이 고정 */
+    /* 최소 높이 고정 */
 
 }
 
@@ -64,7 +64,7 @@
     display: flex;
     justify-content: center;
     min-height: 60px;
-    /* ?�비게이???�역 최소 ?�이 고정 */
+    /* 네비게이션 영역 최소 높이 고정 */
     align-items: flex-start;
 
 }
@@ -76,7 +76,7 @@
     flex-wrap: wrap;
     justify-content: center;
     max-width: 800px;
-    /* 최�? ?�비 ?�한 */
+    /* 최대 너비 제한 */
     margin: 0 auto;
 
 }
@@ -127,7 +127,7 @@
         padding: var(--spacing-8) 0 var(--spacing-6);
 
         min-height: 200px;
-        /* ?�블릿에??최소 ?�이 */
+        /* 태블릿에서 최소 높이 */
 
     }
 
@@ -150,7 +150,7 @@
         padding: var(--spacing-10) 0 var(--spacing-8);
 
         min-height: 220px;
-        /* ?�스?�톱?�서 최소 ?�이 */
+        /* 데스크톱에서 최소 높이 */
 
     }
 }

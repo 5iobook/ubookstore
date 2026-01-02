@@ -16,7 +16,7 @@ const TradeForm: React.FC = () => {
     e.preventDefault();
 
     if (!buyerId.trim() || !sellerId.trim() || !postId.trim()) {
-      setError('?�수 ??��??모두 ?�력?�주?�요.');
+      setError('필수 정보를 모두 입력해주세요.');
       return;
     }
 
@@ -25,10 +25,10 @@ const TradeForm: React.FC = () => {
 
     try {
       await createTrade({ buyerId, sellerId, postId, meetUpLocation });
-      alert('거래가 ?�공?�으�??�록?�었?�니??');
+      alert('거래가 성공적으로 등록되었습니다!');
       navigate('/');
     } catch (err) {
-      console.error('거래 ?�록 ?�패:', err);
+      console.error('거래 등록 실패:', err);
       setError('거래 등록에 실패했습니다. 다시 시도해주세요.');
     } finally {
       setLoading(false);
@@ -49,7 +49,7 @@ const TradeForm: React.FC = () => {
             </svg>
           }
         >
-          목록?�로
+          목록으로
         </Button>
       </div>
 
@@ -63,14 +63,14 @@ const TradeForm: React.FC = () => {
           fontWeight: 'var(--font-weight-bold)',
           color: 'var(--color-neutral-900)'
         }}>
-          ??거래 ?�록
+          새 거래 등록
         </h1>
         <p style={{ 
           margin: 'var(--spacing-2) 0 0', 
           color: 'var(--text-secondary)',
           fontSize: 'var(--font-size-base)'
         }}>
-          거래 ?�보�??�력?�여 ?�로??거래�??�록?�세??
+          거래 정보를 입력하여 새로운 거래를 등록하세요
         </p>
       </header>
 
@@ -91,8 +91,8 @@ const TradeForm: React.FC = () => {
         <form onSubmit={handleSubmit}>
           <div style={{ display: 'grid', gap: 'var(--spacing-4)' }}>
             <Input
-              label="구매??ID"
-              placeholder="구매??ID�??�력?�세??
+              label="구매자 ID"
+              placeholder="구매자 ID를 입력하세요"
               value={buyerId}
               onChange={(value) => setBuyerId(value)}
               required
@@ -100,8 +100,8 @@ const TradeForm: React.FC = () => {
             />
 
             <Input
-              label="?�매??ID"
-              placeholder="?�매??ID�??�력?�세??
+              label="판매자 ID"
+              placeholder="판매자 ID를 입력하세요"
               value={sellerId}
               onChange={(value) => setSellerId(value)}
               required
@@ -110,7 +110,7 @@ const TradeForm: React.FC = () => {
 
             <Input
               label="게시글 ID"
-              placeholder="거래??게시글 ID�??�력?�세??
+              placeholder="거래할 게시글 ID를 입력하세요"
               value={postId}
               onChange={(value) => setPostId(value)}
               required
@@ -118,8 +118,8 @@ const TradeForm: React.FC = () => {
             />
 
             <Input
-              label="만남 ?�소 (?�택?�항)"
-              placeholder="거래 ?�소�??�력?�세??(?? 강남??2�?출구)"
+              label="만남 장소 (선택사항)"
+              placeholder="거래 장소를 입력하세요(예: 강남역 2번 출구)"
               value={meetUpLocation}
               onChange={(value) => setMeetUpLocation(value)}
               disabled={loading}
@@ -146,7 +146,7 @@ const TradeForm: React.FC = () => {
               variant="primary"
               disabled={loading}
             >
-              {loading ? '?�록 �?..' : '거래 ?�록'}
+              {loading ? '등록 중..' : '거래 등록'}
             </Button>
           </div>
         </form>
@@ -159,7 +159,7 @@ const TradeForm: React.FC = () => {
             padding: 'var(--spacing-4)',
             marginTop: 'var(--spacing-4)'
           }}>
-            <Loading size="md" text="거래�??�록?�는 �?.." />
+            <Loading size="md" text="거래를 등록하는 중.." />
           </div>
         )}
       </Card>

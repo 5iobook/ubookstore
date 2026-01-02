@@ -18,7 +18,7 @@ const NotificationSettings: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: API ?�출�??�림 ?�정 ?�데?�트
+    // TODO: API 호출로 알림 설정 업데이트
     alert('알림 설정이 저장되었습니다.');
   };
 
@@ -43,7 +43,7 @@ const NotificationSettings: React.FC = () => {
           fontSize: 'var(--font-size-2xl)', 
           fontWeight: 'var(--font-weight-bold)' 
         }}>
-          ?�림 ?�정
+          알림 설정
         </h1>
         <p style={{ 
           margin: 'var(--spacing-2) 0 0', 
@@ -62,7 +62,7 @@ const NotificationSettings: React.FC = () => {
               fontSize: 'var(--font-size-lg)',
               fontWeight: 'var(--font-weight-semibold)'
             }}>
-              ?�림 방식
+              알림 방식
             </h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-2)' }}>
@@ -75,14 +75,14 @@ const NotificationSettings: React.FC = () => {
 
               <Checkbox
                 id="pushNotifications"
-                label="?�시 ?�림"
+                label="푸시 알림"
                 checked={notifications.pushNotifications}
                 onChange={handleChange('pushNotifications')}
               />
 
               <Checkbox
                 id="smsNotifications"
-                label="SMS ?�림"
+                label="SMS 알림"
                 checked={notifications.smsNotifications}
                 onChange={handleChange('smsNotifications')}
               />
@@ -96,27 +96,27 @@ const NotificationSettings: React.FC = () => {
               fontSize: 'var(--font-size-lg)',
               fontWeight: 'var(--font-weight-semibold)'
             }}>
-              ?�림 ?�용
+              알림 내용
             </h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-2)' }}>
               <Checkbox
                 id="newMessages"
-                label="??메시지"
+                label="새 메시지"
                 checked={notifications.newMessages}
                 onChange={handleChange('newMessages')}
               />
 
               <Checkbox
                 id="tradeUpdates"
-                label="거래 ?�데?�트"
+                label="거래 업데이트"
                 checked={notifications.tradeUpdates}
                 onChange={handleChange('tradeUpdates')}
               />
 
               <Checkbox
                 id="bookRecommendations"
-                label="?�서 추천"
+                label="도서 추천"
                 checked={notifications.bookRecommendations}
                 onChange={handleChange('bookRecommendations')}
               />
@@ -137,7 +137,7 @@ const NotificationSettings: React.FC = () => {
 
               <Checkbox
                 id="weeklyDigest"
-                label="주간 ?�약"
+                label="주간 요약"
                 checked={notifications.weeklyDigest}
                 onChange={handleChange('weeklyDigest')}
               />
@@ -162,10 +162,10 @@ const NotificationSettings: React.FC = () => {
                 setNotifications(allOff);
               }}
             >
-              모두 ?�기
+              모두 끄기
             </Button>
             <Button type="submit" variant="primary">
-              ?�??
+              저장
             </Button>
           </div>
         </form>

@@ -21,31 +21,29 @@ interface NavItem {
   external?: boolean;
 }
 
-// ?�역 ?�비게이??(모든 ?�비??링크)
+// 전역 네비게이션(모든 서비스 링크)
 const globalNavItems: NavItem[] = [
-  { path: 'http://localhost:5173', label: '?�용??, icon: '?��', external: true },
-  { path: 'http://localhost:5175', label: '게시글', icon: '?��', external: true },
-
-  { path: 'http://localhost:5176', label: '?�서', icon: '?��', external: true },
-  { path: 'http://localhost:5177', label: '채팅', icon: '?��', external: true },
-
-  { path: 'http://localhost:5174', label: '?�림', icon: '?��', external: true },
-  { path: 'http://localhost:5178', label: '거래', icon: '?��', external: true },
-  { path: 'http://localhost:5179', label: '?�시', icon: '�?, external: true },
-  { path: 'http://localhost:5180', label: '?�정', icon: '?�️', external: true },
+  { path: 'http://localhost:5173', label: '사용자', icon: '👤', external: true },
+  { path: 'http://localhost:5175', label: '게시글', icon: '📝', external: true },
+  { path: 'http://localhost:5176', label: '도서', icon: '📚', external: true },
+  { path: 'http://localhost:5177', label: '채팅', icon: '💬', external: true },
+  { path: 'http://localhost:5174', label: '알림', icon: '🔔', external: true },
+  { path: 'http://localhost:5178', label: '거래', icon: '🤝', external: true },
+  { path: 'http://localhost:5179', label: '위시', icon: '❤️', external: true },
+  { path: 'http://localhost:5180', label: '설정', icon: '⚙️', external: true },
 ];
 
 const Navigation: React.FC<NavigationProps> = ({
   isAuthenticated = false,
 
-  title = '책거??
+  title = '책거래'
 
 }) => {
   const location = useLocation();
 
   const isActive = (path: string) => {
 
-    // ?��? 링크??경우 ?�재 ?�트?� 비교
+    // 외부 링크의 경우 현재 포트와 비교
     if (path.startsWith('http://localhost:')) {
       const currentPort = window.location.port;
       const linkPort = new URL(path).port;
@@ -146,7 +144,7 @@ const Navigation: React.FC<NavigationProps> = ({
         <div className={styles.desktopContainer}>
           <div className={styles.desktopLeft}>
             <a href="http://localhost:5173" className={styles.logo}>
-              <span className={styles.logoIcon}>?��</span>
+              <span className={styles.logoIcon}>📚</span>
               <span className={styles.logoText}>{title}</span>
             </a>
             <div className={styles.desktopNav}>

@@ -10,7 +10,7 @@ const AccountSettings: React.FC = () => {
   );
 
   const handleLogout = () => {
-    console.log('로그?�웃');
+    console.log('로그아웃');
     window.location.href = 'http://localhost:5173/signin';
   };
 
@@ -34,7 +34,7 @@ const AccountSettings: React.FC = () => {
           fontSize: 'var(--font-size-2xl)', 
           fontWeight: 'var(--font-weight-bold)' 
         }}>
-          계정 관�?
+          계정 관리
         </h1>
         <p style={{ 
           margin: 'var(--spacing-2) 0 0', 
@@ -105,7 +105,7 @@ const AccountSettings: React.FC = () => {
                 variant="outline"
                 onClick={handleLogout}
               >
-                로그?�웃
+                로그아웃
               </Button>
             </div>
           ) : (
@@ -125,10 +125,10 @@ const AccountSettings: React.FC = () => {
               </p>
               <div style={{ display: 'flex', gap: 'var(--spacing-3)', justifyContent: 'center' }}>
                 <Button variant="primary" onClick={handleLogin}>
-                  로그??
+                  로그인
                 </Button>
                 <Button variant="outline" onClick={handleSignup}>
-                  ?�원가??
+                  회원가입
                 </Button>
               </div>
             </div>
@@ -144,13 +144,13 @@ const AccountSettings: React.FC = () => {
               fontSize: 'var(--font-size-xl)', 
               fontWeight: 'var(--font-weight-bold)' 
             }}>
-              ?�비??바로가�?
+              서비스 바로가기
             </h2>
             <p style={{ 
               margin: 'var(--spacing-2) 0 0', 
               color: 'var(--text-secondary)' 
             }}>
-              ?�른 ?�비?�로 빠르�??�동?�세??
+              다른 서비스로 빠르게 이동하세요
             </p>
           </header>
           
@@ -180,20 +180,20 @@ const AccountSettings: React.FC = () => {
                 e.currentTarget.style.borderColor = 'var(--border-secondary)';
               }}
             >
-              <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-2)' }}>?��</div>
+              <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-2)' }}>👤</div>
               <h3 style={{ 
                 margin: '0 0 var(--spacing-1)', 
                 fontSize: 'var(--font-size-lg)',
                 fontWeight: 'var(--font-weight-semibold)'
               }}>
-                ?�용??
+                사용자
               </h3>
               <p style={{ 
                 margin: 0, 
                 fontSize: 'var(--font-size-sm)',
                 color: 'var(--text-secondary)'
               }}>
-                ?�용??관�?�??�로??
+                사용자 관리 및 프로필
               </p>
             </a>
             
@@ -218,7 +218,7 @@ const AccountSettings: React.FC = () => {
                 e.currentTarget.style.borderColor = 'var(--border-secondary)';
               }}
             >
-              <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-2)' }}>?��</div>
+              <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-2)' }}>📝</div>
               <h3 style={{ 
                 margin: '0 0 var(--spacing-1)', 
                 fontSize: 'var(--font-size-lg)',
@@ -231,7 +231,7 @@ const AccountSettings: React.FC = () => {
                 fontSize: 'var(--font-size-sm)',
                 color: 'var(--text-secondary)'
               }}>
-                커�??�티 게시글
+                커뮤니티 게시글
               </p>
             </a>
             
@@ -256,20 +256,20 @@ const AccountSettings: React.FC = () => {
                 e.currentTarget.style.borderColor = 'var(--border-secondary)';
               }}
             >
-              <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-2)' }}>?��</div>
+              <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-2)' }}>📚</div>
               <h3 style={{ 
                 margin: '0 0 var(--spacing-1)', 
                 fontSize: 'var(--font-size-lg)',
                 fontWeight: 'var(--font-weight-semibold)'
               }}>
-                ?�서
+                도서
               </h3>
               <p style={{ 
                 margin: 0, 
                 fontSize: 'var(--font-size-sm)',
                 color: 'var(--text-secondary)'
               }}>
-                ?�서 검??�?관�?
+                도서 검색 및 관리
               </p>
             </a>
             
@@ -294,7 +294,7 @@ const AccountSettings: React.FC = () => {
                 e.currentTarget.style.borderColor = 'var(--border-secondary)';
               }}
             >
-              <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-2)' }}>?��</div>
+              <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-2)' }}>💬</div>
               <h3 style={{ 
                 margin: '0 0 var(--spacing-1)', 
                 fontSize: 'var(--font-size-lg)',
@@ -307,7 +307,7 @@ const AccountSettings: React.FC = () => {
                 fontSize: 'var(--font-size-sm)',
                 color: 'var(--text-secondary)'
               }}>
-                ?�시�?채팅
+                실시간 채팅
               </p>
             </a>
             
@@ -332,13 +332,13 @@ const AccountSettings: React.FC = () => {
                 e.currentTarget.style.borderColor = 'var(--border-secondary)';
               }}
             >
-              <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-2)' }}>?��</div>
+              <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-2)' }}>🔔</div>
               <h3 style={{ 
                 margin: '0 0 var(--spacing-1)', 
                 fontSize: 'var(--font-size-lg)',
                 fontWeight: 'var(--font-weight-semibold)'
               }}>
-                ?�림
+                알림
               </h3>
               <p style={{ 
                 margin: 0, 
@@ -370,7 +370,7 @@ const AccountSettings: React.FC = () => {
                 e.currentTarget.style.borderColor = 'var(--border-secondary)';
               }}
             >
-              <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-2)' }}>?��</div>
+              <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-2)' }}>🤝</div>
               <h3 style={{ 
                 margin: '0 0 var(--spacing-1)', 
                 fontSize: 'var(--font-size-lg)',
@@ -383,7 +383,7 @@ const AccountSettings: React.FC = () => {
                 fontSize: 'var(--font-size-sm)',
                 color: 'var(--text-secondary)'
               }}>
-                ?�서 거래
+                도서 거래
               </p>
             </a>
             
@@ -408,20 +408,20 @@ const AccountSettings: React.FC = () => {
                 e.currentTarget.style.borderColor = 'var(--border-secondary)';
               }}
             >
-              <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-2)' }}>�?/div>
+              <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-2)' }}>♥️</div>
               <h3 style={{ 
                 margin: '0 0 var(--spacing-1)', 
                 fontSize: 'var(--font-size-lg)',
                 fontWeight: 'var(--font-weight-semibold)'
               }}>
-                ?�시리스??
+                위시리스트
               </h3>
               <p style={{ 
                 margin: 0, 
                 fontSize: 'var(--font-size-sm)',
                 color: 'var(--text-secondary)'
               }}>
-                관리센터
+                위시리스트 관리
               </p>
             </a>
           </div>

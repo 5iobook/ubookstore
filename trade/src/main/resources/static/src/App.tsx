@@ -16,30 +16,29 @@ function App() {
   const navItems = [
     { label: '거래 목록', path: '/' },
 
-    { label: '거래 ?�록', path: '/new' },
-
-    { label: '??거래', path: '/my-trades' }
+    { label: '거래 등록', path: '/new' },
+    { label: '내 거래', path: '/my-trades' }
   ];
 
   return (
 
-    <AuthGuard serviceName="?�서 거래 ?�비??>
+    <AuthGuard serviceName="도서 거래 서비스">
       <ErrorBoundary>
         <Router>
           <a href="#main-content" className="skip-link">
-            메인 콘텐츠로 건너?�기
+            메인 콘텐츠로 건너뛰기
           </a>
 
           <NetworkStatusBanner />
 
-          <AppLayout 
-            title="거래" 
+          <AppLayout
+            title="거래"
             navItems={navItems}
-            pageTitle="?�서 거래"
-            pageDescription="중고 ?�서�??�고?�고 거래 ?�역??관리하?�요."
+            pageTitle="도서 거래"
+            pageDescription="중고 도서를 사고팔고 거래 내역을 관리하세요."
           >
             <main id="main-content" role="main">
-              <Suspense fallback={<Loading size="lg" text="?�이지 로딩 �?.." />}>
+              <Suspense fallback={<Loading size="lg" text="페이지 로딩 중.." />}>
                 <Routes>
                   <Route path="/" element={<TradeList />} />
                   <Route path="/trade/:id" element={<TradeDetail />} />

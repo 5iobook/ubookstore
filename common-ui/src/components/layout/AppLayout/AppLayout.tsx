@@ -45,7 +45,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({
       
       {showPageHeader && (
         <PageHeader 
-          title={pageTitle || title || '?�비??}
+          title={pageTitle || title || '서비스'}
           description={pageDescription}
           navItems={navItems}
         />

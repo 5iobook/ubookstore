@@ -7,17 +7,17 @@ import './TradeList.css';
 
 const PAGE_SIZE = 10;
 
-// TradeStatus, TradeMethod ?��? 매핑
+// TradeStatus, TradeMethod 상태 매핑
 const TRADE_STATUS_MAP: Record<string, string> = {
-  REQUESTED: '?�청??,
-  ACCEPTED: '?�락??,
-  IN_PROGRESS: '진행�?,
-  COMPLETED: '?�료??,
-  CANCELED: '취소??,
+  REQUESTED: '요청됨',
+  ACCEPTED: '수락됨',
+  IN_PROGRESS: '진행중',
+  COMPLETED: '완료됨',
+  CANCELED: '취소됨',
 };
 const TRADE_METHOD_MAP: Record<string, string> = {
-  DIRECT: '직거??,
-  DELIVERY: '?�배거래',
+  DIRECT: '직거래',
+  DELIVERY: '택배거래',
 };
 
 const TradeList: React.FC = () => {
@@ -57,13 +57,13 @@ const TradeList: React.FC = () => {
       <header className="trade-list__header">
         <h1 className="trade-list__title">거래 목록</h1>
         <p className="trade-list__subtitle" aria-live="polite">
-          �?{totalPages > 0 ? (totalPages - 1) * PAGE_SIZE + trades.length : 0}건의 거래
+          총 {totalPages > 0 ? (totalPages - 1) * PAGE_SIZE + trades.length : 0}건의 거래
         </p>
       </header>
 
       {loading && (
         <div className="trade-list__loading" role="status" aria-live="polite">
-          <Loading size="lg" text="거래 목록??불러?�는 �?.." />
+          <Loading size="lg" text="거래 목록을 불러오는 중.." />
         </div>
       )}
 
@@ -71,27 +71,27 @@ const TradeList: React.FC = () => {
         <div className="trade-list__error" role="alert" aria-live="assertive">
           <p className="trade-list__error-message">{error}</p>
           <Button variant="primary" onClick={loadTrades}>
-            ?�시 ?�도
+            다시 시도
           </Button>
         </div>
       )}
 
       {!loading && !error && trades.length === 0 && (
         <div className="trade-list__empty" role="status">
-          <p>?�록??거래가 ?�습?�다.</p>
+          <p>등록된 거래가 없습니다.</p>
         </div>
       )}
 
       {!loading && !error && trades.length > 0 && (
         <>
-          <section aria-label="거래 목록 ?�이�? className="trade-list__table">
+          <section aria-label="거래 목록 테이블" className="trade-list__table">
             <table>
               <thead>
                 <tr>
                   <th>거래 ID</th>
-                  <th>?�태</th>
+                  <th>상태</th>
                   <th>거래 방법</th>
-                  <th>?�료??/th>
+                  <th>완료일</th>
                 </tr>
               </thead>
               <tbody>

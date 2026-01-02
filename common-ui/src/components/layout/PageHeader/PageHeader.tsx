@@ -50,9 +50,9 @@ const PageHeader: React.FC<PageHeaderProps> = ({
           )}
         </div>
 
-        {/* 로컬 ?�비게이??- 모바?�에?�도 보이?�록 */}
+        {/* 로컬 네비게이션 - 모바일에서도 보이도록 */}
         {navItems && navItems.length > 0 && (
-          <nav className={styles.localNav} aria-label="?�이지 ?�비게이??>
+          <nav className={styles.localNav} aria-label="페이지 네비게이션">
             <div className={styles.navList}>
               {navItems.map((item) => (
                 <Link

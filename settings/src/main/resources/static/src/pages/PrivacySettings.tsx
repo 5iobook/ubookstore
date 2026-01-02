@@ -16,7 +16,7 @@ const PrivacySettings: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: API ?�출�?개인?�보 ?�정 ?�데?�트
+    // TODO: API 호출로 개인정보 설정 업데이트
     alert('개인정보 설정이 저장되었습니다.');
   };
 
@@ -39,8 +39,8 @@ const PrivacySettings: React.FC = () => {
 
   const handleDeleteAccount = () => {
     if (window.confirm('정말로 계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
-      // TODO: 계정 ??�� API ?�출
-      alert('계정 ??�� ?�청??처리?�었?�니??');
+      // TODO: 계정 삭제 API 호출
+      alert('계정 삭제 요청이 처리되었습니다.');
     }
   };
 
@@ -61,13 +61,13 @@ const PrivacySettings: React.FC = () => {
           fontSize: 'var(--font-size-2xl)',
           fontWeight: 'var(--font-weight-bold)'
         }}>
-          개인?�보 ?�정
+          개인정보 설정
         </h1>
         <p style={{
           margin: 'var(--spacing-2) 0 0',
           color: 'var(--text-secondary)'
         }}>
-          개인?�보 보호 �?계정 보안??관리하?�요.
+          개인정보 보호 및 계정 보안을 관리하세요.
         </p>
       </header>
 
@@ -81,7 +81,7 @@ const PrivacySettings: React.FC = () => {
                 fontSize: 'var(--font-size-lg)',
                 fontWeight: 'var(--font-weight-semibold)'
               }}>
-                ?�로??공개 ?�정
+                프로필 공개 설정
               </h3>
 
               <div style={{ marginBottom: 'var(--spacing-4)' }}>
@@ -92,7 +92,7 @@ const PrivacySettings: React.FC = () => {
                   fontWeight: 'var(--font-weight-medium)',
                   color: 'var(--text-primary)'
                 }}>
-                  ?�로??공개 범위
+                  프로필 공개 범위
                 </label>
                 <select
                   name="profileVisibility"
@@ -107,30 +107,30 @@ const PrivacySettings: React.FC = () => {
                     backgroundColor: 'var(--background-primary)'
                   }}
                 >
-                  <option value="public">?�체 공개</option>
-                  <option value="friends">친구�?/option>
-                  <option value="private">비공�?/option>
+                  <option value="public">전체 공개</option>
+                  <option value="friends">친구만</option>
+                  <option value="private">비공개</option>
                 </select>
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-2)' }}>
                 <Checkbox
                   id="showEmail"
-                  label="?�메??주소 공개"
+                  label="이메일 주소 공개"
                   checked={privacy.showEmail}
                   onChange={handleCheckboxChange('showEmail')}
                 />
 
                 <Checkbox
                   id="showPhone"
-                  label="?�화번호 공개"
+                  label="전화번호 공개"
                   checked={privacy.showPhone}
                   onChange={handleCheckboxChange('showPhone')}
                 />
 
                 <Checkbox
                   id="allowMessages"
-                  label="?�른 ?�용?�의 메시지 ?�용"
+                  label="다른 사용자의 메시지 허용"
                   checked={privacy.allowMessages}
                   onChange={handleCheckboxChange('allowMessages')}
                 />
@@ -144,7 +144,7 @@ const PrivacySettings: React.FC = () => {
                 fontSize: 'var(--font-size-lg)',
                 fontWeight: 'var(--font-weight-semibold)'
               }}>
-                ?�이??�?개인?�보
+                데이터 및 개인정보
               </h3>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-2)' }}>
@@ -157,7 +157,7 @@ const PrivacySettings: React.FC = () => {
 
                 <Checkbox
                   id="analyticsTracking"
-                  label="분석 추적 ?�용"
+                  label="분석 추적 허용"
                   checked={privacy.analyticsTracking}
                   onChange={handleCheckboxChange('analyticsTracking')}
                 />
@@ -178,7 +178,7 @@ const PrivacySettings: React.FC = () => {
               borderTop: '1px solid var(--border-secondary)'
             }}>
               <Button type="submit" variant="primary">
-                ?�??
+                저장
               </Button>
             </div>
           </form>
@@ -193,7 +193,7 @@ const PrivacySettings: React.FC = () => {
               fontSize: 'var(--font-size-xl)',
               fontWeight: 'var(--font-weight-bold)'
             }}>
-              ?�이??관�?
+              데이터 관리
             </h2>
             <p style={{
               margin: 'var(--spacing-2) 0 0',
@@ -222,7 +222,7 @@ const PrivacySettings: React.FC = () => {
                 fontSize: 'var(--font-size-xl)',
                 fontWeight: 'var(--font-weight-bold)'
               }}>
-                ?�험 구역
+                위험 구역
               </h2>
                 <p style={{
                   margin: 'var(--spacing-2) 0 0',
@@ -235,7 +235,7 @@ const PrivacySettings: React.FC = () => {
                   variant="outline"
                   onClick={handleDeleteAccount}
                 >
-                  계정 ??��
+                  계정 삭제
                 </Button>
             </div>
           </div>

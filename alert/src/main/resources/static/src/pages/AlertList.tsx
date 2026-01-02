@@ -15,7 +15,7 @@ function AlertList() {
   const [totalElements, setTotalElements] = useState(0);
   const size = 10;
 
-  // ???�림 ?�성 ??
+  // 새 알림 생성 폼
   const [userId, setUserId] = useState('user1');
   const [message, setMessage] = useState('');
   const [type, setType] = useState('INFO');
@@ -33,8 +33,8 @@ function AlertList() {
       setTotalPages(data.totalPages);
       setTotalElements(data.totalElements);
     } catch (err) {
-      console.error('?�림 목록 조회 ?�패:', err);
-      setError('?�림 목록??불러?�는???�패?�습?�다.');
+      console.error('알림 목록 조회 실패:', err);
+      setError('알림 목록을 불러오는데 실패했습니다.');
     } finally {
       setLoading(false);
     }
@@ -42,7 +42,7 @@ function AlertList() {
 
   function handleCreateAlert() {
     if (!message.trim()) {
-      alert('메시지�??�력?�주?�요.');
+      alert('메시지를 입력해주세요.');
       return;
     }
 
@@ -50,14 +50,14 @@ function AlertList() {
     setError(null);
     createAlert({ userId, message, type })
       .then(() => {
-        alert('?�림???�성?�었?�니??');
+        alert('알림이 생성되었습니다!');
         setMessage('');
         setPage(0);
         loadAlerts();
       })
       .catch((err) => {
-        console.error('?�림 ?�성 ?�패:', err);
-        setError('?�림 ?�성???�패?�습?�다.');
+        console.error('알림 생성 실패:', err);
+        setError('알림 생성에 실패했습니다.');
       })
       .finally(() => {
         setLoading(false);
@@ -65,39 +65,35 @@ function AlertList() {
   }
 
   if (loading && alerts.length === 0) {
-    return <div className="alert-list__loading"><Loading size="lg" text="?�림 목록??불러?�는 �?.." /></div>;
-  }
-
-  if (loading && alerts.length === 0) {
-    return <div className="alert-list__loading"><Loading size="lg" text="?�림 목록??불러?�는 �?.." /></div>;
+    return <div className="alert-list__loading"><Loading size="lg" text="알림 목록을 불러오는 중.." /></div>;
   }
 
   return (
 
     <Container maxWidth="xl" className="alert-list">
       <header className="alert-list__header">
-        <h1 className="alert-list__title">?�림 목록</h1>
-        <p className="alert-list__subtitle">?�스???�림�?메시지�??�인?�세??/p>
+        <h1 className="alert-list__title">알림 목록</h1>
+        <p className="alert-list__subtitle">시스템 알림과 메시지를 확인하세요</p>
       </header>
       
       <Card className="alert-list__create-form">
-        <h3>???�림 ?�성</h3>
+        <h3>새 알림 생성</h3>
         <div className="alert-list__form-fields">
           <div className="alert-list__form-field">
 
             <Input
-              label="?�용??ID"
+              label="사용자 ID"
               type="text"
               value={userId}
               onChange={(value) => setUserId(value)}
-              placeholder="?�용??ID ?�력"
+              placeholder="사용자 ID 입력"
             />
           </div>
 
           <div className="alert-list__form-field">
             <label htmlFor="type" className="alert-list__form-label">
 
-              ?�??
+              유형
             </label>
             <select
               id="type"
@@ -119,7 +115,7 @@ function AlertList() {
             <Input
               label="메시지"
               type="text"
-              placeholder="?�림 메시지 ?�력"
+              placeholder="알림 메시지 입력"
               value={message}
               onChange={(value) => setMessage(value)}
             />
@@ -129,50 +125,50 @@ function AlertList() {
             disabled={loading}
             variant="primary"
           >
-            ?�림 ?�성
+            알림 생성
           </Button>
         </div>
       </Card>
 
 
       <p className="alert-list__count" aria-live="polite">
-        �?{totalElements}개의 ?�림
+        총 {totalElements}개의 알림
       </p>
 
       {error && (
         <div className="alert-list__error" role="alert" aria-live="assertive">
           <p className="alert-list__error-message">{error}</p>
           <Button variant="primary" onClick={loadAlerts}>
-            ?�시 ?�도
+            다시 시도
           </Button>
         </div>
       )}
 
       {loading && alerts.length === 0 && (
         <div className="alert-list__loading" role="status" aria-live="polite">
-          <Loading size="lg" text="?�림 목록??불러?�는 �?.." />
+          <Loading size="lg" text="알림 목록을 불러오는 중.." />
         </div>
       )}
 
       {!loading && !error && alerts.length === 0 && (
         <div className="alert-list__empty" role="status">
-          <p>?�림???�습?�다.</p>
+          <p>알림이 없습니다.</p>
         </div>
       )}
 
       {!loading && !error && alerts.length > 0 && (
         <>
-          <section aria-label="?�림 목록 ?�이�? className="alert-list__table">
+          <section aria-label="알림 목록 테이블" className="alert-list__table">
             <table>
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>?�용??ID</th>
+                  <th>사용자 ID</th>
                   <th>메시지</th>
-                  <th>?�??/th>
-                  <th>?�음 ?��?</th>
-                  <th>?�성??/th>
-                  <th>?�션</th>
+                  <th>유형</th>
+                  <th>읽음 상태</th>
+                  <th>생성일</th>
+                  <th>액션</th>
                 </tr>
               </thead>
               <tbody>
@@ -188,7 +184,7 @@ function AlertList() {
                     </td>
                     <td>
                       <span className={`alert-read-status ${alert.isRead ? 'read' : 'unread'}`}>
-                        {alert.isRead ? '???�음' : '???�읽??}
+                        {alert.isRead ? '읽음' : '안읽음'}
                       </span>
                     </td>
                     <td className="alert-date">
@@ -197,7 +193,7 @@ function AlertList() {
                     <td>
                       <Link to={`/alert/${alert.id}`}>
                         <Button variant="outline" size="sm">
-                          ?�세보기
+                          상세보기
                         </Button>
                       </Link>
                     </td>
