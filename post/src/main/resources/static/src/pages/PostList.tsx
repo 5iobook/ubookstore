@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
+<<<<<<< HEAD
 import { Container, Button, Loading, Pagination } from '@bookstore/common-ui';
+=======
+import { Container, Grid, PostCard, Loading, Button } from '@bookstore/common-ui';
+>>>>>>> dev
 import { fetchPostListPage, type Post } from '../api/postApi';
 import './PostList.css';
 
@@ -31,6 +35,7 @@ function PostList() {
     }
   }
 
+<<<<<<< HEAD
   return (
     <Container maxWidth="xl" className="post-list">
       <header className="post-list__header">
@@ -118,6 +123,53 @@ function PostList() {
           />
         </>
       )}
+=======
+  if (loading) return <div className="post-list__loading"><Loading /></div>;
+  if (error) return <Container><div className="post-list__error-message">{error}</div></Container>;
+
+  return (
+    <Container>
+      <div className="post-list">
+        <div className="post-list__header">
+          <h2 className="post-list__title">게시글 목록</h2>
+          <p className="post-list__subtitle">커뮤니티 게시글을 확인하세요</p>
+        </div>
+        
+        <div className="post-list__grid">
+          <Grid columns={{ mobile: 1, tablet: 2, desktop: 3 }} gap="1.5rem">
+            {posts.map((post, index) => (
+              <PostCard
+                key={index}
+                title={post.title}
+                price={`${post.price.amount.toLocaleString()} ${post.price.currency}`}
+                condition={post.condition}
+                viewCount={post.viewCount}
+                wishCount={post.wishCount}
+                hashtags={post.hashtagList.map(tag => tag.name)}
+              />
+            ))}
+          </Grid>
+        </div>
+
+        <div className="post-list__pagination">
+          <Button onClick={() => setPage(0)} disabled={page === 0} variant="secondary" size="small">
+            처음
+          </Button>
+          <Button onClick={() => setPage(page - 1)} disabled={page === 0} variant="secondary" size="small">
+            이전
+          </Button>
+          <div className="post-list__pagination-info">
+            {page + 1} / {totalPages || 1}
+          </div>
+          <Button onClick={() => setPage(page + 1)} disabled={page >= totalPages - 1} variant="secondary" size="small">
+            다음
+          </Button>
+          <Button onClick={() => setPage(totalPages - 1)} disabled={page >= totalPages - 1} variant="secondary" size="small">
+            마지막
+          </Button>
+        </div>
+      </div>
+>>>>>>> dev
     </Container>
   );
 }

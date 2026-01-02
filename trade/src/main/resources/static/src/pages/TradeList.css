@@ -54,6 +54,7 @@
 
 .trade-list__table {
   margin-bottom: var(--spacing-8);
+<<<<<<< HEAD
   background: var(--bg-primary);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
@@ -134,6 +135,8 @@
 .status-canceled {
   background-color: var(--color-error);
   color: var(--color-neutral-0);
+=======
+>>>>>>> dev
 }
 
 .trade-list__pagination {
@@ -144,6 +147,7 @@
   padding: var(--spacing-4) 0;
 }
 
+<<<<<<< HEAD
 /* 페이지네이션 버튼 hover 효과 */
 .trade-list__pagination button:hover:not(:disabled) {
   transform: translateY(-1px);
@@ -156,6 +160,8 @@
   color: var(--color-primary-700);
 }
 
+=======
+>>>>>>> dev
 .trade-list__pagination-info {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
@@ -175,6 +181,7 @@
     font-size: var(--font-size-2xl);
   }
 
+<<<<<<< HEAD
   .trade-list__table {
     overflow-x: auto;
   }
@@ -185,6 +192,8 @@
     font-size: var(--font-size-xs);
   }
 
+=======
+>>>>>>> dev
   .trade-list__pagination {
     flex-wrap: wrap;
     gap: var(--spacing-1);
@@ -194,10 +203,13 @@
     width: 100%;
     margin: var(--spacing-2) 0;
   }
+<<<<<<< HEAD
 
   .status-badge {
     font-size: 10px;
     padding: 2px 6px;
     min-width: 50px;
   }
+=======
+>>>>>>> dev
 }

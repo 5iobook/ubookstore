@@ -40,7 +40,11 @@ const PageHeader: React.FC<PageHeaderProps> = ({
               <p className={styles.description}>{description}</p>
             )}
           </div>
+<<<<<<< HEAD
 
+=======
+          
+>>>>>>> dev
           {actions && (
             <div className={styles.actions}>
               {actions}

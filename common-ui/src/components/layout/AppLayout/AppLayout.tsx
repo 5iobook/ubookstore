@@ -39,6 +39,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({
         isAuthenticated={isAuthenticated} 
         user={user}
         title={title}
+<<<<<<< HEAD
+=======
+        customNavItems={navItems}
+>>>>>>> dev
       />
       
       {showPageHeader && (

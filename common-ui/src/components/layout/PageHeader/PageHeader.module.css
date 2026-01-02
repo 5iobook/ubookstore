@@ -4,8 +4,11 @@
     border-bottom: 1px solid var(--border-secondary);
     padding: var(--spacing-6) 0 var(--spacing-4);
     margin-top: 0;
+<<<<<<< HEAD
     min-height: 180px;
     /* 최소 높이 고정 */
+=======
+>>>>>>> dev
 }
 
 .container {
@@ -16,16 +19,26 @@
 
 .headerContent {
     display: flex;
+<<<<<<< HEAD
     justify-content: center;
     align-items: flex-start;
     gap: var(--spacing-6);
     margin-bottom: var(--spacing-6);
     text-align: center;
+=======
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-6);
+    margin-bottom: var(--spacing-6);
+>>>>>>> dev
 }
 
 .titleSection {
     flex: 1;
+<<<<<<< HEAD
     text-align: center;
+=======
+>>>>>>> dev
 }
 
 .title {
@@ -54,21 +67,29 @@
 .localNav {
     border-top: 1px solid var(--border-secondary);
     padding-top: var(--spacing-4);
+<<<<<<< HEAD
     display: flex;
     justify-content: center;
     min-height: 60px;
     /* 네비게이션 영역 최소 높이 고정 */
     align-items: flex-start;
+=======
+>>>>>>> dev
 }
 
 .navList {
     display: flex;
+<<<<<<< HEAD
     gap: var(--spacing-2);
     flex-wrap: wrap;
     justify-content: center;
     max-width: 800px;
     /* 최대 너비 제한 */
     margin: 0 auto;
+=======
+    gap: var(--spacing-1);
+    flex-wrap: wrap;
+>>>>>>> dev
 }
 
 .navItem {
@@ -83,8 +104,11 @@
     transition: all var(--transition-fast);
     border: 1px solid transparent;
     background-color: var(--bg-secondary);
+<<<<<<< HEAD
     white-space: nowrap;
     flex-shrink: 0;
+=======
+>>>>>>> dev
 }
 
 .navItem:hover {
@@ -113,8 +137,11 @@
 
     .pageHeader {
         padding: var(--spacing-8) 0 var(--spacing-6);
+<<<<<<< HEAD
         min-height: 200px;
         /* 태블릿에서 최소 높이 */
+=======
+>>>>>>> dev
     }
 
     .title {
@@ -134,8 +161,11 @@
 
     .pageHeader {
         padding: var(--spacing-10) 0 var(--spacing-8);
+<<<<<<< HEAD
         min-height: 220px;
         /* 데스크톱에서 최소 높이 */
+=======
+>>>>>>> dev
     }
 }
 
@@ -143,6 +173,7 @@
 @media (max-width: 767px) {
     .headerContent {
         flex-direction: column;
+<<<<<<< HEAD
         align-items: center;
         gap: var(--spacing-4);
         text-align: center;
@@ -150,15 +181,30 @@
 
     .actions {
         justify-content: center;
+=======
+        align-items: stretch;
+        gap: var(--spacing-4);
+    }
+
+    .actions {
+        justify-content: flex-start;
+>>>>>>> dev
     }
 
     .navList {
         gap: var(--spacing-2);
+<<<<<<< HEAD
         justify-content: center;
     }
 
     .navItem {
         flex-shrink: 0;
+=======
+    }
+
+    .navItem {
+        flex: 1;
+>>>>>>> dev
         justify-content: center;
         min-width: 0;
     }

@@ -36,6 +36,7 @@ const TradeForm: React.FC = () => {
   };
 
   return (
+<<<<<<< HEAD
     <Container maxWidth="md">
       <div style={{ marginBottom: 'var(--spacing-4)' }}>
         <Button
@@ -163,6 +164,35 @@ const TradeForm: React.FC = () => {
         )}
       </Card>
     </Container>
+=======
+    <div>
+      <h2>거래 등록</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="form-row">
+          <label className="form-label">구매자 ID:</label>
+          <input className="form-input" value={buyerId} onChange={e => setBuyerId(e.target.value)} required />
+        </div>
+        <div className="form-row">
+          <label className="form-label">판매자 ID:</label>
+          <input className="form-input" value={sellerId} onChange={e => setSellerId(e.target.value)} required />
+        </div>
+        <div className="form-row">
+          <label className="form-label">게시글 ID:</label>
+          <input className="form-input" value={postId} onChange={e => setPostId(e.target.value)} required />
+        </div>
+        <div className="form-row">
+          <label className="form-label">만남 장소:</label>
+          <input className="form-input" value={meetUpLocation} onChange={e => setMeetUpLocation(e.target.value)} />
+        </div>
+        <button type="submit" disabled={loading}>
+          {loading ? '등록 중...' : '거래 등록'}
+        </button>
+      </form>
+      {loading && <div className="loading-message">등록 중...</div>}
+      {error && <div className="error-message">{error}</div>}
+      {success && <div className="success-message">거래가 등록되었습니다!</div>}
+    </div>
+>>>>>>> dev
   );
 };
 

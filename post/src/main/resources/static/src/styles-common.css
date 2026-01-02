@@ -264,6 +264,12 @@ img {
 button {
   font-family: inherit;
   cursor: pointer;
+<<<<<<< HEAD
+=======
+  border: none;
+  background: none;
+  padding: 0;
+>>>>>>> dev
 }
 
 button:disabled {

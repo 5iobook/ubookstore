@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 import { Container, Button, Card, Loading } from '@bookstore/common-ui';
+=======
+import { Button, Card, Loading } from '@bookstore/common-ui';
+>>>>>>> dev
 import { fetchAlertDetail, markAlertAsRead, type Alert } from '../api/alertApi';
 import './AlertDetail.css';
 
@@ -49,6 +53,7 @@ function AlertDetail() {
   }
 
   if (loading && !alertData) {
+<<<<<<< HEAD
     return (
       <Container maxWidth="xl" className="alert-detail">
         <div className="alert-detail__loading" role="status" aria-live="polite">
@@ -132,6 +137,107 @@ function AlertDetail() {
         </div>
         
         <div className="alert-detail__actions">
+=======
+    return <Loading size="lg" text="알림 정보를 불러오는 중..." />;
+  }
+
+  if (error) {
+    return (
+      <div className="container">
+        <div className="error-container" role="alert">
+          {error}
+        </div>
+        <div style={{ marginTop: '20px' }}>
+          <Button onClick={() => navigate('/')} variant="secondary">
+            목록으로 돌아가기
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!alertData) {
+    return (
+      <div className="container">
+        <Card>
+          <p style={{ textAlign: 'center', color: '#666' }}>알림을 찾을 수 없습니다.</p>
+        </Card>
+        <div style={{ marginTop: '20px' }}>
+          <Button onClick={() => navigate('/')} variant="secondary">
+            목록으로 돌아가기
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container">
+      <h2>알림 상세</h2>
+      <Card>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+          <div>
+            <strong style={{ display: 'block', marginBottom: '5px', color: '#666' }}>
+              ID:
+            </strong>
+            <span>{alertData.id}</span>
+          </div>
+          
+          <div>
+            <strong style={{ display: 'block', marginBottom: '5px', color: '#666' }}>
+              사용자 ID:
+            </strong>
+            <span>{alertData.userId}</span>
+          </div>
+          
+          <div>
+            <strong style={{ display: 'block', marginBottom: '5px', color: '#666' }}>
+              메시지:
+            </strong>
+            <span>{alertData.message}</span>
+          </div>
+          
+          <div>
+            <strong style={{ display: 'block', marginBottom: '5px', color: '#666' }}>
+              타입:
+            </strong>
+            <span style={{
+              padding: '4px 12px',
+              borderRadius: '4px',
+              fontSize: '14px',
+              display: 'inline-block',
+              backgroundColor: 
+                alertData.type === 'ERROR' ? '#fee' :
+                alertData.type === 'WARNING' ? '#ffeaa7' :
+                alertData.type === 'SUCCESS' ? '#dfe6e9' :
+                '#e3f2fd'
+            }}>
+              {alertData.type}
+            </span>
+          </div>
+          
+          <div>
+            <strong style={{ display: 'block', marginBottom: '5px', color: '#666' }}>
+              읽음 여부:
+            </strong>
+            <span style={{
+              color: alertData.isRead ? '#27ae60' : '#e74c3c',
+              fontWeight: 'bold'
+            }}>
+              {alertData.isRead ? '✓ 읽음' : '✗ 안읽음'}
+            </span>
+          </div>
+          
+          <div>
+            <strong style={{ display: 'block', marginBottom: '5px', color: '#666' }}>
+              생성일:
+            </strong>
+            <span>{new Date(alertData.createdAt).toLocaleString()}</span>
+          </div>
+        </div>
+        
+        <div style={{ marginTop: '30px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+>>>>>>> dev
           {!alertData.isRead && (
             <Button 
               onClick={handleMarkAsRead} 
@@ -143,6 +249,7 @@ function AlertDetail() {
           )}
           <Button 
             onClick={() => navigate('/')}
+<<<<<<< HEAD
             variant="ghost"
             size="sm"
             icon={
@@ -156,6 +263,15 @@ function AlertDetail() {
         </div>
       </Card>
     </Container>
+=======
+            variant="secondary"
+          >
+            목록으로 돌아가기
+          </Button>
+        </div>
+      </Card>
+    </div>
+>>>>>>> dev
   );
 }
 

@@ -21,6 +21,7 @@
   margin: 0;
 }
 
+<<<<<<< HEAD
 .alert-list__create-form {
   margin-bottom: var(--spacing-6);
 }
@@ -65,6 +66,8 @@
   margin-bottom: var(--spacing-4);
 }
 
+=======
+>>>>>>> dev
 .alert-list__loading {
   display: flex;
   justify-content: center;
@@ -98,6 +101,7 @@
 
 .alert-list__table {
   margin-bottom: var(--spacing-8);
+<<<<<<< HEAD
   background: var(--bg-primary);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
@@ -202,6 +206,8 @@
 
 .alert-read-status.unread {
   color: var(--color-error);
+=======
+>>>>>>> dev
 }
 
 .alert-list__pagination {
@@ -212,6 +218,7 @@
   padding: var(--spacing-4) 0;
 }
 
+<<<<<<< HEAD
 /* 페이지네이션 버튼 hover 효과 수정 - 파란색 제거 */
 .alert-list__pagination .btn:hover:not(:disabled) {
   transform: translateY(-1px);
@@ -236,6 +243,8 @@
   color: var(--color-neutral-0) !important; /* 호버 시 하얀색 */
 }
 
+=======
+>>>>>>> dev
 .alert-list__pagination-info {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
@@ -255,6 +264,7 @@
     font-size: var(--font-size-2xl);
   }
 
+<<<<<<< HEAD
   .alert-list__table {
     overflow-x: auto;
   }
@@ -269,6 +279,8 @@
     max-width: 200px;
   }
 
+=======
+>>>>>>> dev
   .alert-list__pagination {
     flex-wrap: wrap;
     gap: var(--spacing-1);
@@ -278,10 +290,13 @@
     width: 100%;
     margin: var(--spacing-2) 0;
   }
+<<<<<<< HEAD
 
   .alert-type-badge {
     font-size: 10px;
     padding: 2px 6px;
     min-width: 50px;
   }
+=======
+>>>>>>> dev
 }

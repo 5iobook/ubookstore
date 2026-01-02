@@ -33,6 +33,7 @@ function WishList() {
     }
 
     return (
+<<<<<<< HEAD
         <Container maxWidth="xl" className="wish-list">
             <header className="wish-list__header">
                 <h1 className="wish-list__title">위시리스트 목록</h1>
@@ -63,6 +64,19 @@ function WishList() {
             {!loading && !error && wishes.length > 0 && (
                 <>
                     <section aria-label="위시리스트 목록 테이블" className="wish-list__table">
+=======
+        <div className="wish-list">
+            <div className="wish-list__header">
+                <h2 className="wish-list__title">위시리스트 목록</h2>
+                <p className="wish-list__subtitle">관심 있는 도서를 확인하세요</p>
+            </div>
+            
+            {loading && <div className="wish-list__loading">로딩 중...</div>}
+            {error && <div className="wish-list__error-message">{error}</div>}
+            {!loading && !error && (
+                <>
+                    <div className="wish-list__table">
+>>>>>>> dev
                         <table>
                             <thead>
                                 <tr>
@@ -76,15 +90,22 @@ function WishList() {
                                 {wishes.map((wish) => (
                                     <tr key={wish.id}>
                                         <td>{wish.id}</td>
+<<<<<<< HEAD
                                         <td className="wish-user-id">{wish.userId}</td>
                                         <td className="wish-post-id">{wish.postId}</td>
                                         <td className="wish-date">
                                             {new Date(wish.createdAt).toLocaleString()}
                                         </td>
+=======
+                                        <td>{wish.userId}</td>
+                                        <td>{wish.postId}</td>
+                                        <td>{new Date(wish.createdAt).toLocaleString()}</td>
+>>>>>>> dev
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
+<<<<<<< HEAD
                     </section>
                     
                     <Pagination
@@ -95,6 +116,43 @@ function WishList() {
                         onPageChange={(newPage) => setPage(newPage - 1)}
                         showInfo={true}
                     />
+=======
+                    </div>
+                    
+                    <div className="wish-list__pagination">
+                        <button
+                            className="pagination-btn"
+                            onClick={() => setPage(0)}
+                            disabled={page === 0}
+                        >
+                            처음
+                        </button>
+                        <button
+                            className="pagination-btn"
+                            onClick={() => setPage(page - 1)}
+                            disabled={page === 0}
+                        >
+                            이전
+                        </button>
+                        <div className="wish-list__pagination-info">
+                            {page + 1} / {totalPages || 1}
+                        </div>
+                        <button
+                            className="pagination-btn"
+                            onClick={() => setPage(page + 1)}
+                            disabled={page >= totalPages - 1}
+                        >
+                            다음
+                        </button>
+                        <button
+                            className="pagination-btn"
+                            onClick={() => setPage(totalPages - 1)}
+                            disabled={page >= totalPages - 1}
+                        >
+                            마지막
+                        </button>
+                    </div>
+>>>>>>> dev
                 </>
             )}
         </Container>

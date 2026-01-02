@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
 import { Container, Button, Card, Input, Loading, Pagination } from '@bookstore/common-ui';
+=======
+import { Button, Card, Input, Loading } from '@bookstore/common-ui';
+>>>>>>> dev
 import { fetchAlertListPage, createAlert, type Alert } from '../api/alertApi';
 import './AlertList.css';
 
@@ -66,7 +70,12 @@ function AlertList() {
     return <div className="alert-list__loading"><Loading size="lg" text="알림 목록을 불러오는 중..." /></div>;
   }
 
+  if (loading && alerts.length === 0) {
+    return <div className="alert-list__loading"><Loading size="lg" text="알림 목록을 불러오는 중..." /></div>;
+  }
+
   return (
+<<<<<<< HEAD
     <Container maxWidth="xl" className="alert-list">
       <header className="alert-list__header">
         <h1 className="alert-list__title">알림 목록</h1>
@@ -77,6 +86,18 @@ function AlertList() {
         <h3>새 알림 생성</h3>
         <div className="alert-list__form-fields">
           <div className="alert-list__form-field">
+=======
+    <div className="alert-list">
+      <div className="alert-list__header">
+        <h2 className="alert-list__title">알림 목록</h2>
+        <p className="alert-list__subtitle">시스템 알림과 메시지를 확인하세요</p>
+      </div>
+      
+      <Card style={{ marginBottom: '20px' }}>
+        <h3>새 알림 생성</h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+          <div style={{ width: '100%' }}>
+>>>>>>> dev
             <Input
               label="사용자 ID"
               type="text"
@@ -85,15 +106,29 @@ function AlertList() {
               placeholder="사용자 ID 입력"
             />
           </div>
+<<<<<<< HEAD
           <div className="alert-list__form-field">
             <label htmlFor="type" className="alert-list__form-label">
+=======
+          <div>
+            <label htmlFor="type" style={{ display: 'block', marginBottom: '5px' }}>
+>>>>>>> dev
               타입:
             </label>
             <select
               id="type"
               value={type}
               onChange={(e) => setType(e.target.value)}
+<<<<<<< HEAD
               className="alert-list__form-select"
+=======
+              style={{ 
+                width: '100%', 
+                padding: '10px', 
+                borderRadius: '4px',
+                border: '1px solid #ddd'
+              }}
+>>>>>>> dev
             >
               <option value="INFO">INFO</option>
               <option value="WARNING">WARNING</option>
@@ -101,7 +136,11 @@ function AlertList() {
               <option value="SUCCESS">SUCCESS</option>
             </select>
           </div>
+<<<<<<< HEAD
           <div className="alert-list__form-field">
+=======
+          <div style={{ width: '100%' }}>
+>>>>>>> dev
             <Input
               label="메시지"
               type="text"
@@ -120,6 +159,7 @@ function AlertList() {
         </div>
       </Card>
 
+<<<<<<< HEAD
       <p className="alert-list__count" aria-live="polite">
         총 {totalElements}개의 알림
       </p>
@@ -200,6 +240,97 @@ function AlertList() {
             onPageChange={(newPage) => setPage(newPage - 1)}
             showInfo={true}
           />
+=======
+      <p style={{ marginBottom: '15px' }}>총 {totalElements}개의 알림</p>
+
+      {error && (
+        <div className="alert-list__error-message" role="alert">
+          {error}
+        </div>
+      )}
+
+      {!loading && !error && (
+        <>
+          {alerts.length === 0 ? (
+            <Card>
+              <p className="alert-list__empty">알림이 없습니다.</p>
+            </Card>
+          ) : (
+            <div className="alert-list__table">
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <thead>
+                    <tr style={{ backgroundColor: '#f5f5f5' }}>
+                      <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #ddd' }}>ID</th>
+                      <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #ddd' }}>사용자 ID</th>
+                      <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #ddd' }}>메시지</th>
+                      <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #ddd' }}>타입</th>
+                      <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #ddd' }}>읽음 여부</th>
+                      <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #ddd' }}>생성일</th>
+                      <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #ddd' }}>액션</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {alerts.map((alert) => (
+                      <tr key={alert.id} style={{ borderBottom: '1px solid #eee' }}>
+                        <td style={{ padding: '12px' }}>{alert.id}</td>
+                        <td style={{ padding: '12px' }}>{alert.userId}</td>
+                        <td style={{ padding: '12px' }}>{alert.message}</td>
+                        <td style={{ padding: '12px' }}>
+                          <span style={{
+                            padding: '4px 8px',
+                            borderRadius: '4px',
+                            fontSize: '12px',
+                            backgroundColor: 
+                              alert.type === 'ERROR' ? '#fee' :
+                              alert.type === 'WARNING' ? '#ffeaa7' :
+                              alert.type === 'SUCCESS' ? '#dfe6e9' :
+                              '#e3f2fd'
+                          }}>
+                            {alert.type}
+                          </span>
+                        </td>
+                        <td style={{ padding: '12px' }}>
+                          {alert.isRead ? '✓ 읽음' : '✗ 안읽음'}
+                        </td>
+                        <td style={{ padding: '12px' }}>
+                          {new Date(alert.createdAt).toLocaleString()}
+                        </td>
+                        <td style={{ padding: '12px' }}>
+                          <Link to={`/alert/${alert.id}`}>
+                            <Button variant="secondary" size="sm">
+                              상세보기
+                            </Button>
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          <div className="alert-list__pagination">
+            <Button
+              onClick={handlePrevPage}
+              disabled={page === 0}
+              variant="secondary"
+            >
+              이전
+            </Button>
+            <div className="alert-list__pagination-info">
+              {page + 1} / {totalPages || 1}
+            </div>
+            <Button
+              onClick={handleNextPage}
+              disabled={page >= totalPages - 1}
+              variant="secondary"
+            >
+              다음
+            </Button>
+          </div>
+>>>>>>> dev
         </>
       )}
     </Container>

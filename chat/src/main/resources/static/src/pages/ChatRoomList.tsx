@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 import { Container, Card, Input, Button, Loading, Pagination } from '@bookstore/common-ui';
+=======
+import { Container, Card, Input, Button, Loading } from '@bookstore/common-ui';
+>>>>>>> dev
 import { fetchMyChatRooms, getOrCreateDirectChat, type ChatRoom } from '../api/chatApi';
 
 function ChatRoomList() {
@@ -9,11 +13,15 @@ function ChatRoomList() {
   const [error, setError] = useState<string | null>(null);
   const [currentUserId] = useState('user1');
   const [targetUserId, setTargetUserId] = useState('');
+<<<<<<< HEAD
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const navigate = useNavigate();
 
   const size = 10;
+=======
+  const navigate = useNavigate();
+>>>>>>> dev
 
   useEffect(() => {
     loadChatRooms();
@@ -50,7 +58,10 @@ function ChatRoomList() {
       const chatRoom = await getOrCreateDirectChat(currentUserId, targetUserId);
       alert(`채팅방이 생성되었습니다: ${chatRoom.roomId}`);
       setTargetUserId('');
+<<<<<<< HEAD
       setPage(0);
+=======
+>>>>>>> dev
       loadChatRooms();
     } catch (err) {
       console.error('채팅방 생성 실패:', err);
@@ -91,6 +102,7 @@ function ChatRoomList() {
           <p>참여 중인 채팅방이 없습니다.</p>
         </Card>
       ) : (
+<<<<<<< HEAD
         <>
           <div style={{ display: 'grid', gap: '1rem' }}>
             {chatRooms.map((room) => (
@@ -117,6 +129,23 @@ function ChatRoomList() {
             />
           )}
         </>
+=======
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          {chatRooms.map((room) => (
+            <Card key={room.roomId} style={{ cursor: 'pointer' }} onClick={() => navigate(`/chat/${room.roomId}`)}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <h4 style={{ margin: 0 }}>채팅방 ID: {room.roomId.substring(0, 8)}...</h4>
+                  <p style={{ margin: '0.5rem 0 0', color: 'var(--color-text-secondary)' }}>
+                    방장: {room.owner} | 생성일: {new Date(room.createdAt).toLocaleString()}
+                  </p>
+                </div>
+                <Button size="small">입장</Button>
+              </div>
+            </Card>
+          ))}
+        </div>
+>>>>>>> dev
       )}
     </Container>
   );

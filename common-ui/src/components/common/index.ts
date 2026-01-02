@@ -2,7 +2,10 @@
 export { Button, type ButtonProps } from './Button';
 export { Input, type InputProps } from './Input';
 export { Card, type CardProps } from './Card';
+<<<<<<< HEAD
 export { Checkbox, type CheckboxProps } from './Checkbox';
+=======
+>>>>>>> dev
 export { Modal, type ModalProps } from './Modal';
 export { Loading, type LoadingProps } from './Loading';
 export { Toast, type ToastProps, ToastContainer, type ToastContainerProps } from './Toast';

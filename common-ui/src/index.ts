@@ -2,8 +2,11 @@
 export * from './components/common';
 export * from './components/layout';
 export * from './components/domain';
+<<<<<<< HEAD
 export { default as AuthGuard } from './components/AuthGuard';
 export { default as Onboarding } from './components/Onboarding';
+=======
+>>>>>>> dev
 
 // Hooks
 export * from './hooks';
