@@ -54,7 +54,7 @@
 
 .wish-list__table {
   margin-bottom: var(--spacing-8);
-<<<<<<< HEAD
+
   background: var(--bg-primary);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
@@ -103,8 +103,7 @@
 .wish-date {
   font-size: var(--font-size-xs);
   color: var(--text-tertiary);
-=======
->>>>>>> dev
+
 }
 
 .wish-list__pagination {
@@ -115,8 +114,8 @@
   padding: var(--spacing-4) 0;
 }
 
-<<<<<<< HEAD
-/* 페이지네이션 버튼 hover 효과 수정 - 파란색 제거하고 글자색 개선 */
+
+/* ?�이지?�이??버튼 hover ?�과 ?�정 - ?��????�거?�고 글?�색 개선 */
 .wish-list__pagination .btn:hover:not(:disabled) {
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
@@ -125,22 +124,21 @@
 .wish-list__pagination .btn--outline:hover:not(:disabled) {
   background-color: var(--color-primary-600) !important;
   border-color: var(--color-primary-700) !important;
-  color: var(--color-neutral-0) !important; /* 하얀색 */
+  color: var(--color-neutral-0) !important; /* ?��???*/
 }
 
 .wish-list__pagination .btn.btn--outline {
   border-color: var(--color-primary-500);
-  color: var(--color-primary-700); /* 기본 상태에서도 더 진한 색상 */
+  color: var(--color-primary-700); /* 기본 ?�태?�서????진한 ?�상 */
 }
 
 .wish-list__pagination .btn.btn--outline:hover:not(:disabled) {
   background-color: var(--color-primary-600) !important;
   border-color: var(--color-primary-700) !important;
-  color: var(--color-neutral-0) !important; /* 호버 시 하얀색 */
+  color: var(--color-neutral-0) !important; /* ?�버 ???��???*/
 }
 
-=======
->>>>>>> dev
+
 .wish-list__pagination-info {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
@@ -160,7 +158,7 @@
     font-size: var(--font-size-2xl);
   }
 
-<<<<<<< HEAD
+
   .wish-list__table {
     overflow-x: auto;
   }
@@ -171,8 +169,7 @@
     font-size: var(--font-size-xs);
   }
 
-=======
->>>>>>> dev
+
   .wish-list__pagination {
     flex-wrap: wrap;
     gap: var(--spacing-1);

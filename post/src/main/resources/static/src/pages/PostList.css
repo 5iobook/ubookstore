@@ -52,7 +52,7 @@
   font-size: var(--font-size-lg);
 }
 
-<<<<<<< HEAD
+
 .post-list__table {
   margin-bottom: var(--spacing-8);
   background: var(--bg-primary);
@@ -146,10 +146,7 @@
 .status-unknown {
   background-color: var(--color-neutral-400);
   color: var(--color-neutral-0);
-=======
-.post-list__grid {
-  margin-bottom: var(--spacing-8);
->>>>>>> dev
+
 }
 
 .post-list__pagination {
@@ -160,8 +157,8 @@
   padding: var(--spacing-4) 0;
 }
 
-<<<<<<< HEAD
-/* 페이지네이션 버튼 hover 효과 */
+
+/* ?�이지?�이??버튼 hover ?�과 */
 .post-list__pagination button:hover:not(:disabled) {
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
@@ -170,11 +167,10 @@
 .post-list__pagination button[class*="btn--outline"]:hover:not(:disabled) {
   background-color: var(--color-primary-600);
   border-color: var(--color-primary-700);
-  color: var(--color-neutral-0); /* 하얀색 */
+  color: var(--color-neutral-0); /* ?��???*/
 }
 
-=======
->>>>>>> dev
+
 .post-list__pagination-info {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
@@ -194,7 +190,7 @@
     font-size: var(--font-size-2xl);
   }
 
-<<<<<<< HEAD
+
   .post-list__table {
     overflow-x: auto;
   }
@@ -209,8 +205,7 @@
     max-width: 200px;
   }
 
-=======
->>>>>>> dev
+
   .post-list__pagination {
     flex-wrap: wrap;
     gap: var(--spacing-1);
@@ -220,13 +215,12 @@
     width: 100%;
     margin: var(--spacing-2) 0;
   }
-<<<<<<< HEAD
+
 
   .status-badge {
     font-size: 10px;
     padding: 2px 6px;
     min-width: 50px;
   }
-=======
->>>>>>> dev
+
 }

@@ -7,17 +7,17 @@ import './TradeList.css';
 
 const PAGE_SIZE = 10;
 
-// TradeStatus, TradeMethod 한글 매핑
+// TradeStatus, TradeMethod ?��? 매핑
 const TRADE_STATUS_MAP: Record<string, string> = {
-  REQUESTED: '요청됨',
-  ACCEPTED: '수락됨',
-  IN_PROGRESS: '진행중',
-  COMPLETED: '완료됨',
-  CANCELED: '취소됨',
+  REQUESTED: '?�청??,
+  ACCEPTED: '?�락??,
+  IN_PROGRESS: '진행�?,
+  COMPLETED: '?�료??,
+  CANCELED: '취소??,
 };
 const TRADE_METHOD_MAP: Record<string, string> = {
-  DIRECT: '직거래',
-  DELIVERY: '택배거래',
+  DIRECT: '직거??,
+  DELIVERY: '?�배거래',
 };
 
 const TradeList: React.FC = () => {
@@ -40,8 +40,8 @@ const TradeList: React.FC = () => {
       setTrades(res.trades);
       setTotalPages(res.totalPages);
     } catch (err) {
-      console.error('거래 목록 조회 실패:', err);
-      setError('거래 목록을 불러오는데 실패했습니다.');
+      console.error('거래 목록 조회 ?�패:', err);
+      setError('거래 목록??불러?�는???�패?�습?�다.');
     } finally {
       setLoading(false);
     }
@@ -51,19 +51,19 @@ const TradeList: React.FC = () => {
     setSearchParams({ page: String(p) });
   };
 
-<<<<<<< HEAD
+
   return (
     <Container maxWidth="xl" className="trade-list">
       <header className="trade-list__header">
         <h1 className="trade-list__title">거래 목록</h1>
         <p className="trade-list__subtitle" aria-live="polite">
-          총 {totalPages > 0 ? (totalPages - 1) * PAGE_SIZE + trades.length : 0}건의 거래
+          �?{totalPages > 0 ? (totalPages - 1) * PAGE_SIZE + trades.length : 0}건의 거래
         </p>
       </header>
 
       {loading && (
         <div className="trade-list__loading" role="status" aria-live="polite">
-          <Loading size="lg" text="거래 목록을 불러오는 중..." />
+          <Loading size="lg" text="거래 목록??불러?�는 �?.." />
         </div>
       )}
 
@@ -71,27 +71,27 @@ const TradeList: React.FC = () => {
         <div className="trade-list__error" role="alert" aria-live="assertive">
           <p className="trade-list__error-message">{error}</p>
           <Button variant="primary" onClick={loadTrades}>
-            다시 시도
+            ?�시 ?�도
           </Button>
         </div>
       )}
 
       {!loading && !error && trades.length === 0 && (
         <div className="trade-list__empty" role="status">
-          <p>등록된 거래가 없습니다.</p>
+          <p>?�록??거래가 ?�습?�다.</p>
         </div>
       )}
 
       {!loading && !error && trades.length > 0 && (
         <>
-          <section aria-label="거래 목록 테이블" className="trade-list__table">
+          <section aria-label="거래 목록 ?�이�? className="trade-list__table">
             <table>
               <thead>
                 <tr>
                   <th>거래 ID</th>
-                  <th>상태</th>
+                  <th>?�태</th>
                   <th>거래 방법</th>
-                  <th>완료일</th>
+                  <th>?�료??/th>
                 </tr>
               </thead>
               <tbody>
@@ -126,53 +126,7 @@ const TradeList: React.FC = () => {
         </>
       )}
     </Container>
-=======
-  if (loading) return <div className="trade-list__loading">로딩 중...</div>;
-  if (error) return <div className="trade-list__error-message">{error}</div>;
 
-  return (
-    <div className="trade-list">
-      <div className="trade-list__header">
-        <h2 className="trade-list__title">거래 목록</h2>
-        <p className="trade-list__subtitle">진행 중인 거래를 확인하세요</p>
-      </div>
-      
-      <div className="trade-list__table">
-        <table>
-          <thead>
-            <tr>
-              <th>id</th>
-              <th>상태</th>
-              <th>방법</th>
-              <th>등록일</th>
-            </tr>
-          </thead>
-          <tbody>
-            {trades.map(trade => (
-              <tr key={trade.id}>
-                <td>
-                  <Link to={`/trade/${trade.id}${window.location.search}`}>{trade.id}</Link>
-                </td>
-                <td>{TRADE_STATUS_MAP[trade.status] ?? trade.status}</td>
-                <td>{TRADE_METHOD_MAP[trade.method] ?? trade.method}</td>
-                <td>{trade.completedAt || '-'}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      
-      <div className="trade-list__pagination">
-        <button className="pagination-btn" onClick={() => goToPage(0)} disabled={page === 0}>처음</button>
-        <button className="pagination-btn" onClick={() => goToPage(Math.max(0, page - 1))} disabled={page === 0}>이전</button>
-        <div className="trade-list__pagination-info">
-          {page + 1} / {totalPages}
-        </div>
-        <button className="pagination-btn" onClick={() => goToPage(Math.min(totalPages - 1, page + 1))} disabled={page >= totalPages - 1}>다음</button>
-        <button className="pagination-btn" onClick={() => goToPage(totalPages - 1)} disabled={page >= totalPages - 1}>마지막</button>
-      </div>
-    </div>
->>>>>>> dev
   );
 };
 

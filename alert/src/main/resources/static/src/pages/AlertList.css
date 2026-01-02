@@ -21,7 +21,7 @@
   margin: 0;
 }
 
-<<<<<<< HEAD
+
 .alert-list__create-form {
   margin-bottom: var(--spacing-6);
 }
@@ -66,8 +66,7 @@
   margin-bottom: var(--spacing-4);
 }
 
-=======
->>>>>>> dev
+
 .alert-list__loading {
   display: flex;
   justify-content: center;
@@ -101,7 +100,7 @@
 
 .alert-list__table {
   margin-bottom: var(--spacing-8);
-<<<<<<< HEAD
+
   background: var(--bg-primary);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
@@ -137,7 +136,7 @@
   border-bottom: none;
 }
 
-/* 테이블 내 버튼 호버 효과 수정 */
+/* ?�이�???버튼 ?�버 ?�과 ?�정 */
 .alert-list__table .btn:hover:not(:disabled) {
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
@@ -146,12 +145,12 @@
 .alert-list__table .btn--outline:hover:not(:disabled) {
   background-color: var(--color-primary-600) !important;
   border-color: var(--color-primary-700) !important;
-  color: var(--color-neutral-0) !important; /* 하얀색 */
+  color: var(--color-neutral-0) !important; /* ?��???*/
 }
 
 .alert-list__table .btn.btn--outline {
   border-color: var(--color-primary-500);
-  color: var(--color-primary-700); /* 기본 상태에서도 더 진한 색상 */
+  color: var(--color-primary-700); /* 기본 ?�태?�서????진한 ?�상 */
 }
 
 .alert-message {
@@ -206,8 +205,7 @@
 
 .alert-read-status.unread {
   color: var(--color-error);
-=======
->>>>>>> dev
+
 }
 
 .alert-list__pagination {
@@ -218,8 +216,8 @@
   padding: var(--spacing-4) 0;
 }
 
-<<<<<<< HEAD
-/* 페이지네이션 버튼 hover 효과 수정 - 파란색 제거 */
+
+/* ?�이지?�이??버튼 hover ?�과 ?�정 - ?��????�거 */
 .alert-list__pagination .btn:hover:not(:disabled) {
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
@@ -228,23 +226,22 @@
 .alert-list__pagination .btn--outline:hover:not(:disabled) {
   background-color: var(--color-primary-600) !important;
   border-color: var(--color-primary-700) !important;
-  color: var(--color-neutral-0) !important; /* 하얀색 */
+  color: var(--color-neutral-0) !important; /* ?��???*/
 }
 
-/* 더 구체적인 선택자로 outline 버튼 스타일 오버라이드 */
+/* ??구체?�인 ?�택?�로 outline 버튼 ?��????�버?�이??*/
 .alert-list__pagination .btn.btn--outline {
   border-color: var(--color-primary-500);
-  color: var(--color-primary-700); /* 기본 상태에서도 더 진한 색상 */
+  color: var(--color-primary-700); /* 기본 ?�태?�서????진한 ?�상 */
 }
 
 .alert-list__pagination .btn.btn--outline:hover:not(:disabled) {
   background-color: var(--color-primary-600) !important;
   border-color: var(--color-primary-700) !important;
-  color: var(--color-neutral-0) !important; /* 호버 시 하얀색 */
+  color: var(--color-neutral-0) !important; /* ?�버 ???��???*/
 }
 
-=======
->>>>>>> dev
+
 .alert-list__pagination-info {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
@@ -264,7 +261,7 @@
     font-size: var(--font-size-2xl);
   }
 
-<<<<<<< HEAD
+
   .alert-list__table {
     overflow-x: auto;
   }
@@ -279,8 +276,7 @@
     max-width: 200px;
   }
 
-=======
->>>>>>> dev
+
   .alert-list__pagination {
     flex-wrap: wrap;
     gap: var(--spacing-1);
@@ -290,13 +286,12 @@
     width: 100%;
     margin: var(--spacing-2) 0;
   }
-<<<<<<< HEAD
+
 
   .alert-type-badge {
     font-size: 10px;
     padding: 2px 6px;
     min-width: 50px;
   }
-=======
->>>>>>> dev
+
 }

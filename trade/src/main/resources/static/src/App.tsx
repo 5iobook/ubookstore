@@ -1,10 +1,8 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-<<<<<<< HEAD
+
 import { AppLayout, ErrorBoundary, NetworkStatusBanner, Loading, AuthGuard } from '@bookstore/common-ui';
-=======
-import { AppLayout, ErrorBoundary, NetworkStatusBanner, Loading } from '@bookstore/common-ui';
->>>>>>> dev
+
 import './styles-common.css';
 import './App.css';
 
@@ -17,21 +15,19 @@ const MyTrades = lazy(() => import('./pages/MyTrades'));
 function App() {
   const navItems = [
     { label: '거래 목록', path: '/' },
-<<<<<<< HEAD
-    { label: '거래 등록', path: '/new' },
-=======
-    { label: '거래 등록', path: '/trade/new' },
->>>>>>> dev
-    { label: '내 거래', path: '/my-trades' }
+
+    { label: '거래 ?�록', path: '/new' },
+
+    { label: '??거래', path: '/my-trades' }
   ];
 
   return (
-<<<<<<< HEAD
-    <AuthGuard serviceName="도서 거래 서비스">
+
+    <AuthGuard serviceName="?�서 거래 ?�비??>
       <ErrorBoundary>
         <Router>
           <a href="#main-content" className="skip-link">
-            메인 콘텐츠로 건너뛰기
+            메인 콘텐츠로 건너?�기
           </a>
 
           <NetworkStatusBanner />
@@ -39,11 +35,11 @@ function App() {
           <AppLayout 
             title="거래" 
             navItems={navItems}
-            pageTitle="도서 거래"
-            pageDescription="중고 도서를 사고팔고 거래 내역을 관리하세요."
+            pageTitle="?�서 거래"
+            pageDescription="중고 ?�서�??�고?�고 거래 ?�역??관리하?�요."
           >
             <main id="main-content" role="main">
-              <Suspense fallback={<Loading size="lg" text="페이지 로딩 중..." />}>
+              <Suspense fallback={<Loading size="lg" text="?�이지 로딩 �?.." />}>
                 <Routes>
                   <Route path="/" element={<TradeList />} />
                   <Route path="/trade/:id" element={<TradeDetail />} />
@@ -56,35 +52,7 @@ function App() {
         </Router>
       </ErrorBoundary>
     </AuthGuard>
-=======
-    <ErrorBoundary>
-      <Router>
-        <a href="#main-content" className="skip-link">
-          메인 콘텐츠로 건너뛰기
-        </a>
 
-        <NetworkStatusBanner />
-
-        <AppLayout 
-          title="거래" 
-          navItems={navItems}
-          pageTitle="도서 거래"
-          pageDescription="중고 도서를 사고팔고 거래 내역을 관리하세요."
-        >
-          <main id="main-content" role="main">
-            <Suspense fallback={<Loading size="lg" text="페이지 로딩 중..." />}>
-              <Routes>
-                <Route path="/" element={<TradeList />} />
-                <Route path="/trade/:id" element={<TradeDetail />} />
-                <Route path="/trade/new" element={<TradeForm />} />
-                <Route path="/my-trades" element={<MyTrades />} />
-              </Routes>
-            </Suspense>
-          </main>
-        </AppLayout>
-      </Router>
-    </ErrorBoundary>
->>>>>>> dev
   );
 }
 

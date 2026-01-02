@@ -2,11 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchUserListPage } from '../api/userApi';
 import type { User } from '../api/userApi';
-<<<<<<< HEAD
+
 import { Container, Grid, UserCard, Button, Loading, Pagination } from '@bookstore/common-ui';
-=======
-import { Container, Grid, UserCard, Button, Loading } from '@bookstore/common-ui';
->>>>>>> dev
+
 import './UserList.css';
 
 function UserList() {
@@ -31,8 +29,8 @@ function UserList() {
             setUsers(data.items);
             setTotalPages(data.totalPages);
         } catch (err) {
-            console.error('사용자 목록 조회 실패:', err);
-            setError('사용자 목록을 불러오는데 실패했습니다.');
+            console.error('?�용??목록 조회 ?�패:', err);
+            setError('?�용??목록??불러?�는???�패?�습?�다.');
         } finally {
             setLoading(false);
         }
@@ -45,15 +43,15 @@ function UserList() {
     return (
         <Container maxWidth="xl" className="user-list">
             <header className="user-list__header">
-                <h1 className="user-list__title">사용자 목록</h1>
+                <h1 className="user-list__title">?�용??목록</h1>
                 <p className="user-list__subtitle" aria-live="polite">
-                    총 {totalPages > 0 ? (totalPages - 1) * size + users.length : 0}명의 사용자
+                    �?{totalPages > 0 ? (totalPages - 1) * size + users.length : 0}명의 ?�용??
                 </p>
             </header>
 
             {loading && (
                 <div className="user-list__loading" role="status" aria-live="polite">
-                    <Loading size="lg" text="사용자 목록을 불러오는 중..." />
+                    <Loading size="lg" text="?�용??목록??불러?�는 �?.." />
                 </div>
             )}
 
@@ -61,20 +59,20 @@ function UserList() {
                 <div className="user-list__error" role="alert" aria-live="assertive">
                     <p className="user-list__error-message">{error}</p>
                     <Button variant="primary" onClick={loadUsers}>
-                        다시 시도
+                        ?�시 ?�도
                     </Button>
                 </div>
             )}
 
             {!loading && !error && users.length === 0 && (
                 <div className="user-list__empty" role="status">
-                    <p>등록된 사용자가 없습니다.</p>
+                    <p>?�록???�용?��? ?�습?�다.</p>
                 </div>
             )}
 
             {!loading && !error && users.length > 0 && (
                 <>
-                    <section aria-label="사용자 카드 목록">
+                    <section aria-label="?�용??카드 목록">
                         <Grid columns={12} gap="md" responsive className="user-list__grid">
                             {users.map((user) => (
                                 <Grid.Item key={user.id} span={12} spanMd={6} spanLg={4}>
@@ -91,7 +89,7 @@ function UserList() {
                         </Grid>
                     </section>
 
-<<<<<<< HEAD
+
                     <Pagination
                         currentPage={page + 1}
                         totalPages={totalPages}
@@ -100,57 +98,7 @@ function UserList() {
                         onPageChange={(newPage) => setPage(newPage - 1)}
                         showInfo={true}
                     />
-=======
-                    <nav
-                        className="user-list__pagination"
-                        role="navigation"
-                        aria-label="페이지네이션"
-                    >
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => setPage(0)}
-                            disabled={page === 0}
-                            aria-label="첫 페이지로 이동"
-                        >
-                            처음
-                        </Button>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => setPage(page - 1)}
-                            disabled={page === 0}
-                            aria-label="이전 페이지로 이동"
-                        >
-                            이전
-                        </Button>
-                        <span
-                            className="user-list__pagination-info"
-                            aria-current="page"
-                            aria-label={`현재 페이지 ${page + 1}, 전체 ${totalPages || 1} 페이지`}
-                        >
-                            {page + 1} / {totalPages || 1}
-                        </span>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => setPage(page + 1)}
-                            disabled={page >= totalPages - 1}
-                            aria-label="다음 페이지로 이동"
-                        >
-                            다음
-                        </Button>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => setPage(totalPages - 1)}
-                            disabled={page >= totalPages - 1}
-                            aria-label="마지막 페이지로 이동"
-                        >
-                            마지막
-                        </Button>
-                    </nav>
->>>>>>> dev
+
                 </>
             )}
         </Container>

@@ -39,15 +39,13 @@ const AppLayout: React.FC<AppLayoutProps> = ({
         isAuthenticated={isAuthenticated} 
         user={user}
         title={title}
-<<<<<<< HEAD
-=======
-        customNavItems={navItems}
->>>>>>> dev
+
+
       />
       
       {showPageHeader && (
         <PageHeader 
-          title={pageTitle || title || '서비스'}
+          title={pageTitle || title || '?�비??}
           description={pageDescription}
           navItems={navItems}
         />
