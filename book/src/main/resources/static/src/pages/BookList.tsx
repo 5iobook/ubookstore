@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import '../App.css';
+import { useSearchParams } from 'react-router-dom';
+import { Container, Grid, BookCard, Loading, Button } from '@bookstore/common-ui';
+import './BookList.css';
 
 const PAGE_SIZE = 10;
 
@@ -17,7 +18,6 @@ const BookList: React.FC = () => {
     setLoading(true);
     setError(null);
     
-    // query 파라미터를 API에 전달
     const apiUrl = `http://localhost:8087/v1/books?query=${encodeURIComponent(query)}&page=${page}&size=${PAGE_SIZE}`;
     
     fetch(apiUrl)
@@ -36,49 +36,44 @@ const BookList: React.FC = () => {
     setSearchParams({ page: String(p) });
   };
 
-  if (loading) return <div>로딩 중...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) return <div className="book-list__loading"><Loading /></div>;
+  if (error) return <Container><div className="book-list__error-message">{error}</div></Container>;
 
   return (
-    <div>
-      <h2>도서 목록</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>이미지</th>
-            <th>제목</th>
-            <th>저자</th>
-            <th>출판사</th>
-            <th>가격</th>
-            <th>ISBN</th>
-          </tr>
-        </thead>
-        <tbody>
-          {books.map((book, index) => (
-            <tr key={book.isbn || index}>
-              <td>
-                {book.image && <img src={book.image} alt={book.title} style={{width: '50px', height: '70px', objectFit: 'cover'}} />}
-              </td>
-              <td>
-                <Link to={`/book/${book.isbn}${window.location.search}`} dangerouslySetInnerHTML={{__html: book.title}} />
-              </td>
-              <td dangerouslySetInnerHTML={{__html: book.author}} />
-              <td>{book.publisher}</td>
-              <td>{book.discount ? `${Number(book.discount).toLocaleString()}원` : '-'}</td>
-              <td>{book.isbn}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {/* 페이지네이션 UI */}
-      <div style={{ marginTop: 16 }}>
-        <button className="pagination-btn" onClick={() => goToPage(0)} disabled={page === 0}>처음</button>
-        <button className="pagination-btn" onClick={() => goToPage(Math.max(0, page - 1))} disabled={page === 0}>이전</button>
-        <span style={{ margin: '0 8px' }}>{page + 1} / {totalPages}</span>
-        <button className="pagination-btn" onClick={() => goToPage(Math.min(totalPages - 1, page + 1))} disabled={page >= totalPages - 1}>다음</button>
-        <button className="pagination-btn" onClick={() => goToPage(totalPages - 1)} disabled={page >= totalPages - 1}>마지막</button>
+    <Container>
+      <div className="book-list">
+        <div className="book-list__header">
+          <h2 className="book-list__title">도서 목록</h2>
+          <p className="book-list__subtitle">다양한 도서를 검색하고 찾아보세요</p>
+        </div>
+        
+        <div className="book-list__grid">
+          <Grid columns={{ mobile: 1, tablet: 2, desktop: 3 }} gap="1.5rem">
+            {books.map((book, index) => (
+              <BookCard
+                key={book.isbn || index}
+                title={book.title}
+                author={book.author}
+                publisher={book.publisher}
+                price={book.discount ? `${Number(book.discount).toLocaleString()}원` : '-'}
+                image={book.image}
+                isbn={book.isbn}
+              />
+            ))}
+          </Grid>
+        </div>
+
+        <div className="book-list__pagination">
+          <Button onClick={() => goToPage(0)} disabled={page === 0} variant="secondary" size="small">처음</Button>
+          <Button onClick={() => goToPage(Math.max(0, page - 1))} disabled={page === 0} variant="secondary" size="small">이전</Button>
+          <div className="book-list__pagination-info">
+            {page + 1} / {totalPages}
+          </div>
+          <Button onClick={() => goToPage(Math.min(totalPages - 1, page + 1))} disabled={page >= totalPages - 1} variant="secondary" size="small">다음</Button>
+          <Button onClick={() => goToPage(totalPages - 1)} disabled={page >= totalPages - 1} variant="secondary" size="small">마지막</Button>
+        </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

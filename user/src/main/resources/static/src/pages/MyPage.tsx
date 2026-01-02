@@ -16,7 +16,7 @@ function MyPage() {
 
     async function loadUserInfo() {
         const token = localStorage.getItem('accessToken');
-        
+
         if (!token) {
             setError('로그인이 필요합니다.');
             setLoading(false);
@@ -54,12 +54,12 @@ function MyPage() {
     }
 
     if (loading) return <div style={{ textAlign: 'center', marginTop: '50px' }}>로딩 중...</div>;
-    
+
     if (error) {
         return (
             <div style={{ textAlign: 'center', marginTop: '50px' }}>
                 <p style={{ color: 'red', fontSize: '1.1rem' }}>{error}</p>
-                <button 
+                <button
                     onClick={() => navigate('/')}
                     style={{
                         marginTop: 20,
@@ -77,13 +77,13 @@ function MyPage() {
             </div>
         );
     }
-    
+
     if (!user) return <div style={{ textAlign: 'center', marginTop: '50px' }}>사용자 정보가 없습니다.</div>;
 
     return (
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
             <h2 style={{ textAlign: 'center', color: '#1976d2', marginBottom: '30px' }}>마이페이지</h2>
-            <div style={{ 
+            <div style={{
                 background: '#fff',
                 padding: '30px',
                 borderRadius: '12px',
@@ -94,7 +94,7 @@ function MyPage() {
                         사용자명
                     </label>
                     <div style={{ padding: '10px', background: '#f5f5f5', borderRadius: '6px' }}>
-                        {user.username}
+                        {user.userName}
                     </div>
                 </div>
                 <div style={{ marginBottom: '20px' }}>
@@ -102,7 +102,7 @@ function MyPage() {
                         닉네임
                     </label>
                     <div style={{ padding: '10px', background: '#f5f5f5', borderRadius: '6px' }}>
-                        {user.nickname || '-'}
+                        {user.nickName || '-'}
                     </div>
                 </div>
                 <div style={{ marginBottom: '20px' }}>
@@ -122,7 +122,7 @@ function MyPage() {
                     </div>
                 </div>
                 <div style={{ textAlign: 'center', marginTop: '30px' }}>
-                    <button 
+                    <button
                         onClick={handleLogout}
                         style={{
                             background: '#d32f2f',

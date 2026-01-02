@@ -1,47 +1,29 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AppLayout } from '@bookstore/common-ui';
 import PostList from './pages/PostList';
 import PostForm from './pages/PostForm';
+import './styles-common.css';
 import './App.css';
 
 function App() {
+  const navItems = [
+    { label: '게시글 목록', path: '/' },
+    { label: '게시글 작성', path: '/post/new' }
+  ];
+
   return (
     <Router>
-      <nav style={{ 
-        marginBottom: 20, 
-        padding: '16px 24px',
-        background: '#fff',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-        borderRadius: '8px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }}>
-        <div>
-          <Link to="/" style={{ marginRight: 10, fontSize: '1.2rem', fontWeight: 'bold', color: '#1976d2' }}>
-            Post Service
-          </Link>
-        </div>
-        <div>
-          <Link to="/" style={{ marginRight: 10 }}>게시글 목록</Link>
-          <Link to="/post/new">
-            <button style={{
-              background: '#1976d2',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '6px',
-              padding: '8px 16px',
-              cursor: 'pointer',
-              fontSize: '0.9rem'
-            }}>
-              게시글 작성
-            </button>
-          </Link>
-        </div>
-      </nav>
-      <Routes>
-        <Route path="/" element={<PostList />} />
-        <Route path="/post/new" element={<PostForm />} />
-      </Routes>
+      <AppLayout 
+        title="게시글 관리" 
+        navItems={navItems}
+        pageTitle="게시글 관리"
+        pageDescription="커뮤니티 게시글을 작성하고 관리할 수 있습니다."
+      >
+        <Routes>
+          <Route path="/" element={<PostList />} />
+          <Route path="/post/new" element={<PostForm />} />
+        </Routes>
+      </AppLayout>
     </Router>
   );
 }
