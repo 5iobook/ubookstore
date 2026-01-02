@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Container, Button, Loading } from '@bookstore/common-ui';
 import { createPost, fetchHashtagList, createHashtag, type HashtagItem } from '../api/postApi';
+import './PostForm.css';
 
 function PostForm() {
   const navigate = useNavigate();
@@ -38,19 +40,19 @@ function PostForm() {
 
   async function handleCreateHashtag() {
     if (!newHashtagName.trim()) {
-      alert('해시태그 이름을 입력하세요.');
+      setError('해시태그 이름을 입력하세요.');
       return;
     }
 
     try {
-      const newHashtag = await createHashtag(newHashtagName.trim());
+      await createHashtag(newHashtagName.trim());
       await loadHashtags(); // 목록 새로고침
       setNewHashtagName('');
       setShowHashtagInput(false);
-      alert(`해시태그 #${newHashtag.name}이(가) 생성되었습니다.`);
+      setError(null);
     } catch (err) {
       console.error('해시태그 생성 실패:', err);
-      alert('해시태그 생성에 실패했습니다.');
+      setError('해시태그 생성에 실패했습니다.');
     }
   }
 
@@ -81,7 +83,6 @@ function PostForm() {
           hashtagList: selectedHashtags.map(id => ({ hashtagId: id }))
         }
       });
-      alert('게시글이 작성되었습니다.');
       navigate('/');
     } catch (err) {
       console.error('게시글 작성 실패:', err);
@@ -92,23 +93,25 @@ function PostForm() {
   }
 
   return (
-    <div style={{ maxWidth: 700, margin: '0 auto', padding: 20 }}>
-      <h2>게시글 작성</h2>
-      
-      {error && <div style={{ color: 'red', marginBottom: 16 }}>{error}</div>}
-      
-      <form onSubmit={handleSubmit} style={{ 
-        background: '#fff', 
-        padding: 24, 
-        borderRadius: 8, 
-        boxShadow: '0 2px 8px rgba(0,0,0,0.1)' 
-      }}>
-        <div style={{ marginBottom: 16 }}>
-          <label style={{ display: 'block', marginBottom: 8, fontWeight: 500 }}>
-            제목
-          </label>
+    <Container maxWidth="md" className="post-form">
+      <header className="post-form__header">
+        <h1 className="post-form__title">게시글 작성</h1>
+        <p className="post-form__subtitle">새로운 게시글을 작성해보세요</p>
+      </header>
+
+      {error && (
+        <div className="post-form__error" role="alert">
+          {error}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="post-form__form">
+        <div className="form-group">
+          <label htmlFor="title" className="form-label">제목</label>
           <input
+            id="title"
             type="text"
+            className="form-input"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="게시글 제목을 입력하세요"
@@ -116,11 +119,11 @@ function PostForm() {
           />
         </div>
 
-        <div style={{ marginBottom: 16 }}>
-          <label style={{ display: 'block', marginBottom: 8, fontWeight: 500 }}>
-            내용
-          </label>
+        <div className="form-group">
+          <label htmlFor="content" className="form-label">내용</label>
           <textarea
+            id="content"
+            className="form-textarea"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="게시글 내용을 입력하세요"
@@ -129,12 +132,12 @@ function PostForm() {
           />
         </div>
 
-        <div style={{ marginBottom: 16 }}>
-          <label style={{ display: 'block', marginBottom: 8, fontWeight: 500 }}>
-            가격
-          </label>
+        <div className="form-group">
+          <label htmlFor="price" className="form-label">가격</label>
           <input
+            id="price"
             type="number"
+            className="form-input"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             placeholder="가격을 입력하세요"
@@ -143,20 +146,13 @@ function PostForm() {
           />
         </div>
 
-        <div style={{ marginBottom: 16 }}>
-          <label style={{ display: 'block', marginBottom: 8, fontWeight: 500 }}>
-            상품 상태
-          </label>
+        <div className="form-group">
+          <label htmlFor="condition" className="form-label">상품 상태</label>
           <select 
+            id="condition"
+            className="form-select"
             value={condition} 
             onChange={(e) => setCondition(e.target.value)}
-            style={{ 
-              width: '100%', 
-              padding: '8px 12px',
-              border: '1px solid #cfd8dc',
-              borderRadius: 6,
-              background: '#f9fafb'
-            }}
           >
             <option value="NEW">새 상품</option>
             <option value="LIKE_NEW">거의 새 것</option>
@@ -166,40 +162,27 @@ function PostForm() {
           </select>
         </div>
 
-        <div style={{ marginBottom: 16 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-            <label style={{ fontWeight: 500 }}>
-              해시태그 선택 (최소 1개)
-            </label>
-            <button
+        <div className="form-group">
+          <div className="hashtag-header">
+            <label className="form-label">해시태그 선택 (최소 1개)</label>
+            <Button
               type="button"
+              variant="outline"
+              size="sm"
               onClick={() => setShowHashtagInput(!showHashtagInput)}
-              style={{
-                background: '#4caf50',
-                padding: '4px 12px',
-                fontSize: '0.85rem',
-                marginTop: 0
-              }}
             >
               {showHashtagInput ? '취소' : '+ 새 해시태그'}
-            </button>
+            </Button>
           </div>
 
           {showHashtagInput && (
-            <div style={{ 
-              marginBottom: 12, 
-              padding: 12, 
-              background: '#e8f5e9', 
-              borderRadius: 6,
-              display: 'flex',
-              gap: 8
-            }}>
+            <div className="hashtag-create">
               <input
                 type="text"
+                className="form-input"
                 value={newHashtagName}
                 onChange={(e) => setNewHashtagName(e.target.value)}
                 placeholder="새 해시태그 이름 (예: 소설, 과학)"
-                style={{ flex: 1, marginBottom: 0 }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
                     e.preventDefault();
@@ -207,54 +190,32 @@ function PostForm() {
                   }
                 }}
               />
-              <button
+              <Button
                 type="button"
+                variant="primary"
+                size="sm"
                 onClick={handleCreateHashtag}
-                style={{
-                  background: '#4caf50',
-                  padding: '8px 16px',
-                  marginTop: 0
-                }}
               >
                 생성
-              </button>
+              </Button>
             </div>
           )}
 
-          <div style={{ 
-            display: 'flex', 
-            flexWrap: 'wrap', 
-            gap: 8,
-            padding: 12,
-            background: '#f9fafb',
-            borderRadius: 6,
-            border: '1px solid #cfd8dc',
-            minHeight: 60
-          }}>
+          <div className="hashtag-list">
             {hashtags.length === 0 ? (
-              <div style={{ color: '#999', fontSize: '0.9rem', padding: 8 }}>
+              <div className="hashtag-empty">
                 해시태그가 없습니다. 새 해시태그를 생성해주세요.
               </div>
             ) : (
               hashtags.map(tag => (
                 <label 
                   key={tag.id}
-                  style={{ 
-                    display: 'flex',
-                    alignItems: 'center',
-                    padding: '6px 12px',
-                    background: selectedHashtags.includes(tag.id) ? '#e3f2fd' : '#fff',
-                    border: selectedHashtags.includes(tag.id) ? '2px solid #1976d2' : '1px solid #e0e0e0',
-                    borderRadius: 4,
-                    cursor: 'pointer',
-                    fontSize: '0.9rem'
-                  }}
+                  className={`hashtag-item ${selectedHashtags.includes(tag.id) ? 'selected' : ''}`}
                 >
                   <input
                     type="checkbox"
                     checked={selectedHashtags.includes(tag.id)}
                     onChange={() => toggleHashtag(tag.id)}
-                    style={{ marginRight: 6 }}
                   />
                   #{tag.name}
                 </label>
@@ -263,20 +224,24 @@ function PostForm() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: 10 }}>
-          <button type="submit" disabled={loading}>
-            {loading ? '작성 중...' : '작성하기'}
-          </button>
-          <button 
+        <div className="form-actions">
+          <Button 
+            type="submit" 
+            variant="primary"
+            disabled={loading}
+          >
+            {loading ? <Loading size="sm" text="작성 중..." /> : '작성하기'}
+          </Button>
+          <Button 
             type="button" 
+            variant="outline"
             onClick={() => navigate('/')}
-            style={{ background: '#757575' }}
           >
             취소
-          </button>
+          </Button>
         </div>
       </form>
-    </div>
+    </Container>
   );
 }
 

@@ -1,0 +1,69 @@
+.my-books {
+  padding-top: var(--spacing-6);
+  padding-bottom: var(--spacing-8);
+}
+
+.my-books__header {
+  margin-bottom: var(--spacing-6);
+  text-align: center;
+}
+
+.my-books__title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-neutral-900);
+  margin: 0 0 var(--spacing-2) 0;
+}
+
+.my-books__subtitle {
+  font-size: var(--font-size-base);
+  color: var(--color-neutral-600);
+  margin: 0;
+}
+
+.my-books__loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.my-books__error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: var(--spacing-4);
+}
+
+.my-books__error-message {
+  color: var(--color-error);
+  font-size: var(--font-size-lg);
+  margin: 0;
+}
+
+.my-books__empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  color: var(--color-neutral-600);
+  font-size: var(--font-size-lg);
+}
+
+.my-books__grid {
+  margin-bottom: var(--spacing-8);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .my-books__header {
+    text-align: left;
+  }
+
+  .my-books__title {
+    font-size: var(--font-size-2xl);
+  }
+}

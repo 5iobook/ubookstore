@@ -54,6 +54,56 @@
 
 .wish-list__table {
   margin-bottom: var(--spacing-8);
+
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.wish-list__table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.wish-list__table th {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: var(--font-weight-semibold);
+  padding: var(--spacing-4) var(--spacing-6);
+  text-align: left;
+  border-bottom: 1px solid var(--border-secondary);
+}
+
+.wish-list__table td {
+  padding: var(--spacing-4) var(--spacing-6);
+  border-bottom: 1px solid var(--border-secondary);
+  color: var(--text-secondary);
+}
+
+.wish-list__table tbody tr:hover {
+  background-color: var(--bg-secondary);
+}
+
+.wish-list__table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.wish-user-id {
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+}
+
+.wish-post-id {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary-600);
+}
+
+.wish-date {
+  font-size: var(--font-size-xs);
+  color: var(--text-tertiary);
+
 }
 
 .wish-list__pagination {
@@ -63,6 +113,31 @@
   gap: var(--spacing-2);
   padding: var(--spacing-4) 0;
 }
+
+
+/* 페이지네이션 버튼 hover 효과 정의 - 색상을 더 진하게 글자색 개선 */
+.wish-list__pagination .btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.wish-list__pagination .btn--outline:hover:not(:disabled) {
+  background-color: var(--color-primary-600) !important;
+  border-color: var(--color-primary-700) !important;
+  color: var(--color-neutral-0) !important; /* 흰색 */
+}
+
+.wish-list__pagination .btn.btn--outline {
+  border-color: var(--color-primary-500);
+  color: var(--color-primary-700); /* 기본 상태에서 더 진한 색상 */
+}
+
+.wish-list__pagination .btn.btn--outline:hover:not(:disabled) {
+  background-color: var(--color-primary-600) !important;
+  border-color: var(--color-primary-700) !important;
+  color: var(--color-neutral-0) !important; /* 호버 시 흰색 */
+}
+
 
 .wish-list__pagination-info {
   font-size: var(--font-size-base);
@@ -82,6 +157,18 @@
   .wish-list__title {
     font-size: var(--font-size-2xl);
   }
+
+
+  .wish-list__table {
+    overflow-x: auto;
+  }
+
+  .wish-list__table th,
+  .wish-list__table td {
+    padding: var(--spacing-3) var(--spacing-4);
+    font-size: var(--font-size-xs);
+  }
+
 
   .wish-list__pagination {
     flex-wrap: wrap;

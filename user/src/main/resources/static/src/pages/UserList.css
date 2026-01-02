@@ -64,6 +64,20 @@
   padding: var(--spacing-4) 0;
 }
 
+
+/* ?�이지?�이??버튼 hover ?�과 */
+.user-list__pagination button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.user-list__pagination button[class*="btn--outline"]:hover:not(:disabled) {
+  background-color: var(--color-primary-50);
+  border-color: var(--color-primary-600);
+  color: var(--color-primary-700);
+}
+
+
 .user-list__pagination-info {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);

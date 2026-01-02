@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE = 'http://localhost:8086/v1/trades';
+const API_BASE = '/v1/trades'; // proxy를 통해 호출
 
 // 페이지네이션용 거래 목록 조회
 export async function fetchTradeListPage(page: number, size: number) {
@@ -27,7 +27,7 @@ export async function fetchTradeList() {
     const res = await axios.get(`${API_BASE}`, { params: { page, size } });
     const tradePage = (res.data as any).data.tradePage;
     allTrades = allTrades.concat(tradePage.content);
-    totalPages = tradePage.totalPages;
+    totalPages = tradePage.page.totalPages;
     page++;
   } while (page < totalPages);
 
