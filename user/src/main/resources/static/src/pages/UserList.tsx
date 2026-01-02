@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { fetchUserListPage } from '../api/userApi';
 import type { User } from '../api/userApi';
+import { Container, Grid, UserCard, Button, Loading } from '@bookstore/common-ui';
+import './UserList.css';
 
 function UserList() {
     const [users, setUsers] = useState<User[]>([]);
@@ -9,6 +11,7 @@ function UserList() {
     const [totalPages, setTotalPages] = useState(0);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     const size = 10;
 
@@ -31,75 +34,111 @@ function UserList() {
         }
     }
 
+    const handleUserClick = (userId: string) => {
+        navigate(`/user/${userId}`);
+    };
+
     return (
-        <div>
-            <h2>사용자 목록</h2>
-            {loading && <p>로딩 중...</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {!loading && !error && (
+        <Container maxWidth="xl" className="user-list">
+            <header className="user-list__header">
+                <h1 className="user-list__title">사용자 목록</h1>
+                <p className="user-list__subtitle" aria-live="polite">
+                    총 {totalPages > 0 ? (totalPages - 1) * size + users.length : 0}명의 사용자
+                </p>
+            </header>
+
+            {loading && (
+                <div className="user-list__loading" role="status" aria-live="polite">
+                    <Loading size="lg" text="사용자 목록을 불러오는 중..." />
+                </div>
+            )}
+
+            {error && (
+                <div className="user-list__error" role="alert" aria-live="assertive">
+                    <p className="user-list__error-message">{error}</p>
+                    <Button variant="primary" onClick={loadUsers}>
+                        다시 시도
+                    </Button>
+                </div>
+            )}
+
+            {!loading && !error && users.length === 0 && (
+                <div className="user-list__empty" role="status">
+                    <p>등록된 사용자가 없습니다.</p>
+                </div>
+            )}
+
+            {!loading && !error && users.length > 0 && (
                 <>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>사용자명</th>
-                                <th>이메일</th>
-                                <th>생성일</th>
-                                <th>상세</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <section aria-label="사용자 카드 목록">
+                        <Grid columns={12} gap="md" responsive className="user-list__grid">
                             {users.map((user) => (
-                                <tr key={user.id}>
-                                    <td>{user.id}</td>
-                                    <td>{user.username}</td>
-                                    <td>{user.email}</td>
-                                    <td>{new Date(user.createdAt).toLocaleString()}</td>
-                                    <td>
-                                        <Link to={`/user/${user.id}`} style={{ color: '#1976d2' }}>
-                                            보기
-                                        </Link>
-                                    </td>
-                                </tr>
+                                <Grid.Item key={user.id} span={12} spanMd={6} spanLg={4}>
+                                    <UserCard
+                                        id={String(user.id)}
+                                        name={user.userName}
+                                        email={user.email}
+                                        bio={user.profile}
+                                        variant="detailed"
+                                        onCardClick={() => handleUserClick(String(user.id))}
+                                    />
+                                </Grid.Item>
                             ))}
-                        </tbody>
-                    </table>
-                    <div style={{ marginTop: 20 }}>
-                        <button
-                            className="pagination-btn"
+                        </Grid>
+                    </section>
+
+                    <nav
+                        className="user-list__pagination"
+                        role="navigation"
+                        aria-label="페이지네이션"
+                    >
+                        <Button
+                            variant="outline"
+                            size="sm"
                             onClick={() => setPage(0)}
                             disabled={page === 0}
+                            aria-label="첫 페이지로 이동"
                         >
                             처음
-                        </button>
-                        <button
-                            className="pagination-btn"
+                        </Button>
+                        <Button
+                            variant="outline"
+                            size="sm"
                             onClick={() => setPage(page - 1)}
                             disabled={page === 0}
+                            aria-label="이전 페이지로 이동"
                         >
                             이전
-                        </button>
-                        <span style={{ margin: '0 10px' }}>
+                        </Button>
+                        <span
+                            className="user-list__pagination-info"
+                            aria-current="page"
+                            aria-label={`현재 페이지 ${page + 1}, 전체 ${totalPages || 1} 페이지`}
+                        >
                             {page + 1} / {totalPages || 1}
                         </span>
-                        <button
-                            className="pagination-btn"
+                        <Button
+                            variant="outline"
+                            size="sm"
                             onClick={() => setPage(page + 1)}
                             disabled={page >= totalPages - 1}
+                            aria-label="다음 페이지로 이동"
                         >
                             다음
-                        </button>
-                        <button
-                            className="pagination-btn"
+                        </Button>
+                        <Button
+                            variant="outline"
+                            size="sm"
                             onClick={() => setPage(totalPages - 1)}
                             disabled={page >= totalPages - 1}
+                            aria-label="마지막 페이지로 이동"
                         >
                             마지막
-                        </button>
-                    </div>
+                        </Button>
+                    </nav>
                 </>
             )}
-        </div>
+        </Container>
     );
 }
 

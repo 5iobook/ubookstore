@@ -1,0 +1,181 @@
+.error-boundary {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-4);
+  background: linear-gradient(135deg, var(--color-neutral-50) 0%, var(--color-neutral-100) 100%);
+}
+
+.error-boundary__container {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  background: var(--color-neutral-0);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-8);
+  box-shadow: var(--shadow-lg);
+  animation: fadeInUp var(--transition-base);
+}
+
+.error-boundary__icon {
+  margin-bottom: var(--spacing-6);
+  animation: shake 0.5s ease-in-out;
+}
+
+.error-boundary__icon svg {
+  width: 80px;
+  height: 80px;
+}
+
+.error-boundary__title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-neutral-900);
+  margin-bottom: var(--spacing-4);
+  line-height: var(--line-height-tight);
+}
+
+.error-boundary__message {
+  font-size: var(--font-size-lg);
+  color: var(--color-neutral-600);
+  margin-bottom: var(--spacing-6);
+  line-height: var(--line-height-relaxed);
+}
+
+.error-boundary__details {
+  margin: var(--spacing-6) 0;
+  text-align: left;
+  background: var(--color-neutral-50);
+  border-radius: var(--border-radius-base);
+  padding: var(--spacing-4);
+  border: 1px solid var(--color-neutral-200);
+}
+
+.error-boundary__details summary {
+  cursor: pointer;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-neutral-700);
+  padding: var(--spacing-2);
+  user-select: none;
+}
+
+.error-boundary__details summary:hover {
+  color: var(--color-primary-500);
+}
+
+.error-boundary__error-info {
+  margin-top: var(--spacing-3);
+  padding: var(--spacing-3);
+  background: var(--color-neutral-0);
+  border-radius: var(--border-radius-sm);
+}
+
+.error-boundary__error-name {
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+  margin-bottom: var(--spacing-2);
+  word-break: break-word;
+}
+
+.error-boundary__stack-trace {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-neutral-700);
+  background: var(--color-neutral-100);
+  padding: var(--spacing-3);
+  border-radius: var(--border-radius-sm);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.error-boundary__actions {
+  display: flex;
+  gap: var(--spacing-3);
+  justify-content: center;
+  margin-bottom: var(--spacing-6);
+  flex-wrap: wrap;
+}
+
+.error-boundary__home-link {
+  display: inline-block;
+  color: var(--color-primary-500);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  transition: color var(--transition-fast);
+}
+
+.error-boundary__home-link:hover {
+  color: var(--color-primary-600);
+  text-decoration: underline;
+}
+
+/* Shake animation for error icon */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .error-boundary__container {
+    padding: var(--spacing-6);
+  }
+
+  .error-boundary__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .error-boundary__message {
+    font-size: var(--font-size-base);
+  }
+
+  .error-boundary__actions {
+    flex-direction: column;
+  }
+
+  .error-boundary__actions button {
+    width: 100%;
+  }
+}
+
+/* Dark mode support */
+[data-theme="dark"] .error-boundary {
+  background: linear-gradient(135deg, var(--color-neutral-900) 0%, var(--color-neutral-800) 100%);
+}
+
+[data-theme="dark"] .error-boundary__container {
+  background: var(--color-neutral-800);
+}
+
+[data-theme="dark"] .error-boundary__title {
+  color: var(--color-neutral-100);
+}
+
+[data-theme="dark"] .error-boundary__message {
+  color: var(--color-neutral-400);
+}
+
+[data-theme="dark"] .error-boundary__details {
+  background: var(--color-neutral-900);
+  border-color: var(--color-neutral-700);
+}
+
+[data-theme="dark"] .error-boundary__error-info {
+  background: var(--color-neutral-800);
+}
+
+[data-theme="dark"] .error-boundary__stack-trace {
+  background: var(--color-neutral-900);
+  color: var(--color-neutral-300);
+}

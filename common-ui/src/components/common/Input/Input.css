@@ -1,0 +1,269 @@
+/* Input Container */
+.input-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* Input Wrapper */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Input Field */
+.input-field {
+  width: 100%;
+  min-height: 44px;
+  padding: 1rem 0.75rem 0.5rem;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  color: var(--color-neutral-900);
+  background-color: var(--color-neutral-0);
+  border: 2px solid var(--color-neutral-300);
+  border-radius: var(--radius-base);
+  transition: all var(--transition-base);
+  outline: none;
+}
+
+.input-field::placeholder {
+  color: var(--color-neutral-500);
+  opacity: 1;
+}
+
+.input-field:focus {
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 3px rgba(255, 159, 67, 0.1);
+}
+
+.input-field:focus-visible {
+  outline: 3px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+/* High contrast focus for better visibility */
+@media (prefers-contrast: high) {
+  .input-field:focus-visible {
+    outline-width: 4px;
+    border-width: 3px;
+  }
+}
+
+/* Floating Label */
+.input-label {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--font-size-base);
+  color: var(--color-neutral-600);
+  pointer-events: none;
+  transition: all var(--transition-base);
+  background-color: transparent;
+  padding: 0 0.25rem;
+}
+
+.input-label--floating {
+  top: 0;
+  transform: translateY(-50%);
+  font-size: var(--font-size-xs);
+  color: var(--color-primary-500);
+  background-color: var(--color-neutral-0);
+}
+
+.input-label__required {
+  color: var(--color-error);
+  margin-left: 0.125rem;
+}
+
+/* Icon Styles */
+.input-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-neutral-600);
+  font-size: 1.25rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.input-icon--left {
+  left: 0.75rem;
+}
+
+.input-icon--right {
+  right: 0.75rem;
+}
+
+.input-container--icon-left .input-field {
+  padding-left: 2.75rem;
+}
+
+.input-container--icon-left .input-label {
+  left: 2.75rem;
+}
+
+.input-container--icon-right .input-field {
+  padding-right: 2.75rem;
+}
+
+/* Status Icons */
+.input-status-icon {
+  position: absolute;
+  right: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.input-status-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.input-status-icon--success {
+  color: var(--color-success);
+}
+
+.input-status-icon--error {
+  color: var(--color-error);
+}
+
+.input-container--icon-right .input-status-icon {
+  right: 3rem;
+}
+
+/* Error State */
+.input-container--error .input-field {
+  border-color: var(--color-error);
+}
+
+.input-container--error .input-field:focus {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.1);
+}
+
+.input-container--error .input-label--floating {
+  color: var(--color-error);
+}
+
+/* Success State */
+.input-container--success .input-field {
+  border-color: var(--color-success);
+}
+
+.input-container--success .input-field:focus {
+  border-color: var(--color-success);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.input-container--success .input-label--floating {
+  color: var(--color-success);
+}
+
+/* Focused State */
+.input-container--focused .input-label {
+  color: var(--color-primary-500);
+}
+
+/* Disabled State */
+.input-container--disabled .input-field {
+  background-color: var(--color-neutral-100);
+  color: var(--color-neutral-500);
+  cursor: not-allowed;
+  border-color: var(--color-neutral-300);
+}
+
+.input-container--disabled .input-label {
+  color: var(--color-neutral-500);
+}
+
+.input-container--disabled .input-icon {
+  color: var(--color-neutral-400);
+}
+
+/* Messages */
+.input-message {
+  margin-top: 0.5rem;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+.input-message--error {
+  color: var(--color-error);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.input-message--helper {
+  color: var(--color-neutral-600);
+}
+
+/* Character Counter */
+.input-counter {
+  position: absolute;
+  right: 0.75rem;
+  bottom: -1.5rem;
+  font-size: var(--font-size-xs);
+  color: var(--color-neutral-500);
+}
+
+.input-container--error .input-counter {
+  color: var(--color-error);
+}
+
+/* Animations */
+@keyframes input-shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-4px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(4px);
+  }
+}
+
+.input-container--error .input-field {
+  animation: input-shake 0.4s ease-in-out;
+}
+
+/* Touch-friendly on mobile */
+@media (max-width: 767px) {
+  .input-field {
+    min-height: 48px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .input-field,
+  .input-label {
+    transition: none;
+  }
+  
+  .input-container--error .input-field {
+    animation: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .input-field {
+    background-color: var(--color-neutral-100);
+    color: var(--color-neutral-900);
+    border-color: var(--color-neutral-400);
+  }
+  
+  .input-label--floating {
+    background-color: var(--color-neutral-100);
+  }
+}

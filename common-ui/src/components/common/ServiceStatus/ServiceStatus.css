@@ -1,0 +1,121 @@
+.service-status-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  border-radius: var(--border-radius-base);
+  margin-bottom: var(--spacing-4);
+  animation: slideDown var(--transition-base);
+}
+
+.service-status-banner--warning {
+  background: var(--color-warning);
+  color: var(--color-neutral-900);
+  border-left: 4px solid var(--color-warning);
+}
+
+.service-status-banner__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+}
+
+.service-status-banner__content {
+  flex: 1;
+}
+
+.service-status-banner__title {
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base);
+  margin-bottom: var(--spacing-1);
+}
+
+.service-status-banner__message {
+  font-size: var(--font-size-sm);
+  opacity: 0.9;
+  margin: 0;
+}
+
+.service-status-banner__retry {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.service-status-banner__retry:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: rotate(180deg);
+}
+
+.service-status-banner__retry:active {
+  transform: rotate(180deg) scale(0.95);
+}
+
+/* Slide down animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .service-status-banner {
+    padding: var(--spacing-3);
+  }
+
+  .service-status-banner__icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .service-status-banner__icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .service-status-banner__title {
+    font-size: var(--font-size-sm);
+  }
+
+  .service-status-banner__message {
+    font-size: var(--font-size-xs);
+  }
+}
+
+/* Dark mode support */
+[data-theme="dark"] .service-status-banner--warning {
+  background: rgba(255, 152, 0, 0.2);
+  color: var(--color-warning);
+  border-left-color: var(--color-warning);
+}
+
+[data-theme="dark"] .service-status-banner__icon {
+  background: rgba(255, 152, 0, 0.3);
+}
+
+[data-theme="dark"] .service-status-banner__retry {
+  background: rgba(255, 152, 0, 0.3);
+}
+
+[data-theme="dark"] .service-status-banner__retry:hover {
+  background: rgba(255, 152, 0, 0.5);
+}

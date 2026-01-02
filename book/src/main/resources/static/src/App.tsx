@@ -1,21 +1,31 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AppLayout } from '@bookstore/common-ui';
 import BookList from './pages/BookList';
 import BookDetail from './pages/BookDetail';
 import BookForm from './pages/BookForm';
+import './styles-common.css';
 import './App.css';
 
 function App() {
+  const navItems = [
+    { label: '도서 목록', path: '/' },
+    { label: '도서 검색', path: '/search' }
+  ];
+
   return (
-    <Router>
-      <nav style={{ marginBottom: 20 }}>
-        <Link to="/" style={{ marginRight: 10 }}>도서 목록</Link>
-        <Link to="/search" style={{ marginRight: 10 }}>도서 검색</Link>
-      </nav>
-      <Routes>
-        <Route path="/" element={<BookList />} />
-        <Route path="/book/:id" element={<BookDetail />} />
-        <Route path="/search" element={<BookForm />} />
-      </Routes>
+    <Router basename="/book">
+      <AppLayout 
+        title="도서 관리" 
+        navItems={navItems}
+        pageTitle="도서 관리"
+        pageDescription="도서 정보를 검색하고 관리할 수 있습니다."
+      >
+        <Routes>
+          <Route path="/" element={<BookList />} />
+          <Route path="/:id" element={<BookDetail />} />
+          <Route path="/search" element={<BookForm />} />
+        </Routes>
+      </AppLayout>
     </Router>
   );
 }

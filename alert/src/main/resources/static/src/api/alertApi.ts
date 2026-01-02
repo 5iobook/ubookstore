@@ -11,11 +11,18 @@ export interface Alert {
   createdAt: string;
 }
 
-interface PageInfo {
-  totalPages: number;
-  totalElements: number;
-  number: number;
-  size: number;
+interface ApiResponse<T> {
+  data: T;
+}
+
+interface PageData {
+  content: Alert[];
+  page: {
+    totalPages: number;
+    totalElements: number;
+    number: number;
+    size: number;
+  };
 }
 
 export interface AlertListResponse {
@@ -36,7 +43,7 @@ export interface CreateAlertRequest {
  * 알림 생성
  */
 export async function createAlert(request: CreateAlertRequest): Promise<Alert> {
-  const res = await axios.post(`${API_BASE}`, request);
+  const res = await axios.post<ApiResponse<Alert>>(`${API_BASE}`, request);
   return res.data.data;
 }
 
@@ -44,7 +51,7 @@ export async function createAlert(request: CreateAlertRequest): Promise<Alert> {
  * 알림 목록 조회 (페이지네이션)
  */
 export async function fetchAlertListPage(page: number, size: number): Promise<AlertListResponse> {
-  const res = await axios.get(`${API_BASE}`, { params: { page, size } });
+  const res = await axios.get<ApiResponse<PageData>>(`${API_BASE}`, { params: { page, size } });
   return {
     items: res.data.data.content,
     totalPages: res.data.data.page.totalPages,
@@ -58,7 +65,7 @@ export async function fetchAlertListPage(page: number, size: number): Promise<Al
  * 알림 상세 조회
  */
 export async function fetchAlertDetail(id: number): Promise<Alert> {
-  const res = await axios.get(`${API_BASE}/${id}`);
+  const res = await axios.get<ApiResponse<Alert>>(`${API_BASE}/${id}`);
   return res.data.data;
 }
 
@@ -66,6 +73,6 @@ export async function fetchAlertDetail(id: number): Promise<Alert> {
  * 알림 읽음 처리
  */
 export async function markAlertAsRead(id: number): Promise<Alert> {
-  const res = await axios.put(`${API_BASE}/${id}/read`);
+  const res = await axios.put<ApiResponse<Alert>>(`${API_BASE}/${id}/read`);
   return res.data.data;
 }

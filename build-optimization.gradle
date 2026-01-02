@@ -1,0 +1,11 @@
+// 모든 서비스에 적용할 빌드 최적화 설정
+// 각 서비스의 build.gradle 끝에 추가
+
+// processResources 최적화: node_modules 제외
+processResources {
+    exclude '**/node_modules/**'
+    exclude '**/.vite/**'
+    exclude '**/dev-dist/**'
+    exclude '**/.tmp/**'
+    exclude '**/.vite-temp/**'
+}
