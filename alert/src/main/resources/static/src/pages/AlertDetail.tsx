@@ -66,8 +66,17 @@ function AlertDetail() {
       <Container maxWidth="xl" className="alert-detail">
         <div className="alert-detail__error" role="alert" aria-live="assertive">
           <p className="alert-detail__error-message">{error}</p>
-          <Button onClick={() => navigate('/')} variant="primary">
-            목록으로 돌아가기
+          <Button  onClick={() => navigate('/')}
+
+            variant="ghost"
+            size="sm"
+            icon={
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20" height="20">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+            }
+          >
+            목록으로
           </Button>
         </div>
       </Container>
@@ -79,8 +88,17 @@ function AlertDetail() {
       <Container maxWidth="xl" className="alert-detail">
         <div className="alert-detail__empty" role="status">
           <p>알림을 찾을 수 없습니다.</p>
-          <Button onClick={() => navigate('/')} variant="primary">
-            목록으로 돌아가기
+          <Button onClick={() => navigate('/')}
+
+            variant="ghost"
+            size="sm"
+            icon={
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20" height="20">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+            }
+          >
+            목록으로
           </Button>
         </div>
       </Container>
