@@ -1,21 +1,22 @@
 package com.bookstore.user.user.application.service.v1;
 
 import com.bookstore.common.application.exception.CustomException;
+import com.bookstore.user.user.application.dto.v1.req.ReqUserPatchNicknameDtoApiV1;
 import com.bookstore.user.user.application.dto.v1.req.ReqUserPostSigninDtoApiV1;
 import com.bookstore.user.user.application.dto.v1.req.ReqUserPostSignupDtoApiV1;
 import com.bookstore.user.user.application.dto.v1.res.ResMyuserInfoDtoApiV1;
-import com.bookstore.user.user.application.dto.v1.res.ResMyuserInfoDtoApiV1.User;
 import com.bookstore.user.user.application.dto.v1.res.ResTokenDtoApiV1;
 import com.bookstore.user.user.domain.entity.RefreshTokenEntity;
 import com.bookstore.user.user.domain.entity.UserEntity;
 import com.bookstore.user.user.domain.exception.UserExceptionCode;
 import com.bookstore.user.user.domain.repository.RefreshTokenRepository;
 import com.bookstore.user.user.domain.repository.UserRepository;
-import com.bookstore.user.user.domain.vo.UserRole;
 import com.bookstore.user.user.infrastructure.config.JwtUtil;
+import jakarta.persistence.OptimisticLockException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -100,5 +101,49 @@ public class UserServiceApiV1Impl implements UserServiceApiV1 {
                         .build())
                 .build();
         return resDto;
+    }
+
+    @Override
+    public ResTokenDtoApiV1 reIssueToken(String refreshToken) {
+
+        RefreshTokenEntity saveRefreshtoken = refreshTokenRepository.findByRefreshToken(refreshToken)
+                .orElseThrow(() -> new CustomException(UserExceptionCode.TOKEN_EXPIRED));
+
+        //db에 있는 토큰과 일치하는지 확인
+        if(!Objects.equals(refreshToken, saveRefreshtoken.getToken())){
+            throw new CustomException(UserExceptionCode.TOKEN_EXPIRED);
+        }
+        //리프레시토큰 검증
+        if(saveRefreshtoken.isExpired()){
+            throw new CustomException(UserExceptionCode.TOKEN_EXPIRED);
+        }
+        //새 엑세스토큰 발급해서 반환
+        UserEntity user = saveRefreshtoken.getUser();
+        String accessToken = jwtUtil.generateAccessToken(user.getId(), user.getEmail(), user.getUserRole());
+        return ResTokenDtoApiV1.from(accessToken, null);
+    }
+
+    @Override
+    public ResMyuserInfoDtoApiV1 updateNickname(Long userId, ReqUserPatchNicknameDtoApiV1 reqDto) {
+
+        //예외처리
+        try {
+            UserEntity user = userRepository.findById(userId).orElseThrow(() -> new CustomException(UserExceptionCode.NOT_FOUND_USER));
+            user.updateNickName(reqDto.getUser().getNickname());
+            userRepository.save(user); //저장 강제실행
+            userRepository.flush();    //db에 즉시 반영
+            ResMyuserInfoDtoApiV1 resDto = ResMyuserInfoDtoApiV1.builder()
+                    .user(ResMyuserInfoDtoApiV1.User.builder()
+                            .userName(user.getUserName())
+                            .email(user.getEmail())
+                            .profile(user.getProfile())
+                            .nickName(user.getNickName())
+                            .build())
+                    .build();
+            return resDto;
+        }catch (OptimisticLockException e){
+            log.info("낙관적 락 충돌 발생");
+            throw new CustomException(UserExceptionCode.LOCK_CONFLICT);
+        }
     }
 }
