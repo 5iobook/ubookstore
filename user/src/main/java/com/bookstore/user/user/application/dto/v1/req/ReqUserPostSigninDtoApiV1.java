@@ -1,6 +1,5 @@
 package com.bookstore.user.user.application.dto.v1.req;
 
-import com.bookstore.user.user.domain.entity.UserEntity;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;

@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 
 import jakarta.persistence.Table;
 
+import jakarta.persistence.Version;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -44,6 +45,9 @@ public class UserEntity extends BaseEntity {
 
     @Column(nullable = true)
     private String profile;
+
+    @Version
+    private int version;
 
     @Builder(access = AccessLevel.PRIVATE)
     public UserEntity(String userName, String nickName, String password, String email,
@@ -86,8 +90,11 @@ public class UserEntity extends BaseEntity {
                 .build();
     }
 
-
     public void encodePassword(String encodedPassword) {
         this.password = encodedPassword;
+    }
+
+    public void updateNickName(String nickName) {
+        this.nickName = nickName;
     }
 }

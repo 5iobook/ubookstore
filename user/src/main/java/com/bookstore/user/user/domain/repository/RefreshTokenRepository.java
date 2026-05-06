@@ -8,4 +8,8 @@ public interface RefreshTokenRepository {
     Optional<RefreshTokenEntity> findByUser_Email(String email);
 
     RefreshTokenEntity save(RefreshTokenEntity tokenEntity);
+
+    Optional<RefreshTokenEntity> findByToken(String refreshToken);
+
+
 }
