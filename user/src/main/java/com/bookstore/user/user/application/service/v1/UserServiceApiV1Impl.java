@@ -12,7 +12,6 @@ import com.bookstore.user.user.domain.exception.UserExceptionCode;
 import com.bookstore.user.user.domain.repository.RefreshTokenRepository;
 import com.bookstore.user.user.domain.repository.UserRepository;
 import com.bookstore.user.user.infrastructure.config.JwtUtil;
-import jakarta.persistence.OptimisticLockException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -20,6 +19,7 @@ import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -103,12 +103,11 @@ public class UserServiceApiV1Impl implements UserServiceApiV1 {
                 .build();
         return resDto;
     }
-<<<<<<< HEAD
 
     @Override
     public ResTokenDtoApiV1 reIssueToken(String refreshToken) {
 
-        RefreshTokenEntity saveRefreshtoken = refreshTokenRepository.findByRefreshToken(refreshToken)
+        RefreshTokenEntity saveRefreshtoken = refreshTokenRepository.findByToken(refreshToken)
                 .orElseThrow(() -> new CustomException(UserExceptionCode.TOKEN_EXPIRED));
 
         //db에 있는 토큰과 일치하는지 확인
@@ -127,8 +126,6 @@ public class UserServiceApiV1Impl implements UserServiceApiV1 {
 
     @Override
     public ResMyuserInfoDtoApiV1 updateNickname(Long userId, ReqUserPatchNicknameDtoApiV1 reqDto) {
-
-        //예외처리
         try {
             UserEntity user = userRepository.findById(userId).orElseThrow(() -> new CustomException(UserExceptionCode.NOT_FOUND_USER));
             user.updateNickName(reqDto.getUser().getNickname());
@@ -143,25 +140,24 @@ public class UserServiceApiV1Impl implements UserServiceApiV1 {
                             .build())
                     .build();
             return resDto;
-        }catch (OptimisticLockException e){
+        }catch (OptimisticLockingFailureException e){
             log.info("낙관적 락 충돌 발생");
             throw new CustomException(UserExceptionCode.LOCK_CONFLICT);
         }
-=======
+
     
-    @Override
-    @Transactional(readOnly = true)
-    public org.springframework.data.domain.Page<ResMyuserInfoDtoApiV1> getUserList(org.springframework.data.domain.Pageable pageable) {
-        return userRepository.findAll(pageable)
-                .map(user -> ResMyuserInfoDtoApiV1.builder()
-                        .user(ResMyuserInfoDtoApiV1.User.builder()
-                                .id(user.getId())
-                                .userName(user.getUserName())
-                                .email(user.getEmail())
-                                .profile(user.getProfile())
-                                .nickName(user.getNickName())
-                                .build())
-                        .build());
->>>>>>> origin/dev
+//    @Override
+//    @Transactional(readOnly = true)
+//    public org.springframework.data.domain.Page<ResMyuserInfoDtoApiV1> getUserList(org.springframework.data.domain.Pageable pageable) {
+//        return userRepository.findAll(pageable)
+//                .map(user -> ResMyuserInfoDtoApiV1.builder()
+//                        .user(ResMyuserInfoDtoApiV1.User.builder()
+//                                .id(user.getId())
+//                                .userName(user.getUserName())
+//                                .email(user.getEmail())
+//                                .profile(user.getProfile())
+//                                .nickName(user.getNickName())
+//                                .build())
+//                        .build());
     }
 }

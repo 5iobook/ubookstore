@@ -16,7 +16,7 @@ public interface UserServiceApiV1 {
 
     ResMyuserInfoDtoApiV1 getUserInfo(Long userId);
     
-    Page<ResMyuserInfoDtoApiV1> getUserList(Pageable pageable);
+//    Page<ResMyuserInfoDtoApiV1> getUserList(Pageable pageable);
 
     ResTokenDtoApiV1 reIssueToken(String refreshToken);
 

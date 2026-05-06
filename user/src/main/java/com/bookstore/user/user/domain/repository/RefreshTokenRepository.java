@@ -9,7 +9,7 @@ public interface RefreshTokenRepository {
 
     RefreshTokenEntity save(RefreshTokenEntity tokenEntity);
 
-    Optional<RefreshTokenEntity> findByRefreshToken(String refreshToken);
+    Optional<RefreshTokenEntity> findByToken(String refreshToken);
 
 
 }

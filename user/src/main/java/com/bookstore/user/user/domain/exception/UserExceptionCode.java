@@ -14,7 +14,7 @@ public enum UserExceptionCode implements ExceptionCode {
     NOT_FOUND_USER("U104", "유저를 찾을 수 없습니다", HttpStatus.NOT_FOUND),
 
     TOKEN_EXPIRED("U105", "토큰이 만료되었습니다", HttpStatus.UNAUTHORIZED),
-    LOCK_CONFLICT("U106", "충돌이 발생하여 실패했습니다.다시 시도해 주세요", HttpStatus.CONFLICT),
+    LOCK_CONFLICT("U106", "충돌이 발생하여 실패했습니다. 다시 시도해 주세요", HttpStatus.CONFLICT),
     ;
 
     private final String code;
