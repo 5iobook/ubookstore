@@ -144,20 +144,5 @@ public class UserServiceApiV1Impl implements UserServiceApiV1 {
             log.info("낙관적 락 충돌 발생");
             throw new CustomException(UserExceptionCode.LOCK_CONFLICT);
         }
-
-    
-//    @Override
-//    @Transactional(readOnly = true)
-//    public org.springframework.data.domain.Page<ResMyuserInfoDtoApiV1> getUserList(org.springframework.data.domain.Pageable pageable) {
-//        return userRepository.findAll(pageable)
-//                .map(user -> ResMyuserInfoDtoApiV1.builder()
-//                        .user(ResMyuserInfoDtoApiV1.User.builder()
-//                                .id(user.getId())
-//                                .userName(user.getUserName())
-//                                .email(user.getEmail())
-//                                .profile(user.getProfile())
-//                                .nickName(user.getNickName())
-//                                .build())
-//                        .build());
     }
 }

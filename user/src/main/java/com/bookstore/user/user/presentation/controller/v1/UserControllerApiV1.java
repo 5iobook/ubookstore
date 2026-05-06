@@ -97,7 +97,6 @@ public class UserControllerApiV1 {
         );
     }
 
-
     @GetMapping("/{userId}")
     public ResponseEntity<ResDTO<Object>> userInfoById(@PathVariable("userId") Long userId) {
         ResMyuserInfoDtoApiV1 dto = userServiceApi.getUserInfo(userId);
@@ -110,40 +109,6 @@ public class UserControllerApiV1 {
         );
     }
 
-
-//    @GetMapping
-//    public ResponseEntity<ResDTO<Object>> getUserList(
-//            @org.springframework.web.bind.annotation.RequestParam(defaultValue = "0") int page,
-//            @org.springframework.web.bind.annotation.RequestParam(defaultValue = "10") int size) {
-//
-//        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(page, size);
-//        org.springframework.data.domain.Page<ResMyuserInfoDtoApiV1> userPage = userServiceApi.getUserList(pageable);
-//
-//        // user 객체만 추출
-//        java.util.List<ResMyuserInfoDtoApiV1.User> users = userPage.getContent().stream()
-//                .map(ResMyuserInfoDtoApiV1::getUser)
-//                .collect(java.util.stream.Collectors.toList());
-//
-//        java.util.Map<String, Object> pageInfo = new java.util.HashMap<>();
-//        pageInfo.put("totalPages", userPage.getTotalPages());
-//        pageInfo.put("totalElements", userPage.getTotalElements());
-//        pageInfo.put("number", userPage.getNumber());
-//        pageInfo.put("size", userPage.getSize());
-//
-//        java.util.Map<String, Object> data = new java.util.HashMap<>();
-//        data.put("content", users);
-//        data.put("page", pageInfo);
-//
-//        return ResponseEntity.ok(
-//                ResDTO.builder()
-//                        .code("0")
-//                        .message("사용자 목록 조회 성공")
-//                        .data(data)
-//                        .build()
-//        );
-//    }
-
-
     @PostMapping("/reIssue")
     public ResponseEntity<ResDTO<Object>> reIssueToken(@CookieValue(name = "refresh_token") String refreshToken) {
         ResTokenDtoApiV1 accessToken = userServiceApi.reIssueToken(refreshToken);
@@ -154,43 +119,6 @@ public class UserControllerApiV1 {
                         .data(accessToken)
                         .build(),
                 HttpStatus.OK
-
-//    @PostMapping
-//    public ResponseEntity<ResDTO<Object>> createUser(@RequestBody java.util.Map<String, String> request) {
-//        // 간단한 사용자 등록 (비밀번호 없이)
-//        String userName = request.get("username");
-//        String email = request.get("email");
-//        String defaultPassword = "password123"; // 기본 비밀번호
-//
-//        ReqUserPostSignupDtoApiV1 signupDto = ReqUserPostSignupDtoApiV1.builder()
-//                .user(ReqUserPostSignupDtoApiV1.User.builder()
-//                        .userName(userName)
-//                        .nickName(userName)
-//                        .email(email)
-//                        .password(defaultPassword)
-//                        .build())
-//                .build();
-//
-//        userServiceApi.signUp(signupDto);
-//
-//        return ResponseEntity.status(HttpStatus.CREATED).body(
-//                ResDTO.builder()
-//                        .code("0")
-//                        .message("사용자 등록 성공 (기본 비밀번호: password123)")
-//                        .build()
-//        );
-//    }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<ResDTO<Object>> getUserDetail(@org.springframework.web.bind.annotation.PathVariable Long id) {
-//        ResMyuserInfoDtoApiV1 dto = userServiceApi.getUserInfo(id);
-//        return ResponseEntity.ok(
-//                ResDTO.builder()
-//                        .code("0")
-//                        .message("사용자 상세 조회 성공")
-//                        .data(dto.getUser())
-//                        .build()
-
         );
     }
 
