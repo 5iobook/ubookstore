@@ -1,0 +1,223 @@
+/* Page Header Styles */
+.pageHeader {
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-secondary);
+    padding: var(--spacing-6) 0 var(--spacing-4);
+    margin-top: 0;
+
+    min-height: 180px;
+    /* 최소 높이 고정 */
+
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-4);
+}
+
+.headerContent {
+    display: flex;
+
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--spacing-6);
+    margin-bottom: var(--spacing-6);
+    text-align: center;
+
+}
+
+.titleSection {
+    flex: 1;
+
+    text-align: center;
+
+}
+
+.title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-2);
+    line-height: var(--line-height-tight);
+}
+
+.description {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    margin-bottom: 0;
+    line-height: var(--line-height-normal);
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    flex-shrink: 0;
+}
+
+/* Local Navigation */
+.localNav {
+    border-top: 1px solid var(--border-secondary);
+    padding-top: var(--spacing-4);
+
+    display: flex;
+    justify-content: center;
+    min-height: 60px;
+    /* 네비게이션 영역 최소 높이 고정 */
+    align-items: flex-start;
+
+}
+
+.navList {
+    display: flex;
+
+    gap: var(--spacing-2);
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 800px;
+    /* 최대 너비 제한 */
+    margin: 0 auto;
+
+}
+
+.navItem {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--spacing-2) var(--spacing-4);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    border-radius: var(--radius-base);
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+    background-color: var(--bg-secondary);
+
+    white-space: nowrap;
+    flex-shrink: 0;
+
+}
+
+.navItem:hover {
+    background-color: var(--color-primary-50);
+    color: var(--color-primary-700);
+    border-color: var(--color-primary-200);
+}
+
+.navItem.active {
+    background-color: var(--color-primary-500);
+    color: var(--color-neutral-0);
+    border-color: var(--color-primary-500);
+    font-weight: var(--font-weight-semibold);
+}
+
+.navItem:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .container {
+        padding: 0 var(--spacing-6);
+    }
+
+    .pageHeader {
+        padding: var(--spacing-8) 0 var(--spacing-6);
+
+        min-height: 200px;
+        /* 태블릿에서 최소 높이 */
+
+    }
+
+    .title {
+        font-size: var(--font-size-4xl);
+    }
+
+    .navItem {
+        padding: var(--spacing-3) var(--spacing-5);
+        font-size: var(--font-size-base);
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        padding: 0 var(--spacing-8);
+    }
+
+    .pageHeader {
+        padding: var(--spacing-10) 0 var(--spacing-8);
+
+        min-height: 220px;
+        /* 데스크톱에서 최소 높이 */
+
+    }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 767px) {
+    .headerContent {
+        flex-direction: column;
+
+        align-items: center;
+        gap: var(--spacing-4);
+        text-align: center;
+    }
+
+    .actions {
+        justify-content: center;
+
+    }
+
+    .navList {
+        gap: var(--spacing-2);
+
+        justify-content: center;
+    }
+
+    .navItem {
+        flex-shrink: 0;
+
+        justify-content: center;
+        min-width: 0;
+    }
+}
+
+/* Animation */
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.pageHeader {
+    animation: slideInDown var(--transition-base);
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .pageHeader {
+    background-color: var(--bg-primary);
+    border-bottom-color: var(--border-primary);
+}
+
+[data-theme="dark"] .navItem {
+    background-color: var(--bg-tertiary);
+}
+
+[data-theme="dark"] .navItem:hover {
+    background-color: var(--color-primary-900);
+    color: var(--color-primary-200);
+    border-color: var(--color-primary-700);
+}
+
+[data-theme="dark"] .navItem.active {
+    background-color: var(--color-primary-600);
+    color: var(--color-neutral-0);
+}

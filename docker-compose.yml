@@ -111,27 +111,48 @@ services:
       KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
       KAFKA_CLUSTERS_0_READONLY: "false"
 
-  trade-mysql:
+  mysql:
     image: mysql:8.0
-    container_name: trade-mysql
+    container_name: bookstore-mysql
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: rootpw
-      MYSQL_DATABASE: trade_db
-      MYSQL_USER: trade_user
-      MYSQL_PASSWORD: trade_pw
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: bookstore
     volumes:
       - mysql-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     restart: always
+
+  # Nginx 리버스 프록시 (API Gateway for Frontend)
+  nginx-gateway:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - trade-frontend
+      - book-frontend
+    networks:
+      - frontend
+    restart: unless-stopped
 
   trade-frontend:
     build: ./trade/src/main/resources/static
-    ports:
-      - "3000:80"
+    networks:
+      - frontend
+    restart: unless-stopped
+
+  book-frontend:
+    build: ./book/src/main/resources/static
+    networks:
+      - frontend
+    restart: unless-stopped
 
 networks:
   elk:
+    driver: bridge
+  frontend:
     driver: bridge
 
 volumes:

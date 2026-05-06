@@ -1,0 +1,79 @@
+/* Page Transition Component Styles */
+
+.page-transition {
+  opacity: 0;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+
+.page-transition--visible {
+  opacity: 1;
+}
+
+/* Fade Transition */
+.page-transition--fade.page-transition--visible {
+  animation-name: fadeIn;
+}
+
+/* Slide Up Transition */
+.page-transition--slide-up {
+  transform: translateY(20px);
+}
+
+.page-transition--slide-up.page-transition--visible {
+  animation-name: fadeInUp;
+}
+
+/* Slide Down Transition */
+.page-transition--slide-down {
+  transform: translateY(-20px);
+}
+
+.page-transition--slide-down.page-transition--visible {
+  animation-name: fadeInDown;
+}
+
+/* Slide Left Transition */
+.page-transition--slide-left {
+  transform: translateX(20px);
+}
+
+.page-transition--slide-left.page-transition--visible {
+  animation-name: slideInLeft;
+}
+
+/* Slide Right Transition */
+.page-transition--slide-right {
+  transform: translateX(-20px);
+}
+
+.page-transition--slide-right.page-transition--visible {
+  animation-name: slideInRight;
+}
+
+/* Scale Transition */
+.page-transition--scale {
+  transform: scale(0.95);
+}
+
+.page-transition--scale.page-transition--visible {
+  animation-name: scaleIn;
+}
+
+/* Zoom Transition */
+.page-transition--zoom {
+  transform: scale(0.8);
+}
+
+.page-transition--zoom.page-transition--visible {
+  animation-name: zoomIn;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .page-transition {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

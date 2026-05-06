@@ -9,6 +9,7 @@ import com.bookstore.post.post.application.dto.v1.response.ResPostPostDTOApiV1;
 import com.bookstore.post.post.application.dto.v1.response.ResPostPutDTOApiV1;
 import com.bookstore.post.post.application.service.v1.PostServiceApiV1;
 import com.bookstore.post.post.domain.entity.PostEntity;
+import com.bookstore.user.user.infrastructure.config.CustomUserDetails;
 import java.util.UUID;
 import com.querydsl.core.types.Predicate;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,8 @@ import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/posts")
@@ -35,9 +39,11 @@ public class PostControllerApiV1 {
 
     @PostMapping
     public ResponseEntity<ResDTO<ResPostPostDTOApiV1>> postBy(
-        @RequestBody ReqPostPostDTOApiV1 dto
+        @RequestBody ReqPostPostDTOApiV1 dto,
+        @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
-        ResPostPostDTOApiV1 response = postService.postBy(dto);
+        Long userId = userDetails != null ? userDetails.getUserId() : null;
+        ResPostPostDTOApiV1 response = postService.postBy(dto, userId);
         return new ResponseEntity<>(
             ResDTO.<ResPostPostDTOApiV1>builder()
                 .code("0")
@@ -82,9 +88,11 @@ public class PostControllerApiV1 {
     @PutMapping("/{id}")
     public ResponseEntity<ResDTO<ResPostPutDTOApiV1>> putBy(
         @PathVariable UUID id,
-        @RequestBody ReqPostPutDTOApiV1 dto
+        @RequestBody ReqPostPutDTOApiV1 dto,
+        @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
-        ResPostPutDTOApiV1 response = postService.putBy(id, dto);
+        Long userId = userDetails != null ? userDetails.getUserId() : null;
+        ResPostPutDTOApiV1 response = postService.putBy(id, dto, userId);
         return new ResponseEntity<>(
             ResDTO.<ResPostPutDTOApiV1>builder()
                 .code("0")
@@ -97,9 +105,11 @@ public class PostControllerApiV1 {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ResDTO<Object>> deleteBy(
-        @PathVariable UUID id
+        @PathVariable UUID id,
+        @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
-        postService.deleteBy(id);
+        Long userId = userDetails != null ? userDetails.getUserId() : null;
+        postService.deleteBy(id, userId);
         return new ResponseEntity<>(
             ResDTO.builder()
                 .code("0")

@@ -1,0 +1,217 @@
+.error-fallback {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-4);
+  background: var(--color-neutral-50);
+}
+
+.error-fallback__container {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  background: var(--color-neutral-0);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-8);
+  box-shadow: var(--shadow-md);
+  animation: fadeInUp var(--transition-base);
+}
+
+.error-fallback__icon {
+  margin-bottom: var(--spacing-6);
+  display: flex;
+  justify-content: center;
+  animation: bounceIn 0.6s ease-out;
+}
+
+.error-fallback__icon svg {
+  width: 120px;
+  height: 120px;
+}
+
+.error-fallback__title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-neutral-900);
+  margin-bottom: var(--spacing-4);
+  line-height: var(--line-height-tight);
+}
+
+.error-fallback__description {
+  font-size: var(--font-size-lg);
+  color: var(--color-neutral-600);
+  margin-bottom: var(--spacing-6);
+  line-height: var(--line-height-relaxed);
+}
+
+.error-fallback__service-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  background: var(--color-neutral-100);
+  border-radius: var(--border-radius-full);
+  padding: var(--spacing-2) var(--spacing-4);
+  margin-bottom: var(--spacing-6);
+}
+
+.error-fallback__service-name {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-neutral-800);
+}
+
+.error-fallback__service-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+  font-weight: var(--font-weight-medium);
+}
+
+.error-fallback__service-status::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-error);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.error-fallback__actions {
+  display: flex;
+  gap: var(--spacing-3);
+  justify-content: center;
+  margin-bottom: var(--spacing-6);
+  flex-wrap: wrap;
+}
+
+.error-fallback__tips {
+  text-align: left;
+  background: var(--color-neutral-50);
+  border-radius: var(--border-radius-base);
+  padding: var(--spacing-4);
+  margin-top: var(--spacing-6);
+}
+
+.error-fallback__tips-title {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-neutral-800);
+  margin-bottom: var(--spacing-2);
+}
+
+.error-fallback__tips-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.error-fallback__tips-list li {
+  position: relative;
+  padding-left: var(--spacing-5);
+  margin-bottom: var(--spacing-2);
+  color: var(--color-neutral-600);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+.error-fallback__tips-list li::before {
+  content: '•';
+  position: absolute;
+  left: var(--spacing-2);
+  color: var(--color-primary-500);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Animations */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .error-fallback__container {
+    padding: var(--spacing-6);
+  }
+
+  .error-fallback__icon svg {
+    width: 80px;
+    height: 80px;
+  }
+
+  .error-fallback__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .error-fallback__description {
+    font-size: var(--font-size-base);
+  }
+
+  .error-fallback__actions {
+    flex-direction: column;
+  }
+
+  .error-fallback__actions button {
+    width: 100%;
+  }
+}
+
+/* Dark mode support */
+[data-theme="dark"] .error-fallback {
+  background: var(--color-neutral-900);
+}
+
+[data-theme="dark"] .error-fallback__container {
+  background: var(--color-neutral-800);
+}
+
+[data-theme="dark"] .error-fallback__title {
+  color: var(--color-neutral-100);
+}
+
+[data-theme="dark"] .error-fallback__description {
+  color: var(--color-neutral-400);
+}
+
+[data-theme="dark"] .error-fallback__service-badge {
+  background: var(--color-neutral-700);
+}
+
+[data-theme="dark"] .error-fallback__service-name {
+  color: var(--color-neutral-200);
+}
+
+[data-theme="dark"] .error-fallback__tips {
+  background: var(--color-neutral-900);
+}
+
+[data-theme="dark"] .error-fallback__tips-title {
+  color: var(--color-neutral-200);
+}
+
+[data-theme="dark"] .error-fallback__tips-list li {
+  color: var(--color-neutral-400);
+}

@@ -1,9 +1,4 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+/* Trade App Specific Styles */
 
 .logo {
   height: 6em;
@@ -81,4 +76,67 @@
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+/* 버튼 스타일 */
+button[type="submit"] {
+  background-color: var(--color-primary-500);
+  color: var(--color-neutral-0);
+  border: none;
+  border-radius: var(--radius-base);
+  padding: var(--spacing-3) var(--spacing-6);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  margin-top: var(--spacing-4);
+}
+
+button[type="submit"]:hover:not(:disabled) {
+  background-color: var(--color-primary-600);
+}
+
+button[type="submit"]:disabled {
+  background-color: var(--color-neutral-400);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* 폼 컨테이너 */
+form {
+  background: var(--bg-primary);
+  padding: var(--spacing-6);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  margin: var(--spacing-4) auto;
+  max-width: 600px;
+  text-align: left;
+}
+
+/* 메시지 스타일 */
+.success-message {
+  color: var(--color-success);
+  background-color: rgba(76, 175, 80, 0.1);
+  padding: var(--spacing-3);
+  border-radius: var(--radius-base);
+  margin-top: var(--spacing-4);
+  text-align: center;
+}
+
+.error-message {
+  color: var(--color-error);
+  background-color: rgba(244, 67, 54, 0.1);
+  padding: var(--spacing-3);
+  border-radius: var(--radius-base);
+  margin-top: var(--spacing-4);
+  text-align: center;
+}
+
+.loading-message {
+  color: var(--color-info);
+  background-color: rgba(33, 150, 243, 0.1);
+  padding: var(--spacing-3);
+  border-radius: var(--radius-base);
+  margin-top: var(--spacing-4);
+  text-align: center;
 }

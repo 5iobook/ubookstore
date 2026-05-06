@@ -1,6 +1,21 @@
 plugins {
+	id 'java'
 	id 'org.springframework.boot' version '3.2.6'
 	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.bookstore'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://jitpack.io' }
 }
 
 dependencyManagement {
@@ -11,18 +26,28 @@ dependencyManagement {
 
 
 dependencies {
-	implementation 'com.h2database:h2'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'com.mysql:mysql-connector-j'
 	implementation 'com.github.5iobook:common:1.2.0'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	implementation 'io.github.cdimascio:java-dotenv:5.2.2'
 	//implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+// processResources 최적화: node_modules 제외
+processResources {
+	exclude '**/node_modules/**'
+	exclude '**/.vite/**'
+	exclude '**/dev-dist/**'
+	exclude '**/.tmp/**'
+	exclude '**/.vite-temp/**'
 }

@@ -2,16 +2,9 @@ rootProject.name = 'bookstore'
 include 'eureka-server'
 include 'chat'
 include 'trade'
+include 'book'
 include 'post'
 include 'user'
 include 'alert'
 include 'wish'
-
-
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        mavenCentral()
-        maven { url 'https://jitpack.io' }
-    }
-}
+include 'settings'

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { fetchTradeListPage } from '../api/tradeApi';
 import { Link, useSearchParams } from 'react-router-dom';
+import { Container, Button, Loading, Pagination } from '@bookstore/common-ui';
 import '../App.css';
+import './TradeList.css';
 
 const PAGE_SIZE = 10;
 
-// TradeStatus, TradeMethod 한글 매핑
+// TradeStatus, TradeMethod 상태 매핑
 const TRADE_STATUS_MAP: Record<string, string> = {
   REQUESTED: '요청됨',
   ACCEPTED: '수락됨',
@@ -27,57 +29,104 @@ const TradeList: React.FC = () => {
   const page = Number(searchParams.get('page')) || 0;
 
   useEffect(() => {
-    setLoading(true);
-    fetchTradeListPage(page, PAGE_SIZE)
-      .then(res => {
-        setTrades(res.trades);
-        setTotalPages(res.totalPages);
-      })
-      .catch(() => setError('거래 목록을 불러오지 못했습니다.'))
-      .finally(() => setLoading(false));
+    loadTrades();
   }, [page]);
+
+  async function loadTrades() {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetchTradeListPage(page, PAGE_SIZE);
+      setTrades(res.trades);
+      setTotalPages(res.totalPages);
+    } catch (err) {
+      console.error('거래 목록 조회 ?�패:', err);
+      setError('거래 목록을 불러오는데 실패했습니다.');
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const goToPage = (p: number) => {
     setSearchParams({ page: String(p) });
   };
 
-  if (loading) return <div>로딩 중...</div>;
-  if (error) return <div>{error}</div>;
 
   return (
-    <div>
-      <h2>거래 목록</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>상태</th>
-            <th>방법</th>
-            <th>등록일</th>
-          </tr>
-        </thead>
-        <tbody>
-          {trades.map(trade => (
-            <tr key={trade.id}>
-              <td>
-                <Link to={`/trade/${trade.id}${window.location.search}`}>{trade.id}</Link>
-              </td>
-              <td>{TRADE_STATUS_MAP[trade.status] ?? trade.status}</td>
-              <td>{TRADE_METHOD_MAP[trade.method] ?? trade.method}</td>
-              <td>{trade.completedAt || '-'}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {/* 페이지네이션 UI */}
-      <div style={{ marginTop: 16 }}>
-        <button className="pagination-btn" onClick={() => goToPage(0)} disabled={page === 0}>처음</button>
-        <button className="pagination-btn" onClick={() => goToPage(Math.max(0, page - 1))} disabled={page === 0}>이전</button>
-        <span style={{ margin: '0 8px' }}>{page + 1} / {totalPages}</span>
-        <button className="pagination-btn" onClick={() => goToPage(Math.min(totalPages - 1, page + 1))} disabled={page >= totalPages - 1}>다음</button>
-        <button className="pagination-btn" onClick={() => goToPage(totalPages - 1)} disabled={page >= totalPages - 1}>마지막</button>
-      </div>
-    </div>
+    <Container maxWidth="xl" className="trade-list">
+      <header className="trade-list__header">
+        <h1 className="trade-list__title">거래 목록</h1>
+        <p className="trade-list__subtitle" aria-live="polite">
+          총 {totalPages > 0 ? (totalPages - 1) * PAGE_SIZE + trades.length : 0}건의 거래
+        </p>
+      </header>
+
+      {loading && (
+        <div className="trade-list__loading" role="status" aria-live="polite">
+          <Loading size="lg" text="거래 목록을 불러오는 중.." />
+        </div>
+      )}
+
+      {error && (
+        <div className="trade-list__error" role="alert" aria-live="assertive">
+          <p className="trade-list__error-message">{error}</p>
+          <Button variant="primary" onClick={loadTrades}>
+            다시 시도
+          </Button>
+        </div>
+      )}
+
+      {!loading && !error && trades.length === 0 && (
+        <div className="trade-list__empty" role="status">
+          <p>등록된 거래가 없습니다.</p>
+        </div>
+      )}
+
+      {!loading && !error && trades.length > 0 && (
+        <>
+          <section aria-label="거래 목록 테이블" className="trade-list__table">
+            <table>
+              <thead>
+                <tr>
+                  <th>거래 ID</th>
+                  <th>상태</th>
+                  <th>거래 방법</th>
+                  <th>완료일</th>
+                </tr>
+              </thead>
+              <tbody>
+                {trades.map(trade => (
+                  <tr key={trade.id}>
+                    <td>
+                      <Link to={`/trade/${trade.id}${window.location.search}`} className="trade-link">
+                        {trade.id.substring(0, 8)}...
+                      </Link>
+                    </td>
+                    <td>
+                      <span className={`status-badge status-${trade.status.toLowerCase()}`}>
+                        {TRADE_STATUS_MAP[trade.status] ?? trade.status}
+                      </span>
+                    </td>
+                    <td>{TRADE_METHOD_MAP[trade.method] ?? trade.method}</td>
+                    <td>{trade.completedAt || '-'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </section>
+
+          <Pagination
+            currentPage={page + 1}
+            totalPages={totalPages}
+            totalItems={totalPages > 0 ? (totalPages - 1) * PAGE_SIZE + trades.length : 0}
+            itemsPerPage={PAGE_SIZE}
+            onPageChange={(newPage) => goToPage(newPage - 1)}
+            showInfo={true}
+          />
+        </>
+      )}
+    </Container>
+
   );
 };
 

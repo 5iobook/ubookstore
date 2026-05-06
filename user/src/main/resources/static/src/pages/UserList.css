@@ -1,0 +1,109 @@
+.user-list {
+  padding-top: var(--spacing-6);
+  padding-bottom: var(--spacing-8);
+}
+
+.user-list__header {
+  margin-bottom: var(--spacing-6);
+  text-align: center;
+}
+
+.user-list__title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-neutral-900);
+  margin: 0 0 var(--spacing-2) 0;
+}
+
+.user-list__subtitle {
+  font-size: var(--font-size-base);
+  color: var(--color-neutral-600);
+  margin: 0;
+}
+
+.user-list__loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.user-list__error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: var(--spacing-4);
+}
+
+.user-list__error-message {
+  color: var(--color-error);
+  font-size: var(--font-size-lg);
+  margin: 0;
+}
+
+.user-list__empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  color: var(--color-neutral-600);
+  font-size: var(--font-size-lg);
+}
+
+.user-list__grid {
+  margin-bottom: var(--spacing-8);
+}
+
+.user-list__pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4) 0;
+}
+
+
+/* ?�이지?�이??버튼 hover ?�과 */
+.user-list__pagination button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.user-list__pagination button[class*="btn--outline"]:hover:not(:disabled) {
+  background-color: var(--color-primary-50);
+  border-color: var(--color-primary-600);
+  color: var(--color-primary-700);
+}
+
+
+.user-list__pagination-info {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-neutral-700);
+  margin: 0 var(--spacing-2);
+  min-width: 80px;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .user-list__header {
+    text-align: left;
+  }
+
+  .user-list__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .user-list__pagination {
+    flex-wrap: wrap;
+    gap: var(--spacing-1);
+  }
+
+  .user-list__pagination-info {
+    width: 100%;
+    margin: var(--spacing-2) 0;
+  }
+}

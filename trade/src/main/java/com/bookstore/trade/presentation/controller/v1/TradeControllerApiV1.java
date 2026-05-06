@@ -11,6 +11,7 @@ import com.bookstore.trade.application.dto.v1.response.ResTradeGetSearchListDtoA
 import com.bookstore.trade.application.dto.v1.response.ResTradeRequestDtoApiV1;
 import com.bookstore.trade.application.service.v1.TradeServiceApiV1;
 import com.bookstore.trade.domain.trade.entity.TradeEntity;
+import com.bookstore.trade.infrastructure.config.CustomUserDetails;
 import com.querydsl.core.types.Predicate;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,9 +43,10 @@ public class TradeControllerApiV1 {
 
 	@PostMapping
 	public ResponseEntity<ResDTO<ResTradeRequestDtoApiV1>> postTradeRequest(
-		@Valid @RequestBody ReqTradeRequestDtoApiV1 reqTradeRequestDtoApiV1 // TODO:: 현재 접속 유저 정보 추가
+		@Valid @RequestBody ReqTradeRequestDtoApiV1 reqTradeRequestDtoApiV1
 	) {
-		ResTradeRequestDtoApiV1 response = tradeServiceApiV1.postTradeRequest(reqTradeRequestDtoApiV1);
+		Long userId = 1L; // 개발 환경: 임시 사용자 ID
+		ResTradeRequestDtoApiV1 response = tradeServiceApiV1.postTradeRequest(reqTradeRequestDtoApiV1, userId);
 		return new ResponseEntity<>(
 			ResDTO.<ResTradeRequestDtoApiV1>builder()
 				.code("0")
@@ -55,8 +58,11 @@ public class TradeControllerApiV1 {
 	}
 
 	@PostMapping("/{id}/accept")
-	public ResponseEntity<ResDTO<ResTradeAcceptDtoApiV1>> postTradeAccept(@PathVariable("id") UUID id) {  // TODO:: 현재 접속 유저 정보 추가
-		ResTradeAcceptDtoApiV1 response = tradeServiceApiV1.postTradeAccept(id);
+	public ResponseEntity<ResDTO<ResTradeAcceptDtoApiV1>> postTradeAccept(
+		@PathVariable("id") UUID id
+	) {
+		Long userId = 1L; // 개발 환경: 임시 사용자 ID
+		ResTradeAcceptDtoApiV1 response = tradeServiceApiV1.postTradeAccept(id, userId);
 		return new ResponseEntity<>(
 			ResDTO.<ResTradeAcceptDtoApiV1>builder()
 				.code("0")
@@ -68,9 +74,12 @@ public class TradeControllerApiV1 {
 	}
 
 	@PostMapping("/{id}/cancel")
-	public ResponseEntity<ResDTO<ResTradeCancelDtoApiV1>> postTradeCancel(@PathVariable("id") UUID id,
-		@Valid @RequestBody ReqTradeCancelDtoApiV1 reqTradeCancelDtoApiV1) {  // TODO:: 현재 접속 유저 정보 추가
-		ResTradeCancelDtoApiV1 response = tradeServiceApiV1.postTradeCancel(id, reqTradeCancelDtoApiV1);
+	public ResponseEntity<ResDTO<ResTradeCancelDtoApiV1>> postTradeCancel(
+		@PathVariable("id") UUID id,
+		@Valid @RequestBody ReqTradeCancelDtoApiV1 reqTradeCancelDtoApiV1
+	) {
+		Long userId = 1L; // 개발 환경: 임시 사용자 ID
+		ResTradeCancelDtoApiV1 response = tradeServiceApiV1.postTradeCancel(id, reqTradeCancelDtoApiV1, userId);
 		return new ResponseEntity<>(
 			ResDTO.<ResTradeCancelDtoApiV1>builder()
 				.code("0")
@@ -82,8 +91,11 @@ public class TradeControllerApiV1 {
 	}
 
 	@PostMapping("/{id}/complete")
-	public ResponseEntity<ResDTO<ResTradeCompleteDtoApiV1>> postTradeComplete(@PathVariable("id") UUID id) {  // TODO:: 현재 접속 유저 정보 추가
-		ResTradeCompleteDtoApiV1 response = tradeServiceApiV1.postTradeComplete(id);
+	public ResponseEntity<ResDTO<ResTradeCompleteDtoApiV1>> postTradeComplete(
+		@PathVariable("id") UUID id
+	) {
+		Long userId = 1L; // 개발 환경: 임시 사용자 ID
+		ResTradeCompleteDtoApiV1 response = tradeServiceApiV1.postTradeComplete(id, userId);
 		return new ResponseEntity<>(
 			ResDTO.<ResTradeCompleteDtoApiV1>builder()
 				.code("0")
@@ -95,8 +107,11 @@ public class TradeControllerApiV1 {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ResDTO<ResTradeGetDetailListDtoApiV1>> getTradeDetailList(@PathVariable("id") UUID id) {  // TODO:: 현재 접속 유저 정보 추가
-		ResTradeGetDetailListDtoApiV1 response = tradeServiceApiV1.getTradeDetailList(id);
+	public ResponseEntity<ResDTO<ResTradeGetDetailListDtoApiV1>> getTradeDetailList(
+		@PathVariable("id") UUID id
+	) {
+		Long userId = 1L; // 개발 환경: 임시 사용자 ID
+		ResTradeGetDetailListDtoApiV1 response = tradeServiceApiV1.getTradeDetailList(id, userId);
 		return new ResponseEntity<>(
 			ResDTO.<ResTradeGetDetailListDtoApiV1>builder()
 				.code("0")
@@ -111,8 +126,9 @@ public class TradeControllerApiV1 {
 	public ResponseEntity<ResDTO<ResTradeGetSearchListDtoApiV1>> getTradeSearchList(
 		@QuerydslPredicate(root = TradeEntity.class) Predicate predicate,
 		@PageableDefault(page = 0, size = 10, sort = "createdAt") Pageable pageable
-		) {  // TODO:: 현재 접속 유저 정보 추가
-		ResTradeGetSearchListDtoApiV1 response = tradeServiceApiV1.getTradeSearchList(predicate, pageable);
+	) {
+		Long userId = 1L; // 개발 환경: 임시 사용자 ID
+		ResTradeGetSearchListDtoApiV1 response = tradeServiceApiV1.getTradeSearchList(predicate, pageable, userId);
 		return new ResponseEntity<>(
 			ResDTO.<ResTradeGetSearchListDtoApiV1>builder()
 				.code("0")

@@ -2,6 +2,7 @@ package com.bookstore.chat.domain.chat.repository;
 
 import com.bookstore.chat.domain.chat.entity.ChatRoom;
 import com.bookstore.chat.domain.chat.entity.ChatRoomEnter;
+import java.util.List;
 import java.util.Optional;
 
 public interface ChatRoomEnterRepository {
@@ -14,4 +15,5 @@ public interface ChatRoomEnterRepository {
 
     long countByRoomId(String roomId);
 
+    List<ChatRoomEnter> findByUserId(String userId);
 }

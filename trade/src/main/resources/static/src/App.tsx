@@ -1,26 +1,57 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import TradeList from './pages/TradeList';
-import TradeDetail from './pages/TradeDetail';
-import TradeForm from './pages/TradeForm';
-import MyTrades from './pages/MyTrades';
+import { lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import { AppLayout, ErrorBoundary, NetworkStatusBanner, Loading, AuthGuard } from '@bookstore/common-ui';
+
+import './styles-common.css';
 import './App.css';
 
+// Code Splitting: Lazy load page components
+const TradeList = lazy(() => import('./pages/TradeList'));
+const TradeDetail = lazy(() => import('./pages/TradeDetail'));
+const TradeForm = lazy(() => import('./pages/TradeForm'));
+const MyTrades = lazy(() => import('./pages/MyTrades'));
+
 function App() {
+  const navItems = [
+    { label: '거래 목록', path: '/' },
+
+    { label: '거래 등록', path: '/new' },
+    { label: '내 거래', path: '/my-trades' }
+  ];
+
   return (
-    <Router>
-      <nav style={{ marginBottom: 20 }}>
-        <Link to="/" style={{ marginRight: 10 }}>거래 목록</Link>
-        {/* <Link to="/trade/:id" style={{ marginRight: 10 }}>거래 상세(예시)</Link> */}
-        <Link to="/trade/new" style={{ marginRight: 10 }}>거래 등록</Link>
-        <Link to="/my-trades">내 거래</Link>
-      </nav>
-      <Routes>
-        <Route path="/" element={<TradeList />} />
-        <Route path="/trade/:id" element={<TradeDetail />} />
-        <Route path="/trade/new" element={<TradeForm />} />
-        <Route path="/my-trades" element={<MyTrades />} />
-      </Routes>
-    </Router>
+
+    <AuthGuard serviceName="도서 거래 서비스">
+      <ErrorBoundary>
+        <Router>
+          <a href="#main-content" className="skip-link">
+            메인 콘텐츠로 건너뛰기
+          </a>
+
+          <NetworkStatusBanner />
+
+          <AppLayout
+            title="거래"
+            navItems={navItems}
+            pageTitle="도서 거래"
+            pageDescription="중고 도서를 사고팔고 거래 내역을 관리하세요."
+          >
+            <main id="main-content" role="main">
+              <Suspense fallback={<Loading size="lg" text="페이지 로딩 중.." />}>
+                <Routes>
+                  <Route path="/" element={<TradeList />} />
+                  <Route path="/trade/:id" element={<TradeDetail />} />
+                  <Route path="/new" element={<TradeForm />} />
+                  <Route path="/my-trades" element={<MyTrades />} />
+                </Routes>
+              </Suspense>
+            </main>
+          </AppLayout>
+        </Router>
+      </ErrorBoundary>
+    </AuthGuard>
+
   );
 }
 

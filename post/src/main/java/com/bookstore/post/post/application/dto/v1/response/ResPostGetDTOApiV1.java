@@ -42,6 +42,7 @@ public class ResPostGetDTOApiV1 {
         @Getter
         @Builder
         public static class Post {
+            private UUID id;
             private String content;
             private String title;
             private Price price;
@@ -62,6 +63,7 @@ public class ResPostGetDTOApiV1 {
 
             public static Post from(PostEntity postEntity, List<String> hashtagNames) {
                 return Post.builder()
+                    .id(postEntity.getId())
                     .content(postEntity.getContent())
                     .title(postEntity.getTitle())
                     .price(postEntity.getPrice())
@@ -71,7 +73,7 @@ public class ResPostGetDTOApiV1 {
                     .wishCount(postEntity.getWishCount())
                     .hashtagList(Hashtag.from(hashtagNames))
                     .build();
-            }
+            
 
             @Getter
             @Builder
